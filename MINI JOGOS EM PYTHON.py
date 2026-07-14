@@ -7,7 +7,8 @@ print(f'{" MINI JOGOS DO VICTOR ":^40}')
 print('='*40)
 jogador_nome = input('Como gostaria de ser chamado? ')
 print('-'*40)
-
+extrato = []
+saldo = 0
 #funções
 
 def menu_principal():
@@ -21,6 +22,7 @@ def menu_principal():
     [6] Quiz Matemático
     [7] RPG
     [8] Jogo de Dados
+    [9]Carteira
     [0] Sair''')
     print('-'*40)
 
@@ -37,21 +39,23 @@ def corrida_de_cavalos():
     [3] para CAVALO 3''')
 
     while True:
-        apostaplayer = int(input(f'Em qual cavalo você aposta? {jogador_nome}: '))
-        if 1 <= apostaplayer <= 3:
+        aposta_jogador = int(input(f'Em qual cavalo você aposta? {jogador_nome}: '))
+        if 1 <= aposta_jogador <= 3:
             break
         print('Opção inválida! Escolha um cavalo de 1 a 3: ')
-    apostapc = randint(1, 3)
+    aposta_computador = randint(1, 3)
+
     for c in range(0, 10):
         print(f'ROUND {c+1}')
         cavalo1 += randint(1, 10)
         cavalo2 += randint(1, 10)
         cavalo3 += randint(1, 10)
-        print('🐎 cavalo 1: ', '='*cavalo1)
-        print('🐎 cavalo 2: ', '='*cavalo2)
-        print('🐎 cavalo 3: ', '='*cavalo3)
-        print('-=-'*20)
+        print('🐎 cavalo 1: ', '=' * cavalo1)
+        print('🐎 cavalo 2: ', '=' * cavalo2)
+        print('🐎 cavalo 3: ', '=' * cavalo3)
+        print('-=-' * 20)
         sleep(1)
+
     if cavalo1 > cavalo2 and cavalo1 > cavalo3:
         print('O CAVALO 1 VENCEU A CORRIDA!')
         vencedor = 1
@@ -64,19 +68,22 @@ def corrida_de_cavalos():
     else:
         print('HOUVE EMPATE! CORRIDA ANULADA!')
         vencedor = 0
-    if apostaplayer == apostapc:
+
+    if aposta_jogador == aposta_computador:
         print('JOGADOR e COMPUTADOR fizeram a mesma aposta!')
     else:
-        if apostaplayer == vencedor:
+        if aposta_jogador == vencedor:
             print('JOGADOR VENCEU A APOSTA!')
-        elif apostapc == vencedor:
+#aposta
+        elif aposta_computador == vencedor:
             print('COMPUTADOR VENCEU A APOSTA!')
         else:
             print('NINGUÉM venceu a aposta!')
-    print(f'CAVALO 1 correu {cavalo1*10} metros.')
-    print(f'CAVALO 2 correu {cavalo2*10} metros.')
-    print(f'CAVALO 3 correu {cavalo3*10} metros.')
-    print(f'Você apostou no cavalo {apostaplayer} e o computador no cavalo {apostapc}.')
+
+    print(f'CAVALO 1 correu {cavalo1 * 10} metros.')
+    print(f'CAVALO 2 correu {cavalo2 * 10} metros.')
+    print(f'CAVALO 3 correu {cavalo3 * 10} metros.')
+    print(f'Você apostou no cavalo {aposta_jogador} e o computador no cavalo {aposta_computador}.')
 
 def par_ou_impar():
     print(f'{" IMPAR OU PAR ":=^40}')
@@ -265,11 +272,75 @@ def jogo_de_dados():
     sleep(1)
     print(f'O dado caiu no lado {dado}.')
 
+def carteira():
+    global saldo
+    global extrato
+    print(f'{" CARTEIRA ":^30}')
+    print('=' * 30)
+    while True:
+        print('''[0] Para sair
+[1] Consultar saldo
+[2] Depositar dinheiro
+[3] Sacar dinheiro
+[4] Mostrar o extrato''')
+        print('-' * 30)
+        while True:
+            opcao = int(input('>>> O que deseja fazer? '))
+            if opcao in (0, 1, 2, 3, 4):
+                break
+            print('Opção inváliida. Somente 0, 1, 2, 3 ou 4.')
+        if opcao == 0:
+            print('Saindo...')
+            break
+
+        elif opcao == 1:
+            print('Consultando Saldo...')
+            sleep(0.5)
+            print(f'Seu Saldo é de R${saldo}')
+
+        elif opcao == 2:
+            deposito = int(input('Valor do depósito: R$'))
+            if deposito < 1:
+                print('O valor do depósito deve ser maior que zero.')
+            else:
+                print('Depositando...')
+                sleep(0.5)
+                saldo += deposito
+                extrato.append(deposito)
+
+        elif opcao == 3:
+            saque = int(input('Valor do Saque: R$'))
+            if saque < 1:
+                print('O valor do saque deve ser maior que zero.')
+            else:
+                if saque > saldo:
+                    print('Saldo Insuficiente.')
+                else:
+                    print('Sacando...')
+                    sleep(0.5)
+                    extrato.append(saque * (-1))
+                    saldo -= saque
+                    print(f'Saque de R${saque} realizado com sucesso!')
+
+        elif opcao == 4:
+            print('Abrindo extrato:')
+            sleep(0.5)
+            if not extrato:
+                print('Ainda não houve Transações.')
+            else:
+                for transação in extrato:
+                    if transação > 0:
+                        print(f'Depósito de R${abs(transação)}')
+                    else:
+                        print(f'Saque de R${abs(transação)}')
+        print('-' * 30)
+    print('=' * 30)
+        
 while True:
     menu_principal()
     while True:
         opcao_menu = int(input(f'Escolha o que fazer agora {jogador_nome}: '))
-        if 0 <= opcao_menu <= 8:
+        if 0 <= opcao_menu <= 9:
             break
         print('Opção inválida! Escolha o que fazer agora: ')
 
@@ -315,3 +386,10 @@ while True:
 #Jogo de Dados
     elif opcao_menu == 8:
         jogo_de_dados()
+
+#Carteira
+    elif opcao_menu == 9:
+        carteira()
+
+
+#Falta: adiconar o sistema de apostas para ganhar dinheiro, colocar a loja de compra de itens pra nickname tipo emoji e cor da fonte e fundo seguindo o padrão ANSI
