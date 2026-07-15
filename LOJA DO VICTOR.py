@@ -12,12 +12,11 @@ produtos = [
 carrinho = []
 
 while True:
-    print('-' * 30)
     print('''[0] Sair
-    [1] Ver produtos
-    [2] Comprar produtos
-    [3] Ver carrinho
-    [4] Finalizar compra''')
+[1] Ver produtos
+[2] Comprar produtos
+[3] Ver carrinho
+[4] Finalizar compra''')
     while True:
         escolha = int(input('O que gostaria de fazer? '))
         if 0 <= escolha <= 4:
@@ -34,7 +33,7 @@ while True:
     elif escolha == 1:
         print('Produtos: ')
         for codigo, produto in enumerate(produtos):
-            print(f'Código: {codigo} - Produto: {produto["nome"]} - R${produto["preco"]}')
+            print(f'Código: {codigo} - Produto: {produto["nome"]:.<15}  R${produto["preco"]:6>}')
         print('-' * 30)
 
 #COMPRAR PRODUTOS
