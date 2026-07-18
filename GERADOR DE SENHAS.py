@@ -100,7 +100,7 @@ caracteres_aleatórios_restantes_lista = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g',
     'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z'
+    't', 'u', 'v', 'w', 'x', 'y', 'z',
     '!', '@', '#', '$', '%',
     '&', '*', '-', '_',
     '+', '=', '?'
@@ -125,7 +125,7 @@ for valor in range(quantidade_caracteres_especiais):
 
 if caracteres_aleatórios_restantes > 0:
     for valor in range(caracteres_aleatórios_restantes, 0, -1):
-        caracteres_aleatórios_restantes += caracteres_aleatórios_restantes_lista[randint(0, len(caracteres_aleatórios_restantes_lista - 1))]
+        caracteres_aleatórios_restantes += caracteres_aleatórios_restantes_lista[randint(0, len(caracteres_aleatórios_restantes_lista) - 1)]
 
 
 #Embaralhar senha
