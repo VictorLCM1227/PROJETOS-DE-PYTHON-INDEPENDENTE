@@ -67,7 +67,7 @@ if se_caracteres_especiais == 'S':
 else: 
     quantidade_caracteres_especiais = 0
 
-caracteres_aleatórios_restantes = tamanho_da_senha - limite
+caracteres_aleatórios_restantes = limite
 
 numeros = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 
@@ -125,7 +125,7 @@ for valor in range(quantidade_caracteres_especiais):
 
 if caracteres_aleatórios_restantes > 0:
     for valor in range(caracteres_aleatórios_restantes, 0, -1):
-        caracteres_aleatórios_restantes += caracteres_aleatórios_restantes_lista[randint(0, len(caracteres_aleatórios_restantes_lista) - 1)]
+        senha += caracteres_aleatórios_restantes_lista[randint(0, len(caracteres_aleatórios_restantes_lista) - 1)]
 
 
 #Embaralhar senha
