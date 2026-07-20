@@ -1,131 +1,77 @@
 from random import randint
-import random
+from random import sample
 
 print('=' * 50)
 print(f'{" BEM-VINDO(A) AO GERADOR DE SENHAS DO VICTOR! ":^50}')
 print('=' * 50)
 
 limite = tamanho_da_senha = int(input('Tamanho da senha: '))
+se_algo = {}
+quantidade_algo = {}
 
-while True:
-    se_numeros = input('Terá Números? [S/N] ').strip().upper()[0]
-    if se_numeros in 'SN':
-        break
-    print('Opção inválida.')
-if se_numeros == 'S':
+def se(algo):
+    global limite
     while True:
-        quantidade_numeros = int(input('Quantos números? '))
-        if quantidade_numeros <= limite:
-            limite = limite - quantidade_numeros
+        se_algo[algo] = input(f'Terá {algo}? [S/N] ').strip().upper()[0]
+        if se_algo[algo] in 'SN':
             break
-        print('A quantidade de números é superior a quantidade de caracteres disponíveis para a senha.')
-else: 
-    quantidade_numeros = 0
+        print('Opção inválida.')
+    if se_algo[algo] == 'S':
+        while True:
+            quantidade_algo[algo] = int(input(f'Quanto(a)s {algo}? '))
+            if quantidade_algo[algo] <= limite:
+                limite = limite - quantidade_algo[algo]
+                break
+            print(f'A quantidade de {algo} é superior a quantidade de caracteres disponíveis para a senha.')
+    else:
+        quantidade_algo[algo] = 0
 
-while True:
-    se_letras_maiusculas = input('Terá Letras Maiúsculas? [S/N] ').strip().upper()[0]
-    if se_letras_maiusculas in 'SN':
-        break
-    print('Opção inválida.')
-if se_letras_maiusculas == 'S':
-    while True:
-        quantidade_letras_maiusculas = int(input('Quantas Letras Maiúsculas? '))
-        if quantidade_letras_maiusculas <= limite:
-            limite = limite - quantidade_letras_maiusculas
-            break
-        print('A quantidade de letras maiúsculas é superior a quantidade de caracteres disponíveis para a senha.')
-else: 
-    quantidade_letras_maiusculas = 0
+        
+def gera_senha(algo):
+    global senha
+    for valor in range(quantidade_algo[algo]):
+        senha += caracteres[algo][randint(0, len(caracteres[algo]) - 1)]
 
-while True:
-    se_letras_minusculas = input('Terá Letras Minúsculas? [S/N] ').strip().upper()[0]
-    if se_letras_minusculas in 'SN':
-        break
-    print('Opção inválida.')
-if se_letras_minusculas == 'S':
-    while True:
-        quantidade_letras_minusculas = int(input('Quantas Letras Minúsculas? '))
-        if quantidade_letras_minusculas <= limite:
-            limite = limite - quantidade_letras_minusculas
-            break
-        print('A quantidade de letras minúsculas é superior a quantidade de caracteres disponíveis para a senha.')
-else: 
-    quantidade_letras_minusculas = 0
 
-while True:
-    se_caracteres_especiais = input('Terá Caracteres Especiais? [S/N] ').strip().upper()[0]
-    if se_caracteres_especiais in 'SN':
-        break
-    print('Opção inválida.')
-if se_caracteres_especiais == 'S':
-    while True:
-        quantidade_caracteres_especiais = int(input('Quantos caracteres especiais? '))
-        if quantidade_caracteres_especiais <= limite:
-            limite = limite - quantidade_caracteres_especiais
-            break
-        print('A quantidade de caracteres especiais é superior a quantidade de caracteres disponíveis para a senha.')
-else: 
-    quantidade_caracteres_especiais = 0
 
-caracteres_aleatórios_restantes = limite
+se('numeros')
+se('letras_maiusculas')
+se('letras_minusculas')
+se('caracteres_especiais')
 
-numeros = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+quantidade_algo['caracteres_aleatórios_restantes'] = limite
 
-letras_maiusculas = [
+caracteres = {'letras_maiusculas': [
     'A', 'B', 'C', 'D', 'E', 'F', 'G',
     'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S',
-    'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-]
+    'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
 
-letras_minusculas = [
+'letras_minusculas': [
     'a', 'b', 'c', 'd', 'e', 'f', 'g',
     'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z'
-]
+    't', 'u', 'v', 'w', 'x', 'y', 'z'],
 
-caracteres_especiais = [
+'caracteres_especiais' : [
     '!', '@', '#', '$', '%',
     '&', '*', '-', '_',
-    '+', '=', '?'
-]
+    '+', '=', '?'],
 
-caracteres_aleatórios_restantes_lista = [
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'A', 'B', 'C', 'D', 'E', 'F', 'G',
-    'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S',
-    'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g',
-    'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '!', '@', '#', '$', '%',
-    '&', '*', '-', '_',
-    '+', '=', '?'
-    ]
+'numeros' : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+}
+
+caracteres['caracteres_aleatórios_restantes'] = caracteres['numeros'] + caracteres['letras_maiusculas'] + caracteres['letras_minusculas'] + caracteres['caracteres_especiais']
 
 senha = ''
 
-for valor in range(quantidade_numeros):
-    senha += numeros[randint(0, len(numeros) - 1)]
+gera_senha('numeros')
+gera_senha('letras_maiusculas')
+gera_senha('letras_minusculas')
+gera_senha('caracteres_especiais')
 
-
-for valor in range(quantidade_letras_maiusculas):
-    senha += letras_maiusculas[randint(0, len(letras_maiusculas) - 1)]
-
-
-for valor in range(quantidade_letras_minusculas):
-    senha += letras_minusculas[randint(0, len(letras_minusculas) - 1)]
-
-
-for valor in range(quantidade_caracteres_especiais):
-    senha += caracteres_especiais[randint(0, len(caracteres_especiais) - 1)]
-
-if caracteres_aleatórios_restantes > 0:
-    for valor in range(caracteres_aleatórios_restantes, 0, -1):
-        senha += caracteres_aleatórios_restantes_lista[randint(0, len(caracteres_aleatórios_restantes_lista) - 1)]
+if limite > 0:
+    gera_senha('caracteres_aleatórios_restantes')
 
 
 #Embaralhar senha
@@ -134,6 +80,6 @@ if caracteres_aleatórios_restantes > 0:
 A função random.sample() seleciona todos os caracteres da string de forma aleatória,
 retornando-os como uma lista. Em seguida, o "".join() junta essa lista de volta em um único texto contínuo.'''
 
-senha_embaralhada = "".join(random.sample(senha, len(senha)))
+senha_embaralhada = "".join(sample(senha, len(senha)))
 
 print(senha_embaralhada)
