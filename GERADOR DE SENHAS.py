@@ -33,14 +33,6 @@ def gera_senha(algo):
         senha += caracteres[algo][randint(0, len(caracteres[algo]) - 1)]
 
 
-
-se('numeros')
-se('letras_maiusculas')
-se('letras_minusculas')
-se('caracteres_especiais')
-
-quantidade_algo['caracteres_aleatórios_restantes'] = limite
-
 caracteres = {'letras_maiusculas': [
     'A', 'B', 'C', 'D', 'E', 'F', 'G',
     'H', 'I', 'J', 'K', 'L', 'M',
@@ -61,14 +53,19 @@ caracteres = {'letras_maiusculas': [
 'numeros' : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
 }
 
-caracteres['caracteres_aleatórios_restantes'] = caracteres['numeros'] + caracteres['letras_maiusculas'] + caracteres['letras_minusculas'] + caracteres['caracteres_especiais']
+se('numeros')
+se('letras_maiusculas')
+se('letras_minusculas')
+se('caracteres_especiais')
 
 senha = ''
 
-gera_senha('numeros')
-gera_senha('letras_maiusculas')
-gera_senha('letras_minusculas')
-gera_senha('caracteres_especiais')
+for chave in caracteres:
+    gera_senha(chave)
+
+caracteres['caracteres_aleatórios_restantes'] = caracteres['numeros'] + caracteres['letras_maiusculas'] + caracteres['letras_minusculas'] + caracteres['caracteres_especiais']
+
+quantidade_algo['caracteres_aleatórios_restantes'] = limite
 
 if limite > 0:
     gera_senha('caracteres_aleatórios_restantes')
