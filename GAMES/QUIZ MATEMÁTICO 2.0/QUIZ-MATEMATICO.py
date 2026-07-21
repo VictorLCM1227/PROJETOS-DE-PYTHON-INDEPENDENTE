@@ -8,10 +8,10 @@ def menu():
 
 def jogar(dificuldade):
     print('Vamos jogar!')
-    pergunta_resposta_aleatoria = randint(0, 4)
+    pergunta_resposta_aleatoria = randint(0, len(perguntas[dificuldade]) - 1)
     pergunta_atual = perguntas[dificuldade][pergunta_resposta_aleatoria][0]
     resposta_atual = perguntas[dificuldade][pergunta_resposta_aleatoria][1]
-    resposta_jogador = float(input(f'Responda: {pergunta_atual}'))
+    resposta_jogador = float(input(f'Responda: {pergunta_atual} '))
     if resposta_jogador == resposta_atual:
         soma_acertos()
     else:
@@ -40,17 +40,17 @@ def menu_dificuldade():
 [2] MÉDIO (multiplicação e divisão)
 [3] DIFÍCIL (expressões, potência e raiz quadrada)''')
 
-def escolhe_dificuldade():
+def escolhe_dificuldade(dificuldade):
     if dificuldade == 1:
         dificuldade_escolhida = 'fácil'
     elif dificuldade == 2:
         dificuldade_escolhida = 'médio'
     elif dificuldade == 3:
         dificuldade_escolhida = 'difícil'
-        return dificuldade_escolhida
+    return dificuldade_escolhida
 
 
-pontos = acertos = 0
+pontos = acertos = erros = 0
 
 perguntas = {
     'fácil': [
