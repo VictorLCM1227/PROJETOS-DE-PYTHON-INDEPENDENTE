@@ -1,51 +1,73 @@
 #Atendente de um escola de música
-from random import randint
 from random import choice
 
-palavras = {
+
+palavras_chave = {
     'saudacoes': [
-        'oi',
-        'olá',
-        'ola',
-        'e aí',
-        'e ai',
-        'opa',
-        'iae',
-        'salve',
-        'fala',
-        'bom dia',
-        'boa tarde',
-        'boa noite',
-        'tudo bem',
-        'tudo bom',
-        'beleza',
-        'tranquilo',
-        'hey',
-        'hello',
-        'hi',
-        'oii'
+        'oi', 'olá', 'ola', 'bom dia', 'boa tarde',
+        'boa noite', 'opa', 'e ai', 'e aí'
     ],
 
     'despedidas': [
-        'tchau',
-        'até logo',
-        'ate logo',
-        'até mais',
-        'ate mais',
-        'falou',
-        'fui',
-        'até',
-        'ate',
-        'xau',
-        'bye',
-        'goodbye'
+        'tchau', 'até logo', 'ate logo', 'falou',
+        'bye', 'goodbye'
+    ],
+
+    'preco': [
+        'preço', 'preco', 'valor', 'quanto custa',
+        'mensalidade'
+    ],
+
+    'horario': [
+        'horário', 'horario', 'funcionamento',
+        'abre', 'fecha'
+    ],
+
+    'cursos': [
+        'curso', 'cursos', 'aulas',
+        'violão', 'guitarra', 'piano',
+        'bateria', 'canto'
     ]
 }
+
+palavras_chave = {
+    'saudacoes': [...],
+    'despedidas': [...],
+    'cursos': [
+        'cursos',
+        'curso',
+        'aulas',
+        'violão',
+        'violao',
+        'guitarra',
+        'piano'
+    ],
+    'precos': [
+        'preço',
+        'preco',
+        'valor',
+        'mensalidade'
+    ]
+}
+
+respostas = {
+    'saudacoes': [...],
+    'despedidas': [...],
+    'cursos': [
+        'Temos aulas de violão, guitarra, piano, bateria e canto.'
+    ],
+    'precos': [
+        'As mensalidades variam conforme o curso. Deseja saber o valor de qual instrumento?'
+    ]
+}
+
+
+
+
+
 while True:
-    saudacao = input(f"{choice(palavras['saudacoes'])}\n").strip().lower()
-    if saudacao in palavras['saudacoes']:
-        print('como posso ajudar?')
-    elif saudacao in palavras['despedidas']:
-        print(choice(palavras['despedidas']))
-    else:
-        print('Desculpe, não entendi o que você quis dizer.')
+    mensagem = input('VOCÊ: ').strip().lower()
+    for categoria in palavras_chave:
+        if mensagem in palavras_chave[categoria]:
+            print(f'CHAT: {choice(respostas["categoria"])}')
+            break
