@@ -1,21 +1,4 @@
-from random import choice
-from time import sleep
-
-def pergunta_resposta():
-    for tema, palavras in palavras_chave.items():
-        for palavra in palavras:
-            if voce == palavra:
-                chat = tema
-                return chat
-
-def linha(tam = 42):
-    return '-' * tam 
-
-def cabeçalho(txt):
-    print(linha())
-    print(txt.center(42))
-    print(linha())
-
+#DADOS
 palavras_chave = {
     'saudações': [
         'oi', 'olá', 'ola', 'opa', 'e ai', 'e aí', 'bom dia',
@@ -111,7 +94,10 @@ palavras_chave = {
     ]
 }
 
-resposta = {
+
+
+
+respostas = {
     'saudações': [
         'Opa, bão?',
         'E aí! Beleza?',
@@ -193,16 +179,7 @@ resposta = {
     'clima': [
         'Ainda não consigo consultar a previsão do tempo.',
         'Espero que o clima esteja agradável por aí.'
-    ]
-}
+    ],
 
-cabeçalho('CHAT BOT SIMPLES')
-while True:
-    voce = input('\033[34mvocê: \033[m').strip().lower()
-    chat = pergunta_resposta()
-    if chat != '':
-        print(f'\033[32mCHAT: {choice(resposta[chat])}\033[m')
-        sleep(1)
-        if chat == 'despedidas':
-            break
-        
+    'erro': ['Desculpe, ainda não entendi']
+}
