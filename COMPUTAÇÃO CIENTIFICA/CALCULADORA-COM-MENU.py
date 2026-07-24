@@ -57,53 +57,48 @@ def adiciona_ao_historico(mostrar):
      
 def somar():
         cabeçalho('SOMAR')
-        pegar_numero('Digite o primeiro número: ', 'Digite um número para somar ao primeiro: ')
-        resultado = numero1 + numero2
-        mostrar = f'A soma entre {numero1} e {numero2} deu {resultado}'
+        numeros = pegar_numero('Digite o primeiro número: ', 'Digite um número para somar ao primeiro: ')
+        resultado = sum(numeros)
+        mostrar = f'A soma entre {numeros[0]} e {numeros[1]} deu {resultado}'
         adiciona_ao_historico(mostrar)
 
 def subtrair():
         cabeçalho('SUBTRAIR')
-        numero1 = leiaFloat('Digite o primeiro número: ')
-        numero2 = leiaFloat('Digite um número para subtrair do primeiro: ')
-        resultado = numero1 - numero2
-        mostrar = (f'A subtração entre {numero1} e {numero2} deu {resultado}')
+        numeros = pegar_numero('Digite o primeiro número: ', 'Digite um número para subtrair ao primeiro: ')
+        resultado = numeros[0] - numeros[1]
+        mostrar = (f'A subtração entre {numeros[0]} e {numeros[1]} deu {resultado}')
         adiciona_ao_historico(mostrar)
         
-
 def multiplicar():
         cabeçalho('MULTIPLICAR')
-        numero1 = leiaFloat('Digite o primeiro número: ')
-        numero2 = leiaFloat('Digite um número para multiplicar o primeiro: ')
-        resultado = numero1 * numero2
-        mostrar = (f'A multiplicação entre {numero1} e {numero2} deu {resultado}')
+        numeros = pegar_numero('Digite o primeiro número: ', 'Digite um número para multiplicar o primeiro: ')
+        resultado = numeros[0] * numeros[1]
+        mostrar = (f'A multiplicação entre {numeros[0]} e {numeros[1]} deu {resultado}')
         adiciona_ao_historico(mostrar)
 
 def dividir():
         cabeçalho('DIVIDIR')
-        numero1 = leiaFloat('Digite o primeiro número: ')
-        numero2 = leiaFloat('Digite um número para dividir o primeiro: ')
+        numeros = pegar_numero('Digite o primeiro número: ', 'Digite um número para dividir o primeiro: ')
         try:
-            resultado = numero1 / numero2
+            resultado = numeros[0] / numeros[1]
         except ZeroDivisionError:
              print('Não é possível dividir um número por zero.')
         else:
-            mostrar = f'A divisão entre {numero1} e {numero2} deu {resultado}'
+            mostrar = f'A divisão entre {numeros[0]} e {numeros[1]} deu {resultado}'
             adiciona_ao_historico(mostrar)
 
 def potencia():
         cabeçalho('POTÊNCIA')
-        numero1 = leiaFloat('Digite a base: ')
-        numero2 = leiaFloat('Digite o seu expoente: ')
-        resultado = numero1 ** numero2
-        mostrar = f'O {numero1} elevado a {numero2} é igual a {resultado}'
+        numeros = pegar_numero('Digite a base: ', 'Digite o seu expoente: ')
+        resultado = numeros[0] ** numeros[1]
+        mostrar = f'O {numeros[0]} elevado a {numeros[1]} é igual a {resultado}'
         adiciona_ao_historico(mostrar)
 
 def raiz():
         cabeçalho('RAIZ')
         while True:
             numero1 = leiaFloat('Digite o radicando: ')
-            if numero1 > 0:
+            if numero1 >= 0:
                 break
             print('Não existe raiz de número menor que zero.')
             #verificação com while True
@@ -117,30 +112,28 @@ def raiz():
         adiciona_ao_historico(mostrar)
 
 def resto_da_divisao():
-        cabeçalho('RAIZ')
-        numero1 = leiaFloat('Digite a dividendo: ')
-        numero2 = leiaFloat('Digite o divisor: ')
+        cabeçalho('RESTO DA DIVISÃO')
+        numeros = pegar_numero('Digite o dividendo: ', 'Digite o divisor: ')
         try:
-            resultado = numero1 % numero2
+            resultado = numeros[0] % numeros[1]
         except ZeroDivisionError:
             print('Não é possível dividir um número por zero.')
         else:
-            mostrar = f'O resto de {numero1} dividido por  {numero2} é igual a {resultado}'
+            mostrar = f'O resto de {numeros[0]} dividido por  {numeros[1]} é igual a {resultado}'
             adiciona_ao_historico(mostrar)
 
 def divisao_inteira():
         cabeçalho('DIVISÃO INTEIRA')
-        numero1 = leiaFloat('Digite o primeiro número: ')
-        numero2 = leiaFloat('Digite um número para dividir o primeiro: ')
+        numeros = pegar_numero('Digite o primeiro número: ', 'Digite um número para dividir o primeiro: ')
         try:
-            resultado = numero1 // numero2
+            resultado = numeros[0] // numeros[1]
         except ZeroDivisionError:
              print('Não é possível dividir um número por zero.')
         else:
-            mostrar = f'A divisão inteira entre {numero1} e {numero2} deu {resultado}'
+            mostrar = f'A divisão inteira entre {numeros[0]} e {numeros[1]} deu {resultado}'
             adiciona_ao_historico(mostrar)
 
-def funcao_historico():
+def mostrar_historico():
     cabeçalho('HISTÓRICO')
     contador = 1
     if not historico:
@@ -176,7 +169,7 @@ while True:
     elif resposta_menu == 8:
          divisao_inteira()
     elif resposta_menu == 9:
-        funcao_historico()
+        mostrar_historico()
     else:
         cabeçalho('\033[31mERRO! Digite uma opção válida!\033[m')
     sleep(1)
