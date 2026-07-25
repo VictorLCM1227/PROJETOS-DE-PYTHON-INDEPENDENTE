@@ -49,7 +49,8 @@ def menu(lista):
 
 
 while True:
-    opcao = menu(['SAIR', 'ADICIONAR TAREFA', 'LISTAR TAREFAS', 'CONCLUIR TAREFAS', 'REMOVER TAREFA'])
+    opcao = menu(['SAIR', 'ADICIONAR TAREFA', 'LISTAR TAREFAS', 'CONCLUIR TAREFAS', 'REMOVER TAREFA',
+                  'LISTAR TAREFAS CONCLUÍDAS.'])
     if opcao == 0:
         cabeçalho('SAINDO...')
         break
@@ -59,15 +60,37 @@ while True:
         tarefas.append(tarefa)
     elif opcao == 2:
         cabeçalho('LISTAR TAREFAS')
-        for indice, tarefa in enumerate(tarefas):
-            print(f'{indice} - {tarefa}')
+        if not tarefas:
+            print('Ainda não há tarefas.')
+        else:
+            for indice, tarefa in enumerate(tarefas):
+                print(f'{indice} - {tarefa}')
     elif opcao == 3:
         cabeçalho('CONCLUIR TAREFAS')
-        concluir = leiaInt('Digite o número da tarefa concluída: ')
-        tarefas_concluidas.append(tarefas[concluir])
-        del tarefas[concluir]
+        if not tarefas:
+            print('Ainda não há tarefas.')
+        else:
+            concluir = leiaInt('Digite o número da tarefa concluída: ')
+            try:
+                tarefas_concluidas.append(tarefas[concluir])
+                del tarefas[concluir]
+            except IndexError:
+                print('\033[31mO indice digitado não existe.\033[m')
     elif opcao == 4:
         cabeçalho('REMOVER TAREFA')
-        remover = leiaInt('Digite o número tarefa a ser removida: ')
-        del tarefas[remover]
+        if not tarefas:
+            print('Ainda não há tarefas.')
+        else:
+            remover = leiaInt('Digite o número tarefa a ser removida: ')
+            try:
+                del tarefas[remover]
+            except IndexError:
+                print('\033[31mO indice digitado não existe.\033[m')
+    elif opcao == 5:
+        cabeçalho('LISTAR TAREFAS CONCLUÍDAS')
+        if not tarefas:
+            print('Ainda não há tarefas concluídas.')
+        else:
+            for indice, tarefa in enumerate(tarefas_concluidas):
+                print(f'{indice} - {tarefa}')
     sleep(1)
