@@ -3,7 +3,8 @@ from time import sleep
 
 cavalos = ['Caddlac', 'Princesa']
 cavalo0 = cavalo1 = 1
-linha_de_chegada = 100
+linha_de_chegada = 35
+contador = 0
 
 def linha(tam = 42):
     return '-' * tam 
@@ -44,14 +45,22 @@ while True:
     print('Opção inválida! Escolha um cavalo de 0 a 1: ')
 aposta_computador = randint(0, 1)
 
-for c in range(0, 10):
-    print(f'ROUND {c+1}')
-    cavalo0 += randint(1, 10)
-    cavalo1 += randint(1, 10)
-    print(f'🐎 {cavalos[0]}: ', '=' * cavalo0)
-    print(f'🐎 {cavalos[1]}: ', '=' * cavalo1)
+while True:
+    print(f'ROUND {contador + 1}')
+    cavalo0 += randint(1, 5)
+    cavalo1 += randint(1, 5)
+    #pista 35 casas
+    if cavalo0 > linha_de_chegada:
+        cavalo0 = linha_de_chegada
+    if cavalo1 > linha_de_chegada:
+        cavalo1 = linha_de_chegada
+    print(f'{cavalos[0]:8}:{" "*(cavalo0 - 1)}🐎{" "*(linha_de_chegada - cavalo0)}|🏁')
+    print(f'{cavalos[1]:8}:{" "*(cavalo1 - 1)}🐎{" "*(linha_de_chegada - cavalo1)}|🏁')
     print('-=-' * 20)
     sleep(1)
+    if cavalo0 >= linha_de_chegada or cavalo1 >= linha_de_chegada:
+        break
+    contador +=1 
 
 if cavalo0 > cavalo1:
     print(f'O CAVALO {cavalos[0]} VENCEU A CORRIDA!')
@@ -74,7 +83,5 @@ else:
     else:
         print('NINGUÉM venceu a aposta!')
 
-print(f'CAVALO 1 correu {cavalo0 * 10} metros.')
-print(f'CAVALO 2 correu {cavalo1 * 10} metros.')
 
 print(f'Você apostou no cavalo {aposta_jogador} e o computador no cavalo {aposta_computador}.')
