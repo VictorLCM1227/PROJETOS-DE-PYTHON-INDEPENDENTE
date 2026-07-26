@@ -1,8 +1,24 @@
 from random import randint
 from time import sleep
 
-cavalos = ['Caddlac', 'Princesa']
-cavalo0 = cavalo1 = 1
+cavalos = {
+    'Caddlac': {
+        'velocidade': 5,
+        'sorte': 3,
+        'forca': 8,
+        'vitorias': 0,
+        'posicao': 0
+    },
+
+    'Princesa': {
+        'velocidade': 7,
+        'sorte': 3,
+        'forca': 6,
+        'vitorias': 0,
+        'posicao': 0
+    }
+}
+
 linha_de_chegada = 35
 contador = 0
 
@@ -14,11 +30,11 @@ def cabeçalho(txt):
     print(txt.center(42))
     print(linha())
 
-def menu(lista):
+def menu(dicionario):
     cabeçalho('MENU PRINCIPAL')
     contador = 0
-    for item in lista:
-        print(f'\033[33m{contador}\033[m - \033[34m{item}\033[m')
+    for chave in dicionario.keys():
+        print(f'\033[33m{contador}\033[m - \033[34m{chave}\033[m')
         contador += 1
     print(linha())
     opcao = leiaInt('\033[32m>>>Em qual cavalo deseja apostar? \033[m')
@@ -47,26 +63,26 @@ aposta_computador = randint(0, 1)
 
 while True:
     print(f'ROUND {contador + 1}')
-    cavalo0 += randint(1, 5)
-    cavalo1 += randint(1, 5)
+    cavalos['Caddlac']['posicao'] += randint(1, 5)
+    cavalos['Princesa']['posicao'] += randint(1, 5)
     #pista 35 casas
-    if cavalo0 > linha_de_chegada:
-        cavalo0 = linha_de_chegada
-    if cavalo1 > linha_de_chegada:
-        cavalo1 = linha_de_chegada
-    print(f'{cavalos[0]:8}:{" "*(cavalo0 - 1)}🐎{" "*(linha_de_chegada - cavalo0)}|🏁')
-    print(f'{cavalos[1]:8}:{" "*(cavalo1 - 1)}🐎{" "*(linha_de_chegada - cavalo1)}|🏁')
+    if cavalos['Caddlac']['posicao'] > linha_de_chegada:
+        cavalos['Caddlac']['posicao'] = linha_de_chegada
+    if cavalos['Princesa']['posicao'] > linha_de_chegada:
+        cavalos['Princesa']['posicao'] = linha_de_chegada
+    print(f'{cavalos['Caddlac']:8}:{" "*(cavalos['Caddlac']['posicao'] - 1)}🐎{" "*(linha_de_chegada - cavalos['Caddlac']['posicao'])}|🏁')
+    print(f'{cavalos['Princesa']:8}:{" "*(cavalos['Princesa']['posicao'] - 1)}🐎{" "*(linha_de_chegada - cavalos['Princesa']['posicao'])}|🏁')
     print('-=-' * 20)
     sleep(1)
-    if cavalo0 >= linha_de_chegada or cavalo1 >= linha_de_chegada:
+    if cavalos['Caddlac']['posicao'] >= linha_de_chegada or cavalos['Princesa']['posicao'] >= linha_de_chegada:
         break
     contador +=1 
 
-if cavalo0 > cavalo1:
-    print(f'O CAVALO {cavalos[0]} VENCEU A CORRIDA!')
+if cavalos['Caddlac']['posicao'] > cavalos['Princesa']['posicao']:
+    print(f'O CAVALO {cavalos['Caddlac']} VENCEU A CORRIDA!')
     vencedor = 0
-elif cavalo1 > cavalo0:
-    print(f'O CAVALO {cavalos[1]} VENCEU A CORRIDA!')
+elif cavalos['Princesa']['posicao'] > cavalos['Caddlac']['posicao']:
+    print(f'O CAVALO {cavalos['Princesa']} VENCEU A CORRIDA!')
     vencedor = 1
 else:
     print('HOUVE EMPATE! CORRIDA ANULADA!')
