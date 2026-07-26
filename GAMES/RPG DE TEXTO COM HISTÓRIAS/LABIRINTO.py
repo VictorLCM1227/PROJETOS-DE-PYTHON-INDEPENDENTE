@@ -30,25 +30,77 @@ def movimentos():
 def valida_movimento():
     while True:
         movimentos()
-        movimento = input('Digite um movimneto: ').strip().upper()[0]
-        if movimento in 'WASD':
-            break
-        print('Opção inválida.')
+        try:
+            movimento = input('>>>Digite um movimneto: ').strip().upper()[0]
+        except IndexError:
+            print('ERRO! Movimento não informado.')
+        else:
+            if movimento in 'WASD':
+                break
+            print('Opção inválida.')
     print(f'Você apertou {movimento}')
     return movimento
 
-def movimenta_jogador():
-    global coluna_do_jogador, linha_do_jogador
-    movimento = valida_movimento()
-    if movimento == 'W':
-        linha_do_jogador -= 1
-    elif movimento == 'A':
-        coluna_do_jogador -= 1
-    elif movimento == 'S':
-        linha_do_jogador += 1
-    elif movimento == 'D':
-        coluna_do_jogador += 1
 
-mostrar_labirito()
-movimenta_jogador()
-mostrar_labirito()
+
+
+def movimenta_jogador():
+    while True:
+        global coluna_do_jogador, linha_do_jogador
+        movimento = valida_movimento()
+        proxima_posicao_linha = linha_do_jogador
+        proxima_posicao_coluna = coluna_do_jogador
+
+        if movimento == 'W':
+            proxima_posicao_linha -= 1
+            if '#' in labirinto[proxima_posicao_linha][proxima_posicao_coluna]:
+                print('Há uma parede no caminho. Tente novamente.')
+            else:
+                linha_do_jogador -= 1   
+                break
+
+        elif movimento == 'A':
+            proxima_posicao_coluna -= 1
+            if '#' in labirinto[proxima_posicao_linha][proxima_posicao_coluna]:
+                print('Há uma parede no caminho. Tente novamente.')
+            else:
+                coluna_do_jogador -= 1
+                break
+
+        elif movimento == 'S':
+            proxima_posicao_linha += 1
+            if '#' in labirinto[proxima_posicao_linha][proxima_posicao_coluna]:
+                print('Há uma parede no caminho. Tente novamente.')
+            else:
+                linha_do_jogador += 1
+                break
+
+        elif movimento == 'D':
+            proxima_posicao_coluna += 1
+            if '#' in labirinto[proxima_posicao_linha][proxima_posicao_coluna]:
+                print('Há uma parede no caminho. Tente novamente.')
+            else:
+                coluna_do_jogador += 1
+                break
+
+def verifica_vitoria():
+    if 'S' in labirinto[linha_do_jogador][coluna_do_jogador]:
+        return True
+
+def linha(tam = 42):
+    return '-' * tam 
+
+def cabecalho(txt):
+    print(linha())
+    print(txt.center(42))
+    print(linha())
+
+cabecalho('ESCAPE DO LABIRINTO')
+
+while True:
+    mostrar_labirito()
+    print(linha())
+    movimenta_jogador()
+    if verifica_vitoria():
+        break
+print('Parabéns! você escapou do labirinto!')
