@@ -58,6 +58,58 @@ def menu(lista, menu_msg='MENU PRINCIPAL'):
     opcao = leiaInt('\033[32mSua opção: \033[m')
     return opcao
 
+gastos = []
+categorias = ['alimentacao', 'transporte', 'lazer', 'educacao', 'saude', 'outros']
+proximo_id = 1
+
+def categoria():
+    while True:
+        categoria = menu(categorias, menu_msg='CATEGORIAS DO GASTO')
+        if 0 <= categoria <= len(categorias) - 1:
+            break
+        print('Opção inválida.')
+    return categorias[categoria]
+    
+
+
+def adicionar_gasto():
+    global proximo_id
+    gasto = {}
+    gasto['id'] = proximo_id
+    gasto['descricao'] = input('Descrição: ')
+    gasto['valor'] = leiaFloatPositivo('Valor: R$')
+    gasto['categoria'] = categoria()
+    gastos.append(gasto)
+    proximo_id += 1
+
+def listar_gastos():
+    if not gastos:
+        print('Nenhum gasto cadastrado.')
+    else:
+        print(f'{"ID":<4}{"Descrição":<20} {"Valor":<12} {"Categoria":<12}')
+        print(linha())
+        for gasto in gastos:
+            print(f"{gasto['id']:<4} {gasto['descricao']:<20} {gasto['valor']:<12.2f} {gasto['categoria']:<12}")
+
+def ver_total_gasto(devolver=False, mostrar=True):
+    total = 0
+    for gasto in gastos:
+        total += gasto['valor']
+    if mostrar:
+        print(f'O total gasto foi R${total:.2f}')
+    if devolver:
+        return total
+
+def media_dos_gastos():
+    if not gastos:
+        print('Ainda não há gastos registrados.')
+    else:
+        total = ver_total_gasto(devolver=True, mostrar=False)
+        media = total / len(gastos)
+        print(f'A média dos gastos é R${media:.2f}')
+
+def maior_gasto():
+
 while True:
     opcao = menu(['Sair', 'Adicionar gasto', 'Listar gastos', 'Ver total gasto',
                    'Ver gastos por categoria', 'Maior gasto', 'Média dos gastos'], menu_msg='CONTROLE FINANCEIRO')
@@ -65,20 +117,26 @@ while True:
     if opcao == 0:
         cabecalho('Saindo')
         break
-    if opcao == 1:
+    elif opcao == 1:
         cabecalho('Adicionar gasto')
+        adicionar_gasto()
         
-    if opcao == 2:
+    elif opcao == 2:
         cabecalho('Listar gastos')
+        listar_gastos()
         
-    if opcao == 3:
+    elif opcao == 3:
         cabecalho('Ver total gasto')
+        ver_total_gasto()
 
-    if opcao == 4:
+    elif opcao == 4:
         cabecalho('Ver gastos por categoria')
 
-    if opcao == 5:
+    elif opcao == 5:
         cabecalho('Maior gasto')
 
-    if opcao == 6:
+    elif opcao == 6:
         cabecalho('Média dos gastos')
+        media_dos_gastos()
+    else:
+        print('Opção inválida.')
