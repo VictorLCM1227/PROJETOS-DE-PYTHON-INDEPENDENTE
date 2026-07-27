@@ -85,7 +85,7 @@ def calcular_distancia():
     print(linha())
     input('Pressione ENTER para continuar...')
 
-def Calcular_tempo():
+def calcular_tempo():
     distancia_percorrida = leiaFloatPositivo('Distância percorrida em Km: ')
     velocidade = leiaFloatPositivo('Velocidade em Km/h: ')
     tempo_gasto = distancia_percorrida / velocidade
@@ -101,21 +101,50 @@ def Calcular_tempo():
 
 
 def calcular_velocidade_final():
-    velocidade_inicial = leiaFloatPositivo('Velocidade inicial em Km/h: ')
-    aceleracao = leiaFloatPositivo('Aceleração em km/h²: ')
-    tempo_gasto = leiaFloatPositivo('Tempo gasto em horas: ')
+    velocidade_inicial = leiaFloat('Velocidade inicial em m/s: ')
+    aceleracao = leiaFloat('Aceleração em m/s²: ')
+    tempo_gasto = leiaFloatPositivo('Tempo gasto em segundos: ')
     velocidade_final = velocidade_inicial + aceleracao * tempo_gasto   
     print(linha())
     print('Fórmula:')
     print('v = v₀ + a × t')
     print('Substituindo:')
-    print(f'v = {velocidade_inicial} km/h  + {aceleracao} km/h² x {tempo_gasto} h')
+    print(f'v = {velocidade_inicial} m/s  + {aceleracao} m/s² x {tempo_gasto} s')
     print('Resultado:')
-    print(f'v = {velocidade_final:.2f} km/h')
+    print(f'v = {velocidade_final:.2f} m/s')
     print(linha())
     input('Pressione ENTER para continuar...')
 
 def calcular_aceleracao():
+    velocidade_final = leiaFloat('Velocidade final em m/s: ')
+    velocidade_inicial = leiaFloat('Velocidade inicial em m/s: ')
+    tempo = leiaFloatPositivo('Tempo gasto em segundos: ')
+    aceleracao = (velocidade_final - velocidade_inicial) / tempo
+    print(linha())
+    print('Fórmula:')
+    print('a = (v - v0) / t')
+    print('Substituindo:')
+    print(f'a = ({velocidade_final} - {velocidade_inicial}) / {tempo}')
+    print('Resultado:')
+    print(f'a = {aceleracao:.2f} m/s²')
+    print(linha())
+    input('Pressione ENTER para continuar...')
+
+def calcular_tempo_mruv():
+    velocidade_final = leiaFloat('Velocidade final em m/s: ')
+    velocidade_inicial = leiaFloat('Velocidade inicial em m/s: ')
+    aceleracao = leiaFloat('Aceleração em m/s²: ')
+    tempo = (velocidade_final - velocidade_final) / aceleracao
+    print(linha())
+    print('Fórmula:')
+    print('t = (v - v0) / a')
+    print('Substituindo:')
+    print()
+    print('Resultado:')
+    print(f'a = {aceleracao:.2f} m/s²')
+    print(linha())
+    input('Pressione ENTER para continuar...')
+
 
 while True:
     cabecalho('CALCULADORA DE FÍSICA', simbolo='=')
@@ -140,7 +169,7 @@ while True:
                 calcular_distancia()
             elif opcao_submenu == 3:
                 cabecalho('Calcular tempo')
-                Calcular_tempo()
+                calcular_tempo()
             else:
                 print('Opção inválida.')
         
@@ -155,6 +184,7 @@ while True:
                 calcular_velocidade_final()
             elif opcao_submenu_mruv == 2:
                 cabecalho('Aceleração')
+                calcular_aceleracao()
             elif opcao_submenu_mruv == 3:
                 cabecalho('Tempo')
             elif opcao_submenu_mruv == 4:
