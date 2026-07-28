@@ -59,3 +59,8 @@ def menu(lista, menu_msg='MENU PRINCIPAL'):
     return opcao
 
 cabecalho('VALIDADOR DE CPF')
+cpf = input('Digite seu CPF: ').strip()
+cpf_numeros = "".join([c for c in cpf if c.isdigit()])
+print(cpf)
+
+#nesse ponto eu preciso estudar mais no curso para voltar a avançar projetos
