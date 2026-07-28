@@ -268,3 +268,5 @@ while True:
 
     else:
         print('Opção inválida.')
+
+#adiconar conversor de medidas de m pra km
