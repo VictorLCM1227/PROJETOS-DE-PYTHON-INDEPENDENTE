@@ -1,4 +1,7 @@
 from time import sleep
+
+pontos = 0
+
 def leiaInt(msg):
     while True:
         try:
@@ -59,11 +62,78 @@ def menu(lista, menu_msg='MENU PRINCIPAL'):
     return opcao
 
 def verificar_tamanho():
+    global senha, pontos
+    tamanho = len(senha)
+    print(f'Possui 8 ou mais caracteres: ', end='')
+    if tamanho >= 8:
+        pontos += 1
+        print('SIM')
+    else:
+        print('NÃO')
+
+
 def verificar_maiuscula():
+    nao = True
+    global senha, pontos
+    print(f'Possui letras maiúsculas: ', end='')
+    for letra in senha:
+        if letra.isupper():
+            print('SIM')
+            nao = False
+            pontos += 1
+            break
+    if nao:
+        print('NÃO')
+            
+
 def verificar_minuscula():
+    nao = True
+    global senha, pontos
+    print(f'Possui letras minúsculas: ', end='')
+    for letra in senha:
+        if letra.islower():
+            print('SIM')
+            nao = False
+            pontos += 1
+            break
+    if nao:
+        print('NÃO')
+            
 def verificar_numero():
+    nao = True
+    global senha, pontos
+    print(f'Possui números: ', end='')
+    for letra in senha:
+        if letra.isnumeric():
+            print('SIM')
+            nao = False
+            pontos += 1
+            break
+    if nao:
+        print('NÃO')
+
 def verificar_especial():
+    nao = True
+    global senha, pontos
+    print(f'Possui caracteres especiais: ', end='')
+    for letra in senha:
+        if not letra.isalnum():
+            print('SIM')
+            nao = False
+            pontos += 1
+            break
+    if nao:
+        print('NÃO')
+
 def calcular_forca():
+    global senha, pontos
+    if pontos == 5:
+        senha_nivel = 'FORTE'
+    elif pontos >= 3:
+        senha_nivel = 'MÉDIA'
+    elif pontos < 3:
+        senha_nivel = 'FRACA'
+    print(f'Senha {senha_nivel}')
 
 cabecalho('VERIFICADOR DE SENHA', simbolo='=')
 senha = input('Digite sua senha: ')
