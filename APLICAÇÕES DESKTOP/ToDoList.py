@@ -73,7 +73,7 @@ def listar_tarefas_concluidas():
         mostrar_tarefas(tarefas_concluidas)
 while True:
     opcao = menu(['SAIR', 'ADICIONAR TAREFA', 'LISTAR TAREFAS', 'CONCLUIR TAREFAS', 'REMOVER TAREFA',
-                  'LISTAR TAREFAS CONCLUÍDAS.'])
+                  'LISTAR TAREFAS CONCLUÍDAS'])
     if opcao == 0:
         cabeçalho('SAINDO...')
         break

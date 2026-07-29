@@ -100,15 +100,15 @@ def raiz():
             numero1 = leiaFloat('Digite o radicando: ')
             if numero1 >= 0:
                 break
-            print('Não existe raiz de número menor que zero.')
+            print('O radicando deve ser maior ou igual a zero.')
             #verificação com while True
         while True:   
             numero2 = leiaFloat('Digite a raiz: ')
             if numero2 > 0:
                 break
-            print('Não existe raiz 0 menor que zero.')
+            print('A raiz deve ser maior que zero.')
         resultado = numero1 **  (1 / numero2)
-        mostrar = f'A raiz {numero2} de {numero1}é igual a {resultado}'
+        mostrar = f'A raiz {numero2} de {numero1} é igual a {resultado:.2f}'
         adiciona_ao_historico(mostrar)
 
 def resto_da_divisao():
@@ -147,7 +147,7 @@ def mostrar_historico():
 cabeçalho('CALCULADORA')
 while True:
     resposta_menu = menu(['Sair', 'Somar', 'Subtrair', 'Multiplicar', 'Dividir', 'Potência', 
-                     'Raiz quadrada', 'Resto da divisão', 'Divisão inteira',
+                     'Raiz', 'Resto da divisão', 'Divisão inteira',
                      'Histórico'])
     if resposta_menu == 0:
         cabeçalho('Saindo do Sistema... Até logo!')
