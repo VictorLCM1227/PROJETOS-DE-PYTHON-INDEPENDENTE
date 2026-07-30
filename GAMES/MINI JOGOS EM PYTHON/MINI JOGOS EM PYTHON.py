@@ -394,3 +394,4 @@ while True:
 
 #Falta: adiconar o sistema de apostas para ganhar dinheiro, colocar a loja de compra de itens pra nickname tipo emoji e cor da fonte e fundo seguindo o padrão ANSI
 #falta colocar um ranking usando o item getter da aula 091, ranking dos jogos que o joogador jogou e foi melhor
+#adicionar pc vs player
