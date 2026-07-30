@@ -82,3 +82,5 @@ while True:
             print(f'Total da compra de R${total_compra}')
             print('Finalizando compra...')
         break
+
+#adicionar filtros com o sorted
