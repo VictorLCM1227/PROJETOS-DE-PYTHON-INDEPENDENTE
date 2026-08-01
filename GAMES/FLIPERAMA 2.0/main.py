@@ -2,15 +2,11 @@
 from perfil import mostrar_perfil
 from carteira import depositar, sacar, mostrar_extrato
 from utilidades import leiaInt, linha, cabeçalho, menu
+from jogador import ficha_do_jogador
 
 print('BEM VINDO!!!')
 
-ficha_do_jogador = {
-    'nome': input('Qual o seu nome? ').strip(),
-    'saldo': 0,
-    'jogos_jogados':  0,
-    'extrato': []
-}
+
 
 
 while True:
