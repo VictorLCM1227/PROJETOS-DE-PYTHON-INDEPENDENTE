@@ -93,7 +93,7 @@ def par_ou_impar():
     jogador_numero = int(input('Escolha um número: '))
     print('IMPAR')
     sleep(1)
-    print('OU')
+    print('OU') 
     sleep(1)
     print('PAR!!!')
     pc = randint(0, 10)

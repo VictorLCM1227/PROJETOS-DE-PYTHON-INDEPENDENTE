@@ -1,8 +1,10 @@
-##menu principal
+#menu principal
 from perfil import mostrar_perfil
 from carteira import depositar, sacar, mostrar_extrato
 from utilidades import leiaInt, linha, cabeçalho, menu
 from jogador import ficha_do_jogador
+from jogos import jokenpo, par_ou_impar
+
 
 print('BEM VINDO!!!')
 
@@ -27,12 +29,15 @@ while True:
 
             elif escolha_jogo == 1:
                 cabeçalho('JOKENPÔ')
+                jokenpo.jokenpo()
 
             elif escolha_jogo == 2:
                 cabeçalho('PAR OU ÍMPAR')
+                par_ou_impar.par_ou_impar()
 
             elif escolha_jogo == 3:
                 cabeçalho('ADIVINHE O NÚMERO')
+                
 
     elif escolha_principal == 2:
         mostrar_perfil(nome=ficha_do_jogador['nome'], saldo=ficha_do_jogador['saldo'], jogos_jogados=ficha_do_jogador['jogos_jogados'])

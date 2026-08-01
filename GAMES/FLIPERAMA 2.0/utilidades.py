@@ -30,3 +30,13 @@ def menu(lista, menu_titulo='MENU PRINCIPAL'):
     print(linha())
     opcao = leiaInt('\033[32mSua opção: \033[m')
     return opcao
+
+def continuar_verificacao():
+    while True:
+        try:
+            continuar = input('Quer continuar? [S/N] ').strip().upper()[0]
+        except IndexError:
+                print('ERRO! Por favor apenas S ou N.')
+        else:
+            if continuar in 'SN':
+                return continuar
