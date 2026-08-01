@@ -1,4 +1,18 @@
 #utilidades
+def leiaFloatPositivo(msg):
+    while True:
+        try:
+            numero = float(input(msg))    
+        except ValueError:
+            print('\033[31mERRO: por favor, digite um número real válido.\033[m')
+            continue
+        except KeyboardInterrupt:
+            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
+            return 0
+        else:
+            if numero > 0:
+                return numero
+            print('\033[31mERRO: por favor, digite um número real válido e maior do que zero.\033[m')
 
 def leiaInt(msg):
     while True:

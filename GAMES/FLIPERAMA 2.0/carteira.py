@@ -1,6 +1,6 @@
 #carteira
 
-from utilidades import leiaInt, linha, cabeçalho, menu
+from utilidades import leiaInt, linha, cabeçalho, menu, leiaFloatPositivo
 from time import sleep
 
 def depositar(saldo, extrato):
@@ -65,3 +65,19 @@ def mostrar_extrato(extrato):
                 print(f'Depósito de R${abs(transação)}')
             else:
                 print(f'Saque de R${abs(transação)}')
+
+def pagar_para_jogar(custo, saldo, extrato):
+    if custo < saldo:
+        print('Você não tem dinheiro para jogar esse jogo.')
+    else:
+        saldo - custo
+        extrato.append(custo)
+        return saldo, extrato
+
+def apostar(saldo):
+    while True:
+        aposta = leiaFloatPositivo('Quanto deseja apostar? R$')
+        if aposta <= saldo:
+            break
+        print('A sua aposta só pode ser menor ou igual ao seu saldo.')
+        #terminar a aposta
