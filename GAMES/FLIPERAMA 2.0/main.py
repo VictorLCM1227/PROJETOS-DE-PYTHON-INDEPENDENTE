@@ -1,13 +1,17 @@
 ##menu principal
 from perfil import mostrar_perfil
-from carteira import mostrar_saldo
+from carteira import depositar, sacar, mostrar_extrato
 from utilidades import leiaInt, linha, cabeçalho, menu
-saldo = 0
-jogos_jogados = 0
-
 
 print('BEM VINDO!!!')
-nome = input('Qual o seu nome? ').strip()
+
+ficha_do_jogador = {
+    'nome': input('Qual o seu nome? ').strip(),
+    'saldo': 0,
+    'jogos_jogados':  0,
+    'extrato': []
+}
+
 
 while True:
     escolha_principal = menu(lista=['SAIR', 'JOGAR', 'PERFIL', 'CARTEIRA'], menu_titulo='FLIPERAMA DO VICTOR')
@@ -35,9 +39,25 @@ while True:
                 cabeçalho('ADIVINHE O NÚMERO')
 
     elif escolha_principal == 2:
-        mostrar_perfil(nome=nome, saldo=saldo, jogos_jogados=jogos_jogados)
+        mostrar_perfil(nome=ficha_do_jogador['nome'], saldo=ficha_do_jogador['saldo'], jogos_jogados=ficha_do_jogador['jogos_jogados'])
 
     elif escolha_principal == 3:
-        mostrar_saldo(saldo=saldo)
+        cabeçalho('CARTEIRA')
+        print(f'Saldo atual: R${ficha_do_jogador["saldo"]} ')
+        escolha_carteira = menu(lista=['VOLTAR', 'DEPOSITAR', 'SACAR', 'EXTRATO'], menu_titulo='')
+        if escolha_carteira == 0:
+            cabeçalho('VOLTANDO')
+
+        elif escolha_carteira == 1:
+            cabeçalho('DEPOSITAR')
+            ficha_do_jogador['saldo'], ficha_do_jogador['extrato'] = depositar(ficha_do_jogador['saldo'], ficha_do_jogador['extrato'])
+
+        elif escolha_carteira == 2:
+            cabeçalho('SACAR')
+            ficha_do_jogador['saldo'], ficha_do_jogador['extrato'] = sacar(ficha_do_jogador['saldo'], ficha_do_jogador['extrato'])
+
+        elif escolha_carteira == 3:
+            cabeçalho('EXTRATO')
+            mostrar_extrato(ficha_do_jogador['extrato'])
 
 
