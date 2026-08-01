@@ -1,36 +1,14 @@
+##menu principal
+from perfil import mostrar_perfil
+from carteira import mostrar_saldo
+from utilidades import leiaInt, linha, cabeçalho, menu
+saldo = 0
+jogos_jogados = 0
 
-def leiaInt(msg):
-    while True:
-        try:
-            numero = int(input(msg))
-        except (ValueError, TypeError):
-            print('\033[31mERRO: por favor, digite um número interiro válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
-            return numero
 
-def linha(tam = 42):
-    return '-' * tam 
+print('BEM VINDO!!!')
+nome = input('Qual o seu nome? ').strip()
 
-def cabeçalho(txt):
-    print(linha())
-    print(txt.center(42))
-    print(linha())
-
-def menu(lista, menu_titulo='MENU PRINCIPAL'):
-    cabeçalho(menu_titulo)
-    contador = 0
-    for item in lista:
-        print(f'\033[33m[{contador}]\033[m - \033[34m{item}\033[m')
-        contador += 1
-    print(linha())
-    opcao = leiaInt('\033[32mSua opção: \033[m')
-    return opcao
-
-#menu
 while True:
     escolha_principal = menu(lista=['SAIR', 'JOGAR', 'PERFIL', 'CARTEIRA'], menu_titulo='FLIPERAMA DO VICTOR')
 
@@ -39,9 +17,27 @@ while True:
         break
 
     elif escolha_principal == 1:
+        cabeçalho('JOGAR')
         while True:
-            escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADVINHE O NÚMERO'], menu_titulo='JOGOS')
+            escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO'], menu_titulo='JOGOS')
 
             if escolha_jogo == 0:
                 cabeçalho('VOLTANDO')
                 break
+
+            elif escolha_jogo == 1:
+                cabeçalho('JOKENPÔ')
+
+            elif escolha_jogo == 2:
+                cabeçalho('PAR OU ÍMPAR')
+
+            elif escolha_jogo == 3:
+                cabeçalho('ADIVINHE O NÚMERO')
+
+    elif escolha_principal == 2:
+        mostrar_perfil(nome=nome, saldo=saldo, jogos_jogados=jogos_jogados)
+
+    elif escolha_principal == 3:
+        mostrar_saldo(saldo=saldo)
+
+
