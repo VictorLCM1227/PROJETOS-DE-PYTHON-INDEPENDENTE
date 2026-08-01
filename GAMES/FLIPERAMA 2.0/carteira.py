@@ -74,10 +74,14 @@ def pagar_para_jogar(custo, saldo, extrato):
         extrato.append(custo)
         return saldo, extrato
 
-def apostar(saldo):
-    while True:
-        aposta = leiaFloatPositivo('Quanto deseja apostar? R$')
-        if aposta <= saldo:
-            break
-        print('A sua aposta só pode ser menor ou igual ao seu saldo.')
-        #terminar a aposta
+#se o saldo for insuficiente, a função retorna none
+def validar_aposta(saldo):
+    if saldo <= 0:
+        print('Saldo insuficiente.')
+    else:
+        while True:
+            aposta = leiaFloatPositivo('Quanto deseja apostar? R$')
+            if aposta <= saldo:
+                return aposta
+            print('A sua aposta só pode ser menor ou igual ao seu saldo.')
+        
