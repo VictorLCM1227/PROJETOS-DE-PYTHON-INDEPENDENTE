@@ -66,17 +66,9 @@ def mostrar_extrato(extrato):
             else:
                 print(f'Saque de R${abs(transação)}')
 
-def pagar_para_jogar(custo, saldo, extrato):
-    if custo < saldo:
-        print('Você não tem dinheiro para jogar esse jogo.')
-    else:
-        saldo - custo
-        extrato.append(custo)
-        return saldo, extrato
-
 #se o saldo for insuficiente, a função retorna none
 def validar_aposta(saldo):
-    if saldo <= 0:
+    if saldo < 1:
         print('Saldo insuficiente.')
     else:
         while True:
@@ -84,4 +76,17 @@ def validar_aposta(saldo):
             if aposta <= saldo:
                 return aposta
             print('A sua aposta só pode ser menor ou igual ao seu saldo.')
+
+def atualizar_aposta(ficha_do_jogador, aposta, resultado):
+    if resultado == 'V':
+        ficha_do_jogador['vitorias'] += 1
+        ficha_do_jogador['saldo'] += aposta * 2
+        ficha_do_jogador['extrato'].append(aposta * 2)
+        ficha_do_jogador['dinheiro_ganho'] += aposta * 2
+    elif resultado == 'D':
+        ficha_do_jogador['derrotas'] += 1
+        ficha_do_jogador['dinheiro_perdido'] += aposta
+    elif resultado == 'E':
+        ficha_do_jogador['empates'] += 1
+        ficha_do_jogador['saldo'] += aposta
         

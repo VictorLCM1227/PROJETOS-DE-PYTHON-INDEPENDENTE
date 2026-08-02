@@ -1,6 +1,6 @@
 #menu principal
 from perfil import mostrar_perfil
-from carteira import depositar, sacar, mostrar_extrato, pagar_para_jogar
+from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
 from utilidades import leiaInt, linha, cabeçalho, menu
 from jogador import ficha_do_jogador
 from jogos import jokenpo, par_ou_impar
@@ -29,12 +29,18 @@ while True:
 
             elif escolha_jogo == 1:
                 cabeçalho('JOKENPÔ')
-                ficha_do_jogador['saldo'], ficha_do_jogador['extrato'] = pagar_para_jogar(10, ficha_do_jogador['saldo', ficha_do_jogador['extrato']])
-                ficha_do_jogador['partidas'] = jokenpo.jokenpo(ficha_do_jogador['partidas'])
+                aposta = validar_aposta(ficha_do_jogador['saldo'])
+                if aposta is None:
+                    print('Por isso não foi possível apostar.')
+                else:
+                    ficha_do_jogador['saldo'] -= aposta
+                    ficha_do_jogador['extrato'].append(- aposta)
+                    ficha_do_jogador['partidas'], resultado = jokenpo.jokenpo(ficha_do_jogador['partidas'])
+                    atualizar_aposta(ficha_do_jogador, aposta, resultado)
+
 
             elif escolha_jogo == 2:
                 cabeçalho('PAR OU ÍMPAR')
-                ficha_do_jogador['saldo'], ficha_do_jogador['extrato'] = pagar_para_jogar(10, ficha_do_jogador['saldo', ficha_do_jogador['extrato']])
                 par_ou_impar.par_ou_impar()
 
             elif escolha_jogo == 3:
