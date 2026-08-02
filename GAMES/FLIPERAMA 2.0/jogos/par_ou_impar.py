@@ -4,7 +4,8 @@ from time import sleep
 from utilidades import leiaInt, continuar_verificacao
 from random import randint
 
-def par_ou_impar():
+def par_ou_impar(partidas):
+    partidas += 1
     while True:
         print(f'{" IMPAR OU PAR ":=^40}')
         while True:
@@ -40,3 +41,4 @@ def par_ou_impar():
         continuar = continuar_verificacao()
         if continuar == 'N':
             break
+        return partidas, resultado

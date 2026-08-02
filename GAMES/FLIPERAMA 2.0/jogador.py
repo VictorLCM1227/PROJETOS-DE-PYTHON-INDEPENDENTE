@@ -1,7 +1,7 @@
 #jogador
 ficha_do_jogador = {
     'nome': input('Qual o seu nome? ').strip(),
-    'saldo': 0,
+    'saldo': 10,
     'partidas':  0,
     'vitorias': 0,
     'derrotas': 0,

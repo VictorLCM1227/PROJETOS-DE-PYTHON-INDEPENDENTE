@@ -41,14 +41,23 @@ while True:
 
             elif escolha_jogo == 2:
                 cabeçalho('PAR OU ÍMPAR')
-                par_ou_impar.par_ou_impar()
+                aposta = validar_aposta(ficha_do_jogador['saldo'])
+                if aposta is None:
+                    print('Por isso não foi possível apostar.')
+                else:
+                    ficha_do_jogador['saldo'] -= aposta
+                    ficha_do_jogador['extrato'].append(- aposta)
+                    ficha_do_jogador['partidas'], resultado = par_ou_impar.par_ou_impar(ficha_do_jogador['partidas'])
+                    atualizar_aposta(ficha_do_jogador, aposta, resultado)
+
+                
 
             elif escolha_jogo == 3:
                 cabeçalho('ADIVINHE O NÚMERO')
                 
 
     elif escolha_principal == 2:
-        mostrar_perfil(nome=ficha_do_jogador['nome'], saldo=ficha_do_jogador['saldo'], jogos_jogados=ficha_do_jogador['jogos_jogados'])
+        mostrar_perfil(nome=ficha_do_jogador['nome'], saldo=ficha_do_jogador['saldo'], jogos_jogados=ficha_do_jogador['partidas'])
 
     elif escolha_principal == 3:
         cabeçalho('CARTEIRA')
