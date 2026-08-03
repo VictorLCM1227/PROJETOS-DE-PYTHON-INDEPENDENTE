@@ -5,6 +5,16 @@ from utilidades import leiaInt, linha, cabeçalho, menu
 from jogador import ficha_do_jogador
 from jogos import jokenpo, par_ou_impar
 
+def gerencia_partidas(jogo_nome, jogo):
+    cabeçalho(jogo_nome)
+    aposta = validar_aposta(ficha_do_jogador['saldo'])
+    if aposta is None:
+        print('Por isso não foi possível apostar.')
+    else:
+        ficha_do_jogador['saldo'] -= aposta
+        ficha_do_jogador['extrato'].append((f'Aposta {jogo_nome}', -aposta))
+        ficha_do_jogador['partidas'], resultado = jogo(ficha_do_jogador['partidas'])
+        atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo_nome)
 
 print('BEM VINDO!!!')
 
@@ -28,36 +38,17 @@ while True:
                 break
 
             elif escolha_jogo == 1:
-                cabeçalho('JOKENPÔ')
-                aposta = validar_aposta(ficha_do_jogador['saldo'])
-                if aposta is None:
-                    print('Por isso não foi possível apostar.')
-                else:
-                    ficha_do_jogador['saldo'] -= aposta
-                    ficha_do_jogador['extrato'].append(('Aposta Jokenpô', -aposta))
-                    ficha_do_jogador['partidas'], resultado = jokenpo.jokenpo(ficha_do_jogador['partidas'])
-                    atualizar_aposta(ficha_do_jogador, aposta, resultado)
-
+                gerencia_partidas('JOKENPÔ', jokenpo.jokenpo)
 
             elif escolha_jogo == 2:
-                cabeçalho('PAR OU ÍMPAR')
-                aposta = validar_aposta(ficha_do_jogador['saldo'])
-                if aposta is None:
-                    print('Por isso não foi possível apostar.')
-                else:
-                    ficha_do_jogador['saldo'] -= aposta
-                    ficha_do_jogador['extrato'].append(('Aposta Par ou Ímpar', -aposta))
-                    ficha_do_jogador['partidas'], resultado = par_ou_impar.par_ou_impar(ficha_do_jogador['partidas'])
-                    atualizar_aposta(ficha_do_jogador, aposta, resultado)
-
-                
+                gerencia_partidas('PAR OU ÍMPAR', par_ou_impar.par_ou_impar)
 
             elif escolha_jogo == 3:
                 cabeçalho('ADIVINHE O NÚMERO')
                 
 
     elif escolha_principal == 2:
-        mostrar_perfil(nome=ficha_do_jogador['nome'], saldo=ficha_do_jogador['saldo'], jogos_jogados=ficha_do_jogador['partidas'])
+        mostrar_perfil(ficha_do_jogador)
 
     elif escolha_principal == 3:
         cabeçalho('CARTEIRA')
@@ -76,6 +67,6 @@ while True:
 
         elif escolha_carteira == 3:
             cabeçalho('EXTRATO')
-            mostrar_extrato(ficha_do_jogador['extrato'])
+            mostrar_extrato(ficha_do_jogador['extrato'], ficha_do_jogador['saldo'])
 
 

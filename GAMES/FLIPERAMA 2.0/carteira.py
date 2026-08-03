@@ -5,19 +5,19 @@ from time import sleep
 
 def depositar(saldo, extrato):
     while True:
-        deposito = int(input('Valor do depósito: R$'))
+        deposito = leiaFloatPositivo(input('Valor do depósito: R$'))
         if deposito < 1:
             print('O valor do depósito deve ser maior que zero.')
         else:
             print('Depositando...')
             sleep(0.5)
             saldo += deposito
-            extrato.append(deposito)
+            extrato.append(('Depósito',deposito))
             return saldo, extrato
 
 def sacar(saldo, extrato):
     while True:
-        saque = int(input('Valor do Saque: R$'))
+        saque = leiaFloatPositivo(input('Valor do Saque: R$'))
         if saque < 1:
             print('O valor do saque deve ser maior que zero.')
         else:
@@ -26,8 +26,7 @@ def sacar(saldo, extrato):
             else:
                 print('Sacando...')
                 sleep(0.5)
-                extrato.append(saque * (-1))
-                extrato.append(saque * (-1))
+                extrato.append(('Saque',saque * (-1)))
                 saldo -= saque
                 cedula = 200
                 cedula_quantidade = 0
@@ -55,17 +54,21 @@ def sacar(saldo, extrato):
                             break
                 return saldo, extrato
 
-def mostrar_extrato(extrato):
+def mostrar_extrato(extrato, saldo):
     print('Abrindo extrato:')
     sleep(0.5)
     if not extrato:
         print('Ainda não houve Transações.')
     else:
-        for transação in extrato:
-            if transação > 0:
-                print(f'Depósito de R${abs(transação)}')
+        for descricao, valor in extrato:
+            if valor >= 0:
+                sinal = '+'
             else:
-                print(f'Saque de R${abs(transação)}')
+                sinal = '-'
+            print(f'{descricao:<25} {sinal}R${abs(valor):.2f}')
+        print(linha())
+        print(f'Saldo atual: R${saldo}')
+    
 
 #se o saldo for insuficiente, a função retorna none
 def validar_aposta(saldo):
@@ -78,17 +81,18 @@ def validar_aposta(saldo):
                 return aposta
             print('A sua aposta só pode ser menor ou igual ao seu saldo.')
 
-def atualizar_aposta(ficha_do_jogador, aposta, resultado):
+def atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo):
     if resultado == 'V':
         ficha_do_jogador['vitorias'] += 1
         ficha_do_jogador['saldo'] += aposta * 2
-        ficha_do_jogador['extrato'].append(aposta * 2)
+        ficha_do_jogador['extrato'].append((f'Vitória {jogo}', aposta * 2))
         ficha_do_jogador['dinheiro_ganho'] += aposta * 2
     elif resultado == 'D':
         ficha_do_jogador['derrotas'] += 1
         ficha_do_jogador['dinheiro_perdido'] += aposta
+        ficha_do_jogador['extrato'].append((f'Derrota {jogo}', 0.00))
     elif resultado == 'E':
         ficha_do_jogador['empates'] += 1
         ficha_do_jogador['saldo'] += aposta
-        ficha_do_jogador['extrato'].append(aposta)
+        ficha_do_jogador['extrato'].append((f'Empate {jogo}', aposta))
         

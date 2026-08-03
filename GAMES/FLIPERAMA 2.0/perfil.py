@@ -1,9 +1,8 @@
 #perfil
 from utilidades import leiaInt, linha, cabeçalho, menu
 
-def mostrar_perfil(nome='<DESCONHECIDO>', saldo=0, partidas=0):
+def mostrar_perfil(ficha_do_jogador):
     cabeçalho('PERFIL')
-    print(f'Nome: {nome}')
-    print(f'Saldo: R${saldo}')
-    print(f'Partidas: {partidas}')
-    print('[0] VOLTAR')
+    #desempacotar e mostrar dicionario
+    for atributo, valor in ficha_do_jogador.items():
+        print(f'{atributo}: {valor}')
