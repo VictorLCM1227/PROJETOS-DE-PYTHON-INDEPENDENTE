@@ -16,8 +16,7 @@ def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
         resultado = jogo()
         ficha_do_jogador['partidas_totais'] += 1
         ficha_do_jogador['estatisticas_jogos'][jogo_estatisticas]['partidas'] += 1
-
-        atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo_nome)
+        atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo_estatisticas)
         
 
 print('BEM VINDO!!!')
@@ -56,7 +55,7 @@ while True:
 
     elif escolha_principal == 3:
         cabeçalho('CARTEIRA')
-        print(f'Saldo atual: R${ficha_do_jogador["saldo"]} ')
+        print(f'Saldo atual: R${ficha_do_jogador["carteira"]["saldo"]} ')
         escolha_carteira = menu(lista=['VOLTAR', 'DEPOSITAR', 'SACAR', 'EXTRATO'], menu_titulo='')
         if escolha_carteira == 0:
             cabeçalho('VOLTANDO')
