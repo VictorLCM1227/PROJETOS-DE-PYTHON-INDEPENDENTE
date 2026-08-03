@@ -3,8 +3,7 @@ from time import sleep
 from random import randint
 from utilidades import leiaInt, continuar_verificacao
 
-def jokenpo(partidas):
-        partidas += 1
+def jokenpo():
         itens = ['PEDRA', 'PAPEL', 'TESOURA']
         while True:
             print(f'{" VAMOS JOGAR JOKENPÔ ":=^40}')
@@ -38,4 +37,4 @@ def jokenpo(partidas):
             print('=-=' * 20)
             continuar = continuar_verificacao()
             if continuar == 'N':
-                return partidas, resultado
+                return resultado
