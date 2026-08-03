@@ -27,6 +27,7 @@ def sacar(saldo, extrato):
                 print('Sacando...')
                 sleep(0.5)
                 extrato.append(saque * (-1))
+                extrato.append(saque * (-1))
                 saldo -= saque
                 cedula = 200
                 cedula_quantidade = 0
@@ -89,4 +90,5 @@ def atualizar_aposta(ficha_do_jogador, aposta, resultado):
     elif resultado == 'E':
         ficha_do_jogador['empates'] += 1
         ficha_do_jogador['saldo'] += aposta
+        ficha_do_jogador['extrato'].append(aposta)
         

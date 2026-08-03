@@ -9,5 +9,6 @@ ficha_do_jogador = {
     'maior_sequencia': 0,
     'dinheiro_ganho': 0,
     'dinheiro_perdido':0,
+    #armazenar os dados do extrato em uma tupla
     'extrato': []
 }

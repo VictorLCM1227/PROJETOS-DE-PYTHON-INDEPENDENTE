@@ -34,7 +34,7 @@ while True:
                     print('Por isso não foi possível apostar.')
                 else:
                     ficha_do_jogador['saldo'] -= aposta
-                    ficha_do_jogador['extrato'].append(- aposta)
+                    ficha_do_jogador['extrato'].append(('Aposta Jokenpô', -aposta))
                     ficha_do_jogador['partidas'], resultado = jokenpo.jokenpo(ficha_do_jogador['partidas'])
                     atualizar_aposta(ficha_do_jogador, aposta, resultado)
 
@@ -46,7 +46,7 @@ while True:
                     print('Por isso não foi possível apostar.')
                 else:
                     ficha_do_jogador['saldo'] -= aposta
-                    ficha_do_jogador['extrato'].append(- aposta)
+                    ficha_do_jogador['extrato'].append(('Aposta Par ou Ímpar', -aposta))
                     ficha_do_jogador['partidas'], resultado = par_ou_impar.par_ou_impar(ficha_do_jogador['partidas'])
                     atualizar_aposta(ficha_do_jogador, aposta, resultado)
 
