@@ -18,7 +18,7 @@ def mostrar_perfil(ficha_do_jogador):
         print(f"{atributo.replace('_', ' ').title()}: {valor}")
 
     
-def ver_estatísticas_dos_jogos(ficha_do_jogador):
+def ver_estatisticas_dos_jogos(ficha_do_jogador):
     for nome, jogo in ficha_do_jogador['estatisticas_jogos'].items():
         print(f"===== {nome.replace('_', ' ').title()} =====")
         for atributo, valor in jogo.items():

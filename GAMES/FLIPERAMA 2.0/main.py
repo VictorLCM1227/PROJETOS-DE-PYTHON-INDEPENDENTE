@@ -1,5 +1,5 @@
 #menu principal
-from perfil import mostrar_perfil
+from perfil import mostrar_perfil, ver_estatisticas_dos_jogos
 from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
 from utilidades import leiaInt, linha, cabeçalho, menu
 from jogador import ficha_do_jogador
@@ -49,25 +49,39 @@ while True:
 
     elif escolha_principal == 2:
         cabeçalho('PERFIL')
+        while True:
+            escolha_perfil = menu(lista=['VOLTAR', 'VER PERFIL GERAL', 'VER ESTATÍSTICAS DOS JOGOS'], menu_titulo='PERFIL')
+            if escolha_perfil == 0:
+                cabeçalho('VOLTANDO')
+                break
+                
+            elif escolha_perfil == 1:
+                mostrar_perfil(ficha_do_jogador)
+                
+            elif escolha_perfil == 2:
+                cabeçalho('ESTATÍSTICAS DOS JOGOS')
+                ver_estatisticas_dos_jogos(ficha_do_jogador)
         
 
     elif escolha_principal == 3:
         cabeçalho('CARTEIRA')
-        print(f'Saldo atual: R${ficha_do_jogador["carteira"]["saldo"]} ')
-        escolha_carteira = menu(lista=['VOLTAR', 'DEPOSITAR', 'SACAR', 'EXTRATO'], menu_titulo='')
-        if escolha_carteira == 0:
-            cabeçalho('VOLTANDO')
+        while True:
+            print(f'Saldo atual: R${ficha_do_jogador["carteira"]["saldo"]} ')
+            escolha_carteira = menu(lista=['VOLTAR', 'DEPOSITAR', 'SACAR', 'EXTRATO'], menu_titulo='CARTEIRA')
+            if escolha_carteira == 0:
+                cabeçalho('VOLTANDO')
+                break
 
-        elif escolha_carteira == 1:
-            cabeçalho('DEPOSITAR')
-            ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'] = depositar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'])
+            elif escolha_carteira == 1:
+                cabeçalho('DEPOSITAR')
+                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'] = depositar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'])
 
-        elif escolha_carteira == 2:
-            cabeçalho('SACAR')
-            ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'] = sacar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'])
+            elif escolha_carteira == 2:
+                cabeçalho('SACAR')
+                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'] = sacar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'])
 
-        elif escolha_carteira == 3:
-            cabeçalho('EXTRATO')
-            mostrar_extrato(ficha_do_jogador['carteira']['extrato'], ficha_do_jogador['carteira']['saldo'])
+            elif escolha_carteira == 3:
+                cabeçalho('EXTRATO')
+                mostrar_extrato(ficha_do_jogador['carteira']['extrato'], ficha_do_jogador['carteira']['saldo'])
 
 
