@@ -87,10 +87,10 @@ def atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo):
     if aposta > ficha_do_jogador['estatisticas_jogos'][jogo]['maior_aposta']:
             ficha_do_jogador['estatisticas_jogos'][jogo]['maior_aposta'] = aposta
     if resultado == 'V':
-        ficha_do_jogador['vitorias_totais'] += 1
+        ficha_do_jogador['estatisticas_gerais']['vitorias_totais'] += 1
         ficha_do_jogador['carteira']['saldo'] += aposta * 2
-        ficha_do_jogador['carteira']['extrato'].append((f'Vitória {jogo}', aposta * 2))
-        ficha_do_jogador['dinheiro_ganho_total'] += aposta
+        ficha_do_jogador['extrato'].append((f'Vitória {jogo}', aposta * 2))
+        ficha_do_jogador['estatisticas_gerais']['dinheiro_ganho_total'] += aposta
         ficha_do_jogador['estatisticas_jogos'][jogo]['dinheiro_ganho'] += aposta 
         ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] += 1
         if ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] > ficha_do_jogador['estatisticas_jogos'][jogo]['melhor_sequencia']:
@@ -98,15 +98,14 @@ def atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo):
 
         ficha_do_jogador['estatisticas_jogos'][jogo]['vitorias'] += 1
     elif resultado == 'D':
-        ficha_do_jogador['derrotas_totais'] += 1
-        ficha_do_jogador['dinheiro_perdido_total'] += aposta
-        ficha_do_jogador['carteira']['extrato'].append((f'Derrota {jogo}', 0.00))
+        ficha_do_jogador['estatisticas_gerais']['derrotas_totais'] += 1
+        ficha_do_jogador['estatisticas_gerais']['dinheiro_perdido_total'] += aposta
         ficha_do_jogador['estatisticas_jogos'][jogo]['derrotas'] += 1
         ficha_do_jogador['estatisticas_jogos'][jogo]['dinheiro_perdido'] += aposta
         ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] = 0
     elif resultado == 'E':
-        ficha_do_jogador['empates_totais'] += 1
+        ficha_do_jogador['estatisticas_gerais']['empates_totais'] += 1
         ficha_do_jogador['carteira']['saldo'] += aposta
-        ficha_do_jogador['carteira']['extrato'].append((f'Empate {jogo}', aposta))
+        ficha_do_jogador['extrato'].append((f'Empate {jogo}', aposta))
         ficha_do_jogador['estatisticas_jogos'][jogo]['empates'] += 1
         ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] = 0
