@@ -74,7 +74,7 @@ def mostrar_extrato(extrato, saldo):
 def validar_aposta(saldo):
     if saldo < 1:
         print('Saldo insuficiente.')
-    else:
+    else:   
         while True:
             aposta = leiaFloatPositivo('Quanto deseja apostar? R$')
             if aposta <= saldo:

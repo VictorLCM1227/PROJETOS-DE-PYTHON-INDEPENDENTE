@@ -4,6 +4,7 @@ from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualiza
 from utilidades import leiaInt, linha, cabeçalho, menu
 from jogador import ficha_do_jogador
 from jogos import jokenpo, par_ou_impar
+from conquistas import controla_conquistas
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
     cabeçalho(jogo_nome)
@@ -17,6 +18,8 @@ def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
         ficha_do_jogador['estatisticas_gerais']['partidas_totais'] += 1
         ficha_do_jogador['estatisticas_jogos'][jogo_estatisticas]['partidas'] += 1
         atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo_estatisticas)
+        controla_conquistas(ficha_do_jogador)
+
 
 print('BEM VINDO!!!')
 
@@ -50,7 +53,8 @@ while True:
     elif escolha_principal == 2:
         cabeçalho('PERFIL')
         while True:
-            escolha_perfil = menu(lista=['VOLTAR', 'VER PERFIL GERAL', 'VER ESTATÍSTICAS DOS JOGOS'], menu_titulo='PERFIL')
+            escolha_perfil = menu(lista=['VOLTAR', 'VER PERFIL GERAL', 'VER ESTATÍSTICAS DOS JOGOS,'
+            'VER CONQUISTAS'], menu_titulo='PERFIL')
             if escolha_perfil == 0:
                 cabeçalho('VOLTANDO')
                 break

@@ -25,8 +25,11 @@ def ver_estatisticas_dos_jogos(ficha_do_jogador):
                 print(f"{atributo.replace('_', ' ').title()}: {valor}")
                 
 def ver_conquistas(ficha_do_jogador):
-    for nome, jogo in ficha_do_jogador['conquistas'].items():
-        print(f"===== {nome.replace('_', ' ').title()} =====")
-        for atributo, valor in jogo.items():
-                print(f"{atributo.replace('_', ' ').title()}: {valor}")
+    print('===== CONQUISTAS =====')
+    for atributo, valor in ficha_do_jogador['conquistas'].items():
+        if valor:
+             print('[X]', end=' ')
+        else:
+            print('[ ]', end=' ')
+        print(f"{atributo.replace('_', ' ').title()}")
 
