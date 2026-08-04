@@ -12,7 +12,7 @@ def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
         print('Por isso não foi possível apostar.')
     else:
         ficha_do_jogador['carteira']['saldo'] -= aposta
-        ficha_do_jogador['carteira']['extrato'].append((f'Aposta {jogo_nome}', -aposta))
+        ficha_do_jogador['extrato'].append((f'Aposta {jogo_nome}', -aposta))
         resultado = jogo()
         ficha_do_jogador['estatisticas_gerais']['partidas_totais'] += 1
         ficha_do_jogador['estatisticas_jogos'][jogo_estatisticas]['partidas'] += 1
@@ -74,14 +74,14 @@ while True:
 
             elif escolha_carteira == 1:
                 cabeçalho('DEPOSITAR')
-                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'] = depositar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'])
+                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'] = depositar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'])
 
             elif escolha_carteira == 2:
                 cabeçalho('SACAR')
-                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'] = sacar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['carteira']['extrato'])
+                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'] = sacar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'])
 
             elif escolha_carteira == 3:
                 cabeçalho('EXTRATO')
-                mostrar_extrato(ficha_do_jogador['carteira']['extrato'], ficha_do_jogador['carteira']['saldo'])
+                mostrar_extrato(ficha_do_jogador['extrato'], ficha_do_jogador['carteira']['saldo'])
 
 

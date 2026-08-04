@@ -5,7 +5,7 @@ from time import sleep
 
 def depositar(saldo, extrato):
     while True:
-        deposito = leiaFloatPositivo(input('Valor do depósito: R$'))
+        deposito = leiaFloatPositivo('Valor do depósito: R$')
         if deposito < 1:
             print('O valor do depósito deve ser maior que zero.')
         else:
@@ -17,7 +17,7 @@ def depositar(saldo, extrato):
 
 def sacar(saldo, extrato):
     while True:
-        saque = leiaFloatPositivo(input('Valor do Saque: R$'))
+        saque = leiaFloatPositivo('Valor do Saque: R$')
         if saque < 1:
             print('O valor do saque deve ser maior que zero.')
         else:
