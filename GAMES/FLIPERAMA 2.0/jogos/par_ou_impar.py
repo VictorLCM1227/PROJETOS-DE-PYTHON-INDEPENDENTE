@@ -42,3 +42,47 @@ def par_ou_impar(partidas):
         if continuar == 'N':
             break
         return partidas, resultado
+
+'''
+1. Corrigir inconsistências (prioridade máxima)
+
+Há alguns pontos que ainda estão usando a estrutura antiga.
+
+No perfil
+
+Você faz:
+
+ficha_do_jogador['vitoria']
+
+e
+
+ficha_do_jogador['partidas']
+
+Mas sua ficha agora possui:
+
+vitorias_totais
+partidas_totais
+
+Além disso, antes de calcular a taxa de vitória, trate o caso em que o jogador ainda não jogou nenhuma partida, para evitar divisão por zero.
+
+No Par ou Ímpar
+
+Seu jokenpo() devolve:
+
+'V'
+'D'
+'E'
+
+Já o par_ou_impar() devolve:
+
+'P'
+'I'
+
+Só que atualizar_aposta() entende apenas:
+
+'V'
+'D'
+'E'
+
+Então o próximo passo é fazer o Par ou Ímpar retornar exatamente o mesmo padrão.
+'''

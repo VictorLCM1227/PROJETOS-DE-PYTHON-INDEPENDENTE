@@ -99,4 +99,47 @@ def atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo):
         ficha_do_jogador['carteira']['saldo'] += aposta
         ficha_do_jogador['carteira']['extrato'].append((f'Empate {jogo}', aposta))
         ficha_do_jogador['estatisticas_jogos'][jogo]['empates'] += 1
-        
+
+'''
+2. Atualizar estatísticas específicas do jogo
+
+Hoje você atualiza apenas:
+
+partidas
+vitórias
+derrotas
+empates
+
+Mas cada jogo possui também:
+
+dinheiro_ganho
+dinheiro_perdido
+maior_aposta
+sequencia_atual
+melhor_sequencia
+
+Nenhum deles está sendo utilizado ainda.
+
+O próximo trabalho é completar o atualizar_aposta() para atualizar essas informações.
+'''
+
+'''
+3. Atualizar a maior aposta
+
+Você criou:
+
+Na carteira:
+
+maior_aposta_feita
+
+E em cada jogo:
+
+maior_aposta
+
+Toda vez que o jogador apostar, compare:
+
+aposta atual
+maior aposta registrada
+
+Se a atual for maior, substitua.
+'''
