@@ -82,11 +82,19 @@ def validar_aposta(saldo):
             print('A sua aposta só pode ser menor ou igual ao seu saldo.')
 
 def atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo):
+    if aposta > ficha_do_jogador['carteira']['maior_aposta_feita']:
+        ficha_do_jogador['carteira']['maior_aposta_feita'] = aposta
+    if aposta > ficha_do_jogador['estatisticas_jogos'][jogo]['maior_aposta']:
+            ficha_do_jogador['estatisticas_jogos'][jogo]['maior_aposta'] = aposta
     if resultado == 'V':
         ficha_do_jogador['vitorias_totais'] += 1
         ficha_do_jogador['carteira']['saldo'] += aposta * 2
         ficha_do_jogador['carteira']['extrato'].append((f'Vitória {jogo}', aposta * 2))
-        ficha_do_jogador['dinheiro_ganho_total'] += aposta * 2
+        ficha_do_jogador['dinheiro_ganho_total'] += aposta
+        ficha_do_jogador['estatisticas_jogos'][jogo]['dinheiro_ganho'] += aposta 
+        ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] += 1
+        if ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] > ficha_do_jogador['estatisticas_jogos'][jogo]['melhor_sequencia']:
+            ficha_do_jogador['estatisticas_jogos'][jogo]['melhor_sequencia'] = ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual']
 
         ficha_do_jogador['estatisticas_jogos'][jogo]['vitorias'] += 1
     elif resultado == 'D':
@@ -94,52 +102,11 @@ def atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo):
         ficha_do_jogador['dinheiro_perdido_total'] += aposta
         ficha_do_jogador['carteira']['extrato'].append((f'Derrota {jogo}', 0.00))
         ficha_do_jogador['estatisticas_jogos'][jogo]['derrotas'] += 1
+        ficha_do_jogador['estatisticas_jogos'][jogo]['dinheiro_perdido'] += aposta
+        ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] = 0
     elif resultado == 'E':
         ficha_do_jogador['empates_totais'] += 1
         ficha_do_jogador['carteira']['saldo'] += aposta
         ficha_do_jogador['carteira']['extrato'].append((f'Empate {jogo}', aposta))
         ficha_do_jogador['estatisticas_jogos'][jogo]['empates'] += 1
-
-'''
-2. Atualizar estatísticas específicas do jogo
-
-Hoje você atualiza apenas:
-
-partidas
-vitórias
-derrotas
-empates
-
-Mas cada jogo possui também:
-
-dinheiro_ganho
-dinheiro_perdido
-maior_aposta
-sequencia_atual
-melhor_sequencia
-
-Nenhum deles está sendo utilizado ainda.
-
-O próximo trabalho é completar o atualizar_aposta() para atualizar essas informações.
-'''
-
-'''
-3. Atualizar a maior aposta
-
-Você criou:
-
-Na carteira:
-
-maior_aposta_feita
-
-E em cada jogo:
-
-maior_aposta
-
-Toda vez que o jogador apostar, compare:
-
-aposta atual
-maior aposta registrada
-
-Se a atual for maior, substitua.
-'''
+        ficha_do_jogador['estatisticas_jogos'][jogo]['sequencia_atual'] = 0

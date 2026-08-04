@@ -1,13 +1,19 @@
 #jogador
 ficha_do_jogador = {
     'nome': input('Qual o seu nome? ').strip(),
+    'extrato': [],
     
-    'partidas_totais':  0,
-    'vitorias_totais': 0,
-    'derrotas_totais': 0,
-    'empates_totais': 0,
-    'dinheiro_ganho_total': 0,
-    'dinheiro_perdido_total':0,
+    'estatisticas_gerais': {
+        'partidas_totais':  0,
+        'vitorias_totais': 0,
+        'derrotas_totais': 0,
+        'empates_totais': 0,
+        'dinheiro_ganho_total': 0,
+        'dinheiro_perdido_total':0,
+        },
+    
+    
+    
     
     'conquistas': {
         'primeira_vitoria': False,
@@ -17,9 +23,10 @@ ficha_do_jogador = {
         'milionario': False
     },
     'carteira': {
-        'extrato': [],
+        
         'saldo': 10,
         'maior_aposta_feita' :0,
+        
     },
 
     
