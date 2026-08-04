@@ -1,4 +1,13 @@
 #menu principal
+
+'''
+Implementar jogo advinhe o número
+validar todos os menus
+revisar estatisticas
+testar todos os fluxos
+acho melhor tirar a opção de cntinuar jogando nessa v1 e voltar para o menu quando acabar a partida
+'''
+
 from perfil import mostrar_perfil, ver_estatisticas_dos_jogos, ver_conquistas
 from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
 from utilidades import leiaInt, linha, cabeçalho, menu
@@ -53,7 +62,7 @@ while True:
     elif escolha_principal == 2:
         cabeçalho('PERFIL')
         while True:
-            escolha_perfil = menu(lista=['VOLTAR', 'VER PERFIL GERAL', 'VER ESTATÍSTICAS DOS JOGOS,'
+            escolha_perfil = menu(lista=['VOLTAR', 'VER PERFIL GERAL', 'VER ESTATÍSTICAS DOS JOGOS',
             'VER CONQUISTAS'], menu_titulo='PERFIL')
             if escolha_perfil == 0:
                 cabeçalho('VOLTANDO')
