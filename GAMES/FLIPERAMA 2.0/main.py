@@ -1,5 +1,5 @@
 #menu principal
-from perfil import mostrar_perfil, ver_estatisticas_dos_jogos
+from perfil import mostrar_perfil, ver_estatisticas_dos_jogos, ver_conquistas
 from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
 from utilidades import leiaInt, linha, cabeçalho, menu
 from jogador import ficha_do_jogador
@@ -61,6 +61,10 @@ while True:
             elif escolha_perfil == 2:
                 cabeçalho('ESTATÍSTICAS DOS JOGOS')
                 ver_estatisticas_dos_jogos(ficha_do_jogador)
+                
+            elif escolha_perfil == 3:
+                cabeçalho('CONQUISTAS')
+                ver_conquistas(ficha_do_jogador)
         
 
     elif escolha_principal == 3:
