@@ -1,18 +1,10 @@
 #menu principal
 
-'''
-Implementar jogo advinhe o número
-validar todos os menus
-revisar estatisticas
-testar todos os fluxos
-acho melhor tirar a opção de cntinuar jogando nessa v1 e voltar para o menu quando acabar a partida
-'''
-
 from perfil import mostrar_perfil, ver_estatisticas_dos_jogos, ver_conquistas
 from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
-from utilidades import leiaInt, linha, cabeçalho, menu
+from utilidades import cabeçalho, menu
 from jogador import ficha_do_jogador
-from jogos import jokenpo, par_ou_impar
+from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida
 from conquistas import controla_conquistas
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
@@ -22,7 +14,7 @@ def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
         print('Por isso não foi possível apostar.')
     else:
         ficha_do_jogador['carteira']['saldo'] -= aposta
-        ficha_do_jogador['extrato'].append((f'Aposta {jogo_nome}', -aposta))
+        ficha_do_jogador['extrato'].append((f'Aposta {jogo_estatisticas}', -aposta))
         resultado = jogo()
         ficha_do_jogador['estatisticas_gerais']['partidas_totais'] += 1
         ficha_do_jogador['estatisticas_jogos'][jogo_estatisticas]['partidas'] += 1
@@ -43,7 +35,8 @@ while True:
     elif escolha_principal == 1:
         cabeçalho('JOGAR')
         while True:
-            escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO'], menu_titulo='JOGOS')
+            escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO',
+                                       'CORRIDA DE CAVALOS'], menu_titulo='JOGOS')
 
             if escolha_jogo == 0:
                 cabeçalho('VOLTANDO')
@@ -57,7 +50,10 @@ while True:
 
 
             elif escolha_jogo == 3:
-                cabeçalho('ADIVINHE O NÚMERO')
+                gerencia_partidas('ADIVINHE O NÚMERO', advinhe_o_numero.adivinhe_o_numero, 'adivinhe_o_numero')
+
+            elif escolha_jogo == 4:
+                gerencia_partidas('CORRIDA DE CAVALOS',corrida.corrida_de_cavalos,'corrida_de_cavalos')
 
     elif escolha_principal == 2:
         cabeçalho('PERFIL')

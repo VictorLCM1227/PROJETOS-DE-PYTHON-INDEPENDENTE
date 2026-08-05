@@ -1,7 +1,7 @@
 #jokenpo
 from time import sleep
 from random import randint
-from utilidades import leiaInt, continuar_verificacao
+from utilidades import leiaInt
 
 def jokenpo():
         itens = ['PEDRA', 'PAPEL', 'TESOURA']
@@ -27,14 +27,11 @@ def jokenpo():
             print(f'Jogada do computador: {itens[computador]}')
             if jogador_jogada == computador:
                 print('EMPATE')
-                resultado = 'E'
+                return 'E'
             elif (jogador_jogada == 0 and computador == 2) or (jogador_jogada == 1 and computador == 0) or (jogador_jogada == 2 and computador == 1):
                     print('VOCÊ GANHOU!')
-                    resultado = 'V'
+                    return 'V'
             else:
                 print('COMPUTADOR GANHOU!')
-                resultado = 'D'
-            print('=-=' * 20)
-            continuar = continuar_verificacao()
-            if continuar == 'N':
-                return resultado
+                return 'D'
+        

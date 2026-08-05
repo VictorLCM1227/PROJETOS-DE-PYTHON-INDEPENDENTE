@@ -1,7 +1,7 @@
 #par ou impar
 
 from time import sleep
-from utilidades import leiaInt, continuar_verificacao
+from utilidades import leiaInt
 from random import randint
 
 def par_ou_impar():
@@ -34,11 +34,7 @@ def par_ou_impar():
             resultado = 'I'
         if opcao == resultado:
             print('JOGADOR VENCEU')
-            resultado = 'V'
+            return 'V'
         else:
             print('COMPUTADOR VENCEU')
-            resultado = 'D'
-        print('-=-'*20)
-        continuar = continuar_verificacao()
-        if continuar == 'N':
-            return resultado
+            return 'D'

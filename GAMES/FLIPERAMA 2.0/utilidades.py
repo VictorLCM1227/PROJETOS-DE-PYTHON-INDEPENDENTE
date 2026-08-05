@@ -45,12 +45,16 @@ def menu(lista, menu_titulo='MENU PRINCIPAL'):
     opcao = leiaInt('\033[32mSua opção: \033[m')
     return opcao
 
-def continuar_verificacao():
-    while True:
-        try:
-            continuar = input('Quer continuar? [S/N] ').strip().upper()[0]
-        except IndexError:
-                print('ERRO! Por favor apenas S ou N.')
-        else:
-            if continuar in 'SN':
-                return continuar
+
+def menu_corrida(dicionario):
+    cabeçalho('MENU PRINCIPAL')
+    contador = 0
+    for chave in dicionario.keys():
+        print(f'\033[33m{contador}\033[m - \033[34m{chave}\033[m')
+        for atributo, valor in dicionario[chave].items():
+            print(f'{atributo} : {valor}')
+        print()
+        contador += 1
+    print(linha())
+    opcao = leiaInt('\033[32m>>>Em qual cavalo deseja apostar? \033[m')
+    return opcao
