@@ -29,6 +29,17 @@ ficha_do_jogador = {
         
     },
 
+    'inventario': {
+    'cores_de_fundo': [],
+    'cores_de_fonte': [],
+    'emojis': []
+    },
+
+    'equipado': {
+    'cor_de_fundo': None,
+    'cor_de_fonte': None,
+    'emoji': None
+    },
     
 
     'estatisticas_jogos': {

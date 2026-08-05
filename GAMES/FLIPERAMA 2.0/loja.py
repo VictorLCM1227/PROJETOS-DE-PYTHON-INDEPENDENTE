@@ -1,1 +1,207 @@
-#loja
+# loja
+
+
+def listar_produtos(produtos):
+    print('===== CONQUISTAS =====')
+    for cor, valor in produtos['conquistas'].items():
+        if valor:
+             print('[X]', end=' ')
+        else:
+            print('[ ]', end=' ')
+        print(f"{atributo.replace('_', ' ').title()}"
+
+
+
+cores_de_fundo = {
+    'Preto': {
+        'id': 'fundo_preto',
+        'codigo_ansi': '\033[1;40m',
+        'preco': 100
+    },
+
+    'Vermelho': {
+        'id': 'fundo_vermelho',
+        'codigo_ansi': '\033[1;41m',
+        'preco': 100
+    },
+
+    'Verde': {
+        'id': 'fundo_verde',
+        'codigo_ansi': '\033[1;42m',
+        'preco': 100
+    },
+
+    'Amarelo': {
+        'id': 'fundo_amarelo',
+        'codigo_ansi': '\033[1;43m',
+        'preco': 100
+    },
+
+    'Azul': {
+        'id': 'fundo_azul',
+        'codigo_ansi': '\033[1;44m',
+        'preco': 100
+    },
+
+    'Magenta': {
+        'id': 'fundo_magenta',
+        'codigo_ansi': '\033[1;45m',
+        'preco': 100
+    },
+
+    'Cyan': {
+        'id': 'fundo_cyan',
+        'codigo_ansi': '\033[1;46m',
+        'preco': 100
+    },
+
+    'Cinza Claro': {
+        'id': 'fundo_cinza_claro',
+        'codigo_ansi': '\033[1;47m',
+        'preco': 100
+    },
+
+    'Cinza Escuro': {
+        'id': 'fundo_cinza_escuro',
+        'codigo_ansi': '\033[1;100m',
+        'preco': 100
+    },
+
+    'Vermelho Claro': {
+        'id': 'fundo_vermelho_claro',
+        'codigo_ansi': '\033[1;101m',
+        'preco': 100
+    },
+
+    'Verde Claro': {
+        'id': 'fundo_verde_claro',
+        'codigo_ansi': '\033[1;102m',
+        'preco': 100
+    },
+
+    'Amarelo Claro': {
+        'id': 'fundo_amarelo_claro',
+        'codigo_ansi': '\033[1;103m',
+        'preco': 100
+    },
+
+    'Azul Claro': {
+        'id': 'fundo_azul_claro',
+        'codigo_ansi': '\033[1;104m',
+        'preco': 100
+    },
+
+    'Magenta Claro': {
+        'id': 'fundo_magenta_claro',
+        'codigo_ansi': '\033[1;105m',
+        'preco': 100
+    },
+
+    'Cyan Claro': {
+        'id': 'fundo_cyan_claro',
+        'codigo_ansi': '\033[1;106m',
+        'preco': 100
+    },
+
+    'Branco': {
+        'id': 'fundo_branco',
+        'codigo_ansi': '\033[1;107m',
+        'preco': 100
+    },
+}
+
+cores_de_fonte = {
+    'Preto': {
+        'id': 'fonte_preto',
+        'codigo_ansi': '\033[1;30m',
+        'preco': 100
+    },
+
+    'Vermelho': {
+        'id': 'fonte_vermelho',
+        'codigo_ansi': '\033[1;31m',
+        'preco': 100
+    },
+
+    'Verde': {
+        'id': 'fonte_verde',
+        'codigo_ansi': '\033[1;32m',
+        'preco': 100
+    },
+
+    'Amarelo': {
+        'id': 'fonte_amarelo',
+        'codigo_ansi': '\033[1;33m',
+        'preco': 100
+    },
+
+    'Azul': {
+        'id': 'fonte_azul',
+        'codigo_ansi': '\033[1;34m',
+        'preco': 100
+    },
+
+    'Magenta': {
+        'id': 'fonte_magenta',
+        'codigo_ansi': '\033[1;35m',
+        'preco': 100
+    },
+
+    'Cyan': {
+        'id': 'fonte_cyan',
+        'codigo_ansi': '\033[1;36m',
+        'preco': 100
+    },
+
+    'Cinza Claro': {
+        'id': 'fonte_cinza_claro',
+        'codigo_ansi': '\033[1;37m',
+        'preco': 100
+    },
+
+    'Cinza Escuro': {
+        'id': 'fonte_cinza_escuro',
+        'codigo_ansi': '\033[1;90m',
+        'preco': 100
+    },
+
+    'Vermelho Claro': {
+        'id': 'fonte_vermelho_claro',
+        'codigo_ansi': '\033[1;91m',
+        'preco': 100
+    },
+
+    'Verde Claro': {
+        'id': 'fonte_verde_claro',
+        'codigo_ansi': '\033[1;92m',
+        'preco': 100
+    },
+
+    'Amarelo Claro': {
+        'id': 'fonte_amarelo_claro',
+        'codigo_ansi': '\033[1;93m',
+        'preco': 100
+    },
+
+    'Azul Claro': {
+        'id': 'fonte_azul_claro',
+        'codigo_ansi': '\033[1;94m',
+        'preco': 100
+    },
+
+    'Magenta Claro': {
+        'id': 'fonte_magenta_claro',
+        'codigo_ansi': '\033[1;95m',
+        'preco': 100
+    },
+
+    'Cyan Claro': {
+        'id': 'fonte_cyan_claro',
+        'codigo_ansi': '\033[1;96m',
+        'preco': 100
+    },
+}
+
+reset = '\033[0;0m'
+jogador_fonte = '\033[1;97m'  # branco
+jogador_fundo = '\033[1;97m'  # branco

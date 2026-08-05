@@ -26,7 +26,7 @@ print('BEM VINDO!!!')
 
 
 while True:
-    escolha_principal = menu(lista=['SAIR', 'JOGAR', 'PERFIL', 'CARTEIRA'], menu_titulo='FLIPERAMA DO VICTOR')
+    escolha_principal = menu(lista=['SAIR', 'JOGAR', 'PERFIL', 'CARTEIRA', 'LOJA'], menu_titulo='FLIPERAMA DO VICTOR')
 
     if escolha_principal == 0:
         cabeçalho('SAINDO')
@@ -96,5 +96,36 @@ while True:
             elif escolha_carteira == 3:
                 cabeçalho('EXTRATO')
                 mostrar_extrato(ficha_do_jogador['extrato'], ficha_do_jogador['carteira']['saldo'])
+
+
+    elif escolha_principal == 4:
+        cabeçalho('LOJA')
+        while True:
+            escolha_loja = menu(lista=['VOLTAR','COR DE FUNDO', 'COR DE FONTE', 'EMOJI'], menu_titulo='LOJA')
+
+            if escolha_loja == 0:
+                cabeçalho('VOLTANDO')
+                break
+
+            elif escolha_loja == 1:
+                while True:
+                    cabeçalho('COR DE FUNDO')
+                    escolha_fundo = menu(lista=['VOLTAR','LISTAR CORES DE FUNDO', 'COMPRAR CORES DE FUNDO'], menu_titulo='COR DE FUNDO')
+                    if escolha_fundo == 0:
+                        break
+
+            elif escolha_loja == 2:
+                while True:
+                    cabeçalho('COR DE FONTE')
+                    escolha_fonte = menu(lista=['VOLTAR','LISTAR CORES DE FONTE', 'COMPRAR CORES DE FONTE'], menu_titulo='COR DE FONTE')
+                    if escolha_fonte == 0:
+                        break
+
+            elif escolha_loja == 3:
+                while True:
+                    cabeçalho('EMOJI')
+                    escolha_emoji = menu(lista=['VOLTAR','LISTAR EMOJIs', 'COMPRAR EMOJIs'], menu_titulo='EMOJI')
+                    if escolha_emoji == 0:
+                        break
 
 
