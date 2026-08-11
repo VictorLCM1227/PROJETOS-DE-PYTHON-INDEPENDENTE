@@ -6,9 +6,9 @@ from utilidades import leiaIntPositivo
 def jogo_de_dados():
     while True:
         lados = leiaIntPositivo('Quantos lados gostaria no dado? O minimo é um dado de 6 lados.  ')
-        if lados > 6:
+        if lados >= 6:
             break
-        print('Escolha um dado com peo menos 6 lados')
+        print('Escolha um dado com pelo menos 6 lados')
     print(f'Você escolheu um dado de {lados} lados.')
     dado = randint(1, lados)
     print('O dado foi jogado...')

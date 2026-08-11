@@ -1,4 +1,5 @@
 #blackjack
+from random import randint
 
 def blackjack_21():
     jogador_pontos = randint(1, 10)
@@ -30,10 +31,10 @@ def blackjack_21():
         else:
             if jogador_pontos > computador:
                 print(f'Você venceu com o total de {jogador_pontos} enquanto o computador conseguiu apenas {computador} pontos')
-                break
+                return 'V'
             elif jogador_pontos < computador:
                 print(f'Você perdeu porque o computador chegou mais próximo de 21 com {computador} enquanto você conseguiu apenas {jogador_pontos} pontos.')
-                break
+                return 'D'
             else:
                 print(f'EMPATE! Ambos com {jogador_pontos} pontos.')
-                break
+                return 'E'
