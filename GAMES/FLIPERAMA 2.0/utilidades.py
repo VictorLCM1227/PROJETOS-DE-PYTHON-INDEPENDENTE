@@ -26,6 +26,21 @@ def leiaInt(msg):
             return 0
         else:
             return numero
+        
+def leiaIntPositivo(msg):
+    while True:
+        try:
+            numero = int(input(msg))    
+        except ValueError:
+            print('\033[31mERRO: por favor, digite um número inteiro positivo válido.\033[m')
+            continue
+        except KeyboardInterrupt:
+            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
+            return 0
+        else:
+            if numero > 0:
+                return numero
+            print('\033[31mERRO: por favor, digite um número inteiro positivo válido e maior do que zero.\033[m')
 
 def linha(tam = 42):
     return '-' * tam 
