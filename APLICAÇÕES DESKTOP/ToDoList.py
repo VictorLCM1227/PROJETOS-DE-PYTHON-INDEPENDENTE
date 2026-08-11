@@ -8,7 +8,7 @@ def leiaInt(msg):
         try:
             numero = int(input(msg))
         except (ValueError, TypeError):
-            print('\033[31mERRO: por favor, digite um número interiro válido.\033[m')
+            print('\033[31mERRO: por favor, digite um número inteiro válido.\033[m')
             continue
         except KeyboardInterrupt:
             print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
@@ -34,7 +34,7 @@ def menu(lista):
     opcao = leiaInt('\033[32mSua opção: \033[m')
     return opcao
 
-def verifica_se_vazio(variavel, msg='Ainda não há tarefas.'):
+def existe_conteudo(variavel, msg='Ainda não há tarefas.'):
     if not variavel:
         print(msg)
     else:
@@ -47,17 +47,17 @@ def mostrar_tarefas(variavel):
 def adicionar_tarefa():
     cabeçalho('ADICIONAR TAREFA')
     tarefa = input('Digite a nova tarefa: ').strip()
-    if verifica_se_vazio(tarefa, msg='Não foi digitado uma tarefa válida.'):
+    if existe_conteudo(tarefa, msg='Não foi digitado uma tarefa válida.'):
         tarefas.append(tarefa)
 
 def listar_tarefas():
     cabeçalho('LISTAR TAREFAS')
-    if verifica_se_vazio(tarefas):
+    if existe_conteudo(tarefas):
         mostrar_tarefas(tarefas)
 
 def concluir_remover_tarefas(msg_cabecalho='REMOVER TAREFA', salvar_concluida=False, msg_acao='Digite o número da tarefa a ser removida '):
     cabeçalho(msg_cabecalho)
-    if verifica_se_vazio(tarefas):
+    if existe_conteudo(tarefas):
         mostrar_tarefas(tarefas)
         acao = leiaInt(msg_acao)
         try:
@@ -69,7 +69,7 @@ def concluir_remover_tarefas(msg_cabecalho='REMOVER TAREFA', salvar_concluida=Fa
 
 def listar_tarefas_concluidas():
     cabeçalho('LISTAR TAREFAS CONCLUÍDAS')
-    if verifica_se_vazio(tarefas_concluidas):
+    if existe_conteudo (tarefas_concluidas):
         mostrar_tarefas(tarefas_concluidas)
 while True:
     opcao = menu(['SAIR', 'ADICIONAR TAREFA', 'LISTAR TAREFAS', 'CONCLUIR TAREFAS', 'REMOVER TAREFA',
