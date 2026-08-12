@@ -6,6 +6,7 @@ from utilidades import cabeçalho, menu
 from jogador import ficha_do_jogador
 from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida, blackjack, dados
 from jogos.jogo_da_forca_pasta import jogo_da_forca_arquivo
+from jogos.jogo_da_velha_pasta import jogo_da_velha_arquivo
 from conquistas import controla_conquistas
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
@@ -37,7 +38,7 @@ while True:
         cabeçalho('JOGAR')
         while True:
             escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO',
-                                       'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS', 'JOGO DA FORCA'], menu_titulo='JOGOS')
+                                       'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS', 'JOGO DA FORCA', 'JOGO DA VELHA'], menu_titulo='JOGOS')
 
             if escolha_jogo == 0:
                 cabeçalho('VOLTANDO')
@@ -64,6 +65,9 @@ while True:
 
             elif escolha_jogo == 7:
                 gerencia_partidas('JOGO DA FORCA',jogo_da_forca_arquivo.jogo_da_forca_funcao,'jogo-da-forca')
+
+            elif escolha_jogo == 8:
+                gerencia_partidas('JOGO DA VELHA',jogo_da_velha_arquivo.jogo_da_velha_funcao,'jogo-da-velha')
 
     elif escolha_principal == 2:
         cabeçalho('PERFIL')

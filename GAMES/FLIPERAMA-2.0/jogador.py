@@ -63,6 +63,7 @@ ficha_do_jogador = {
     'blackjack': criar_estatisticas_jogo(),
     'corrida_de_cavalos': criar_estatisticas_jogo(),
     'dados': criar_estatisticas_jogo(),
-    'jogo-da-forca': criar_estatisticas_jogo()
+    'jogo-da-forca': criar_estatisticas_jogo(),
+    'jogo-da-velha': criar_estatisticas_jogo()
 }
 }
