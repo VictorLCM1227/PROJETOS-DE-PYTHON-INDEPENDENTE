@@ -29,7 +29,7 @@ def ver_conquistas(ficha_do_jogador):
     print('===== CONQUISTAS =====')
     for atributo, valor in ficha_do_jogador['conquistas'].items():
         if valor:
-             print('[X]', end=' ')
+            print('[X]', end=' ')
         else:
             print('[ ]', end=' ')
         print(f"{atributo.replace('_', ' ').title()}")
