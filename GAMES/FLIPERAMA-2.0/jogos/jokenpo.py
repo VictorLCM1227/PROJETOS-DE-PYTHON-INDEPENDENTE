@@ -15,7 +15,7 @@ def jokenpo():
             while True:
                 jogador_jogada = leiaInt('Sua jogada? ')
                 if 0 <= jogador_jogada <= 2:
-                     break
+                    break
                 print('Jogada inválida. Tente novamente!')
             computador = randint(0,2)
             print('JO')

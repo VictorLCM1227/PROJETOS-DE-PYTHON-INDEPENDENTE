@@ -5,7 +5,7 @@ def listar_produtos(produtos):
     print('===== CONQUISTAS =====')
     for cor, valor in produtos['conquistas'].items():
         if valor:
-             print('[X]', end=' ')
+            print('[X]', end=' ')
         else:
             print('[ ]', end=' ')
         print(f"{atributo.replace('_', ' ').title()}"
