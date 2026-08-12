@@ -71,18 +71,17 @@ def jogo_da_velha_funcao():
         linha()
         mostrar_tabuleiro()
         if verifica_vitoria():
-            print('O Jogador X venceu!')
-            break
+            print('Você venceu!')
+            return 'V'
         if verifica_empate():
             print('Houve um empate!')
-            break
+            return 'E'
         jogadaO()
         linha()
         mostrar_tabuleiro()
         if verifica_vitoria():
-            print('O jogador O venceu!')
-            break
+            print('Você perdeu!')
+            return 'D'
         if verifica_empate():
             print('Houve um empate!')
-            break
-    print('<< VOLTE SEMPRE >>')
+            return 'E'
