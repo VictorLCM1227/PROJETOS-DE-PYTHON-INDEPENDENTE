@@ -38,7 +38,7 @@ while True:
         cabeçalho('JOGAR')
         while True:
             escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO',
-                                       'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS', 'JOGO DA FORCA', 'JOGO DA VELHA'], menu_titulo='JOGOS')
+                                    'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS', 'JOGO DA FORCA', 'JOGO DA VELHA'], menu_titulo='JOGOS')
 
             if escolha_jogo == 0:
                 cabeçalho('VOLTANDO')
