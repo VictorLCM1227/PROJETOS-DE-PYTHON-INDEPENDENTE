@@ -4,7 +4,7 @@ from perfil import mostrar_perfil, ver_estatisticas_dos_jogos, ver_conquistas
 from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
 from utilidades import cabeçalho, menu
 from jogador import ficha_do_jogador
-from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida
+from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida, blackjack, dados
 from conquistas import controla_conquistas
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
@@ -36,7 +36,7 @@ while True:
         cabeçalho('JOGAR')
         while True:
             escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO',
-                                       'CORRIDA DE CAVALOS'], menu_titulo='JOGOS')
+                                       'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS'], menu_titulo='JOGOS')
 
             if escolha_jogo == 0:
                 cabeçalho('VOLTANDO')
@@ -54,6 +54,12 @@ while True:
 
             elif escolha_jogo == 4:
                 gerencia_partidas('CORRIDA DE CAVALOS',corrida.corrida_de_cavalos,'corrida_de_cavalos')
+
+            elif escolha_jogo == 5:
+                gerencia_partidas('BLACKJACK',blackjack.blackjack_21,'blackjack')
+
+            elif escolha_jogo == 6:
+                gerencia_partidas('DADOS',dados.jogo_de_dados,'jogo-de-dados')
 
     elif escolha_principal == 2:
         cabeçalho('PERFIL')
