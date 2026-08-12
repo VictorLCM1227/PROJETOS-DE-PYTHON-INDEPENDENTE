@@ -57,81 +57,11 @@ ficha_do_jogador = {
     
 
     'estatisticas_jogos': {
-        'jokenpo': {
-            'partidas': 0,
-            'vitorias': 0,
-            'derrotas': 0,
-            'empates': 0,
-            'sequencia_atual': 0,
-            'melhor_sequencia':0,
-            'dinheiro_ganho': 0,
-            'dinheiro_perdido':0,
-            'maior_aposta':0
-        }
-    ,
-    'par_ou_impar': {
-            'partidas': 0,
-            'vitorias': 0,
-            'derrotas': 0,
-            'empates': 0,
-            'sequencia_atual': 0,
-            'melhor_sequencia':0,
-            'dinheiro_ganho': 0,
-            'dinheiro_perdido':0,
-            'maior_aposta':0
-        }
-    ,
-    'adivinhe_o_numero': {
-            'partidas': 0,
-            'vitorias': 0,
-            'derrotas': 0,
-            'empates': 0,
-            'sequencia_atual': 0,
-            'melhor_sequencia':0,
-            'dinheiro_ganho': 0,
-            'dinheiro_perdido':0,
-            'maior_aposta':0
-        },
-    'blackjack': {
-            'partidas': 0,
-            'vitorias': 0,
-            'derrotas': 0,
-            'empates': 0,
-            'sequencia_atual': 0,
-            'melhor_sequencia':0,
-            'dinheiro_ganho': 0,
-            'dinheiro_perdido':0,
-            'maior_aposta':0
-        },
-    'corrida_de_cavalos': {
-            'partidas': 0,
-            'vitorias': 0,
-            'derrotas': 0,
-            'empates': 0,
-            'sequencia_atual': 0,
-            'melhor_sequencia':0,
-            'dinheiro_ganho': 0,
-            'dinheiro_perdido':0,
-            'maior_aposta':0
-            
-        },
-    'dados': {
-            'partidas': 0,
-            'vitorias': 0,
-            'derrotas': 0,
-            'empates': 0,
-            'sequencia_atual': 0,
-            'melhor_sequencia':0,
-            'dinheiro_ganho': 0,
-            'dinheiro_perdido':0,
-            'maior_aposta':0
-        },
-    
-
-
-
-
-
-
-    }
+    'jokenpo': criar_estatisticas_jogo(),
+    'par_ou_impar': criar_estatisticas_jogo(),
+    'adivinhe_o_numero': criar_estatisticas_jogo(),
+    'blackjack': criar_estatisticas_jogo(),
+    'corrida_de_cavalos': criar_estatisticas_jogo(),
+    'dados': criar_estatisticas_jogo()
+}
 }

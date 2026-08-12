@@ -11,17 +11,17 @@ def blackjack_21():
         if jogador_pontos == 21:
             print('Você fez 21 pontos e venceu!')
             print(f'Enquanto o computador fez {computador} pontos')
-            break
+            return 'V'
         if computador == 21:
             print('O computador fez 21 pontos e venceu!')
-            break
+            return 'D'
         if jogador_pontos > 21:
             print(f'Você perdeu com {jogador_pontos} pontos.')
             print(f'Enquanto o computador fez {computador} pontos')
-            break
+            return 'D'
         if computador > 21:
             print(f'Você venceu porque o computador passou de 21 com {computador} pontos.')
-            break
+            return 'V'
         escolha = input('Comprar ou parar? [C/P]').strip().upper()[0]
         while escolha not in 'CP':
             escolha = input('Opção inválida. Tente novamente! Comprar ou parar? [C/P]').strip().upper()[0]
