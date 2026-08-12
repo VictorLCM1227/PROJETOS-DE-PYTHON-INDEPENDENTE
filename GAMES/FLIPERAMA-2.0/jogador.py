@@ -1,4 +1,18 @@
 #jogador
+
+def criar_estatisticas_jogo():
+    return {
+        'partidas': 0,
+        'vitorias': 0,
+        'derrotas': 0,
+        'empates': 0,
+        'sequencia_atual': 0,
+        'melhor_sequencia': 0,
+        'dinheiro_ganho': 0,
+        'dinheiro_perdido': 0,
+        'maior_aposta': 0
+    }
+
 ficha_do_jogador = {
     'nome': input('Qual o seu nome? ').strip(),
     'extrato': [],

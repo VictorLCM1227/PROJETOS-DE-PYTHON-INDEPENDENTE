@@ -24,7 +24,6 @@ def corrida_de_cavalos():
     }
     nomes_cavalos = list(cavalos_dicionario.keys())
     linha_de_chegada = 35
-    contador = 0
 
     cabeçalho('CORRIDA DE CAVALOS')
     while True:
@@ -34,7 +33,7 @@ def corrida_de_cavalos():
         print('Opção inválida! Escolha um cavalo de 0 a 1: ')
     aposta_jogador_nome = nomes_cavalos[aposta_jogador]
 
-    while True:
+    while not corrida_terminou:
         for nome in nomes_cavalos:
             cavalos_dicionario[nome]['posicao'] += randint(1, cavalos_dicionario[nome]['velocidade'])
         #pista 35 casas
@@ -50,8 +49,6 @@ def corrida_de_cavalos():
             if cavalos_dicionario[cavalos]['posicao'] >= linha_de_chegada:
                 corrida_terminou = True
                 break
-        if corrida_terminou:
-            break
 
     if cavalos_dicionario['Caddlac']['posicao'] > cavalos_dicionario['Princesa']['posicao']:
         print(f'O CAVALO {nomes_cavalos[0]  } VENCEU A CORRIDA!')
@@ -66,6 +63,8 @@ def corrida_de_cavalos():
 
     if aposta_jogador_nome == vencedor:
         print('VOCÊ VENCEU A APOSTA!')
+        return 'V'
         
     else:
         print('VOCÊ PERDEU A APOSTA!')
+        return 'D'
