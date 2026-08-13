@@ -65,10 +65,11 @@ def jogo_da_velha_funcao():
 
     cabeçalho('JOGO DA VELHA')
     while True:
-        linha()
+        print(linha())
         mostrar_tabuleiro()
+        print(linha())
         jogadaX()
-        linha()
+        print(linha())
         mostrar_tabuleiro()
         if verifica_vitoria():
             print('Você venceu!')
@@ -76,8 +77,9 @@ def jogo_da_velha_funcao():
         if verifica_empate():
             print('Houve um empate!')
             return 'E'
+        print(linha())
         jogadaO()
-        linha()
+        print(linha())
         mostrar_tabuleiro()
         if verifica_vitoria():
             print('Você perdeu!')

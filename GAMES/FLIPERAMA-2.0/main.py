@@ -1,5 +1,6 @@
 #menu principal
 
+from time import sleep
 from perfil import mostrar_perfil, ver_estatisticas_dos_jogos, ver_conquistas
 from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
 from utilidades import cabeçalho, menu
@@ -29,6 +30,7 @@ print('BEM VINDO!!!')
 
 while True:
     escolha_principal = menu(lista=['SAIR', 'JOGAR', 'PERFIL', 'CARTEIRA', 'LOJA'], menu_titulo='FLIPERAMA DO VICTOR')
+    sleep(0.1)
 
     if escolha_principal == 0:
         cabeçalho('SAINDO')
@@ -39,6 +41,7 @@ while True:
         while True:
             escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO',
                                     'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS', 'JOGO DA FORCA', 'JOGO DA VELHA'], menu_titulo='JOGOS')
+            sleep(0.5)
 
             if escolha_jogo == 0:
                 cabeçalho('VOLTANDO')
@@ -68,6 +71,8 @@ while True:
 
             elif escolha_jogo == 8:
                 gerencia_partidas('JOGO DA VELHA',jogo_da_velha_arquivo.jogo_da_velha_funcao,'jogo-da-velha')
+
+            sleep(2)
 
     elif escolha_principal == 2:
         cabeçalho('PERFIL')
@@ -143,3 +148,4 @@ while True:
                         break
 
 
+    sleep(1)

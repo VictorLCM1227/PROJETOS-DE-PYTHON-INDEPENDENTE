@@ -23,5 +23,5 @@ def jogo_de_dados():
         print('VOCÊ GANHOU!')
         return 'V'
     else:
-        print('COMPUTADOR GANHOU!')
+        print('Você perdeu!')
         return 'D'
