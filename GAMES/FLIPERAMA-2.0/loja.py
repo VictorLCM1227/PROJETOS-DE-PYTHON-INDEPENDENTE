@@ -10,7 +10,7 @@ def listar_cores_de_fundo():
 
 def listar_cores_de_fonte():
     contador = 0
-    print('===== CORES DE FUNDO =====')
+    print('===== CORES DE FONTE =====')
     for cor, informacoes in cores_de_fonte.items():
         print(f'[{contador}] {cor} - R${informacoes["preco"]}')
         contador += 1
