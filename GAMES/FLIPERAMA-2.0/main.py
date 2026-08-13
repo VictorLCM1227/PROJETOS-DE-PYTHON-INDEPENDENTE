@@ -9,7 +9,7 @@ from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida, blackjack, d
 from jogos.jogo_da_forca_pasta import jogo_da_forca_arquivo
 from jogos.jogo_da_velha_pasta import jogo_da_velha_arquivo
 from conquistas import controla_conquistas
-from loja import listar_cores_de_fundo, listar_cores_de_fonte
+from loja import listar_cores_de_fundo, listar_cores_de_fonte, listar_emojis
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
     cabeçalho(jogo_nome)
@@ -156,5 +156,7 @@ while True:
                     if escolha_emoji == 0:
                         break
 
-
+                    if escolha_emoji ==  1:
+                        cabeçalho('LISTAR CORES DE FONTE')
+                        listar_emojis()
     sleep(1)

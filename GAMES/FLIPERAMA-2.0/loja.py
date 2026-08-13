@@ -16,7 +16,12 @@ def listar_cores_de_fonte():
         contador += 1
         
 
-
+def listar_emojis():
+    contador = 0
+    print('===== EMOJIS =====')
+    for emoji, informacoes in emojis.items():
+        print(f'[{contador}] {emoji} - R${informacoes["preco"]}')
+        contador += 1
 
 cores_de_fundo = {
     'Preto': {
@@ -208,6 +213,128 @@ cores_de_fonte = {
     },
 }
 
+
+emojis = {
+    'Coração': {
+        'id': 'emoji_coracao',
+        'emoji': '❤️',
+        'preco': 100
+    },
+
+    'Fogo': {
+        'id': 'emoji_fogo',
+        'emoji': '🔥',
+        'preco': 100
+    },
+
+    'Coroa': {
+        'id': 'emoji_coroa',
+        'emoji': '👑',
+        'preco': 100
+    },
+
+    'Estrela': {
+        'id': 'emoji_estrela',
+        'emoji': '⭐',
+        'preco': 100
+    },
+
+    'Diamante': {
+        'id': 'emoji_diamante',
+        'emoji': '💎',
+        'preco': 100
+    },
+
+    'Trofeu': {
+        'id': 'emoji_trofeu',
+        'emoji': '🏆',
+        'preco': 100
+    },
+
+    'Dinheiro': {
+        'id': 'emoji_dinheiro',
+        'emoji': '💰',
+        'preco': 100
+    },
+
+    'Raio': {
+        'id': 'emoji_raio',
+        'emoji': '⚡',
+        'preco': 100
+    },
+
+    'Cereja': {
+        'id': 'emoji_cereja',
+        'emoji': '🍒',
+        'preco': 100
+    },
+
+    'Cadeado': {
+        'id': 'emoji_cadeado',
+        'emoji': '🔒',
+        'preco': 100
+    },
+
+    'Foguete': {
+        'id': 'emoji_foguete',
+        'emoji': '🚀',
+        'preco': 100
+    },
+
+    'Caveira': {
+        'id': 'emoji_caveira',
+        'emoji': '💀',
+        'preco': 100
+    },
+
+    'Fantasma': {
+        'id': 'emoji_fantasma',
+        'emoji': '👻',
+        'preco': 100
+    },
+
+    'Robô': {
+        'id': 'emoji_robo',
+        'emoji': '🤖',
+        'preco': 100
+    },
+
+    'Alienígena': {
+        'id': 'emoji_alienigena',
+        'emoji': '👽',
+        'preco': 100
+    },
+
+    'Óculos': {
+        'id': 'emoji_oculos',
+        'emoji': '😎',
+        'preco': 100
+    },
+
+    'Raiva': {
+        'id': 'emoji_raiva',
+        'emoji': '😡',
+        'preco': 100
+    },
+
+    'Riso': {
+        'id': 'emoji_riso',
+        'emoji': '😂',
+        'preco': 100
+    },
+
+    'Palhaço': {
+        'id': 'emoji_palhaco',
+        'emoji': '🤡',
+        'preco': 100
+    },
+
+    'Cavalo': {
+        'id': 'emoji_cavalo',
+        'emoji': '🐎',
+        'preco': 100
+    },
+}
 
 
 reset = '\033[0;0m'
