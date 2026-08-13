@@ -149,6 +149,9 @@ while True:
                         cabeçalho('LISTAR CORES DE FONTE')
                         listar_cores_de_fonte()
 
+                    elif escolha_fonte == 2:
+                        cabeçalho('COMPRAR CORES DE FONTE')
+
             elif escolha_loja == 3:
                 while True:
                     cabeçalho('EMOJI')
