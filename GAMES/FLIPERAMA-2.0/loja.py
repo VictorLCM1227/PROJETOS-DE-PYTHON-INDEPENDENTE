@@ -1,5 +1,5 @@
 # loja
-
+from utilidades import leiaIntPositivo
 
 def listar_cores_de_fundo():
     contador = 0
@@ -22,6 +22,9 @@ def listar_emojis():
     for emoji, informacoes in emojis.items():
         print(f'[{contador}] {emoji} - R${informacoes["preco"]}')
         contador += 1
+
+def comprar_cor_de_fonte(ficha_do_jogador):
+    
 
 cores_de_fundo = {
     'Preto': {
