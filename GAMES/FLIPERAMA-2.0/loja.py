@@ -24,6 +24,10 @@ def listar_emojis():
         contador += 1
 
 def comprar_cor_de_fonte(ficha_do_jogador):
+    listar_cores_de_fonte()
+    cor = leiaIntPositivo('Qual cor deseja comprar? ')
+    cores = list(cores_de_fundo.keys())
+    cor_atual = cores[cor]
     
 
 cores_de_fundo = {
