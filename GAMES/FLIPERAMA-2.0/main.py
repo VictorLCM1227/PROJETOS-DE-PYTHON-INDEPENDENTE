@@ -133,6 +133,9 @@ while True:
                     if escolha_fundo == 0:
                         break
 
+                    if escolha_fundo == 1:
+                        cabeçalho('LISTAR CORES DE FUNDO')
+
             elif escolha_loja == 2:
                 while True:
                     cabeçalho('COR DE FONTE')
