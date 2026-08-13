@@ -9,6 +9,7 @@ from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida, blackjack, d
 from jogos.jogo_da_forca_pasta import jogo_da_forca_arquivo
 from jogos.jogo_da_velha_pasta import jogo_da_velha_arquivo
 from conquistas import controla_conquistas
+from loja import listar_cores_de_fundo, listar_cores_de_fonte
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
     cabeçalho(jogo_nome)
@@ -135,6 +136,7 @@ while True:
 
                     if escolha_fundo == 1:
                         cabeçalho('LISTAR CORES DE FUNDO')
+                        listar_cores_de_fundo()
 
             elif escolha_loja == 2:
                 while True:
@@ -142,6 +144,10 @@ while True:
                     escolha_fonte = menu(lista=['VOLTAR','LISTAR CORES DE FONTE', 'COMPRAR CORES DE FONTE'], menu_titulo='COR DE FONTE')
                     if escolha_fonte == 0:
                         break
+
+                    if escolha_fonte == 1:
+                        cabeçalho('LISTAR CORES DE FONTE')
+                        listar_cores_de_fonte()
 
             elif escolha_loja == 3:
                 while True:

@@ -2,6 +2,19 @@
 
 
 def listar_cores_de_fundo():
+    contador = 0
+    print('===== CORES DE FUNDO =====')
+    for cor, informacoes in cores_de_fundo.items():
+        print(f'[{contador}] {cor} - R${informacoes["preco"]}')
+        contador += 1
+
+def listar_cores_de_fonte():
+    contador = 0
+    print('===== CORES DE FUNDO =====')
+    for cor, informacoes in cores_de_fonte.items():
+        print(f'[{contador}] {cor} - R${informacoes["preco"]}')
+        contador += 1
+        
 
 
 
@@ -194,6 +207,8 @@ cores_de_fonte = {
         'preco': 100
     },
 }
+
+
 
 reset = '\033[0;0m'
 jogador_fonte = '\033[1;97m'  # branco
