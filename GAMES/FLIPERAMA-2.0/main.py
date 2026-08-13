@@ -9,7 +9,7 @@ from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida, blackjack, d
 from jogos.jogo_da_forca_pasta import jogo_da_forca_arquivo
 from jogos.jogo_da_velha_pasta import jogo_da_velha_arquivo
 from conquistas import controla_conquistas
-from loja import listar_cores_de_fundo, listar_cores_de_fonte, listar_emojis, comprar_cor_de_fonte
+from loja import listar_cores_de_fundo, listar_cores_de_fonte, listar_emojis, comprar_cor_de_fonte, comprar_cor_de_fundo, comprar_emoji
 
 def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
     cabeçalho(jogo_nome)
@@ -138,6 +138,10 @@ while True:
                         cabeçalho('LISTAR CORES DE FUNDO')
                         listar_cores_de_fundo()
 
+                    elif escolha_fundo == 2:
+                        cabeçalho('COMPRAR CORES DE FUNDO')
+                        comprar_cor_de_fundo(ficha_do_jogador)
+
             elif escolha_loja == 2:
                 while True:
                     cabeçalho('COR DE FONTE')
@@ -156,11 +160,15 @@ while True:
             elif escolha_loja == 3:
                 while True:
                     cabeçalho('EMOJI')
-                    escolha_emoji = menu(lista=['VOLTAR','LISTAR EMOJIs', 'COMPRAR EMOJIs'], menu_titulo='EMOJI')
+                    escolha_emoji = menu(lista=['VOLTAR','LISTAR EMOJIS', 'COMPRAR EMOJIS'], menu_titulo='EMOJI')
                     if escolha_emoji == 0:
                         break
 
                     if escolha_emoji ==  1:
                         cabeçalho('LISTAR CORES DE FONTE')
                         listar_emojis()
+
+                    elif escolha_emoji == 2:
+                        cabeçalho('COMPRAR EMOJIS')
+                        comprar_emoji()
     sleep(1)

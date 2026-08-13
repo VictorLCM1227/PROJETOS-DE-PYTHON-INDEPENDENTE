@@ -23,12 +23,57 @@ def listar_emojis():
         print(f'[{contador}] {emoji} - R${informacoes["preco"]}')
         contador += 1
 
+def comprar_cor_de_fundo(ficha_do_jogador):
+    listar_cores_de_fundo()
+    cores = list(cores_de_fundo.keys())
+    while True:
+        cor = leiaIntPositivo('Qual cor deseja comprar? ')
+        if cor <= len(cores) - 1:
+            break
+        print('Opção inválida.')
+    cor_atual = list(cores_de_fundo.values())[cor]
+    if cor_atual['id'] in ficha_do_jogador['inventario']['cores_de_fundo']:
+        print('Você já possui essa cor.')
+    else:
+        if ficha_do_jogador['carteira']['saldo'] < cor_atual['preco']:
+            print('Saldo insuficiente.')
+        else:
+            ficha_do_jogador['inventario']['cores_de_fundo'].append(cor_atual['id'])
+            ficha_do_jogador['carteira']['saldo'] -= cor_atual['preco']
+            ficha_do_jogador['extrato'].append((f'Compra cor de fundo: {cores[cor]}', -cor_atual['preco']))
+
+
+
 def comprar_cor_de_fonte(ficha_do_jogador):
     listar_cores_de_fonte()
-    cor = leiaIntPositivo('Qual cor deseja comprar? ')
-    cores = list(cores_de_fundo.keys())
-    cor_atual = cores[cor]
-    
+    cores = list(cores_de_fonte.keys())
+    while True:
+        cor = leiaIntPositivo('Qual cor deseja comprar? ')
+        if cor <= len(cores) - 1:
+            break
+        print('Opção inválida.')
+    cor_atual = list(cores_de_fonte.values())[cor]
+    if cor_atual['id'] in ficha_do_jogador['inventario']['cores_de_fonte']:
+        print('Você já possui essa cor.')
+    else:
+        if ficha_do_jogador['carteira']['saldo'] < cor_atual['preco']:
+            print('Saldo insuficiente.')
+        else:
+            ficha_do_jogador['inventario']['cores_de_fonte'].append(cor_atual['id'])
+            ficha_do_jogador['carteira']['saldo'] -= cor_atual['preco']
+            ficha_do_jogador['extrato'].append((f'Compra cor de fonte: {cores[cor]}', -cor_atual['preco']))
+
+def comprar_emoji(ficha_do_jogador):
+    listar_emojis()
+    emojis_numeros = list(emojis.keys())
+    while True:
+        emoji = leiaIntPositivo('Qual emoji deseja comprar?')
+        if emoji <= len(emojis_numeros) - 1:
+            break
+        print('Opção inválida.')
+        emoji_atual = list(emojis.values())[emoji]
+        if emoji_atual['id'] in ficha_do_jogador['inventario']['emojis']:
+            
 
 cores_de_fundo = {
     'Preto': {
