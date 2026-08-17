@@ -10,7 +10,7 @@ def leiaFloatPositivo(msg):
             print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
             return 0
         else:
-            if numero > 0:
+            if numero >= 0:
                 return numero
             print('\033[31mERRO: por favor, digite um número real válido e maior do que zero.\033[m')
 

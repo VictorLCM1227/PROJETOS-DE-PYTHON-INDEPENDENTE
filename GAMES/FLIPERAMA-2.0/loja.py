@@ -80,7 +80,7 @@ def comprar_emoji(ficha_do_jogador):
         else:
             ficha_do_jogador['inventario']['emojis'].append(emoji_atual['id'])
             ficha_do_jogador['carteira']['saldo'] -= emoji_atual['preco']
-            ficha_do_jogador['extrato'].append((f'Compra cor de fonte: {emoji[emoji]}', - emoji_atual['preco']))
+            ficha_do_jogador['extrato'].append((f'Compra do emoji: {emojis[emoji]}', - emoji_atual['preco']))
 
 cores_de_fundo = {
     'Preto': {
