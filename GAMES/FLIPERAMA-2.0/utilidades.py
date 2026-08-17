@@ -12,7 +12,7 @@ def leiaFloatPositivo(msg):
         else:
             if numero >= 0:
                 return numero
-            print('\033[31mERRO: por favor, digite um número real válido e maior do que zero.\033[m')
+            print('\033[31mERRO: por favor, digite um número real válido e maior ou igual a zero.\033[m')
 
 def leiaInt(msg):
     while True:
