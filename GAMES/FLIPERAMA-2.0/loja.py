@@ -71,9 +71,16 @@ def comprar_emoji(ficha_do_jogador):
         if emoji <= len(emojis_numeros) - 1:
             break
         print('Opção inválida.')
-        emoji_atual = list(emojis.values())[emoji]
-        if emoji_atual['id'] in ficha_do_jogador['inventario']['emojis']:
-            
+    emoji_atual = list(emojis.values())[emoji]
+    if emoji_atual['id'] in ficha_do_jogador['inventario']['emojis']:
+        print('Você já possui esse emoji.')
+    else:
+        if ficha_do_jogador['carteira']['saldo'] < emoji_atual['preco']:
+                print('Saldo insuficiente.')
+        else:
+            ficha_do_jogador['inventario']['emojis'].append(emoji_atual['id'])
+            ficha_do_jogador['carteira']['saldo'] -= emoji_atual['preco']
+            ficha_do_jogador['extrato'].append((f'Compra cor de fonte: {emoji[emoji]}', - emoji_atual['preco']))
 
 cores_de_fundo = {
     'Preto': {

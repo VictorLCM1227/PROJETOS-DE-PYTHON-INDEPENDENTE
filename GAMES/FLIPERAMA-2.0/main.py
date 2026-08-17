@@ -170,5 +170,5 @@ while True:
 
                     elif escolha_emoji == 2:
                         cabeçalho('COMPRAR EMOJIS')
-                        comprar_emoji()
+                        comprar_emoji(ficha_do_jogador)
     sleep(1)
