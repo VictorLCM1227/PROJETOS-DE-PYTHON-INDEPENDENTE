@@ -5,6 +5,31 @@ import FUNCOES
 
 
 FUNCOES.cabeçalho('CHAT BOT SIMPLES')
+
+from time import sleep
+
+import FUNCOES
+
+
+FUNCOES.cabeçalho('CHAT BOT SIMPLES')
+
+print('\033[32mCHAT: Bem-vindo(a)! Prazer em te conhecer!\033[m')
+
+while True:
+
+    resposta_menu = FUNCOES.menu(['Sair', 'Conversar'])
+
+    if resposta_menu == 0:
+        FUNCOES.cabeçalho('Saindo do Sistema... Até logo!')
+        break
+
+    elif resposta_menu == 1:
+        FUNCOES.conversar()
+
+    else:
+        FUNCOES.cabeçalho('\033[31mERRO! Digite uma opção válida!\033[m')
+
+    sleep(1)
 print(f'\033[32mCHAT: Bem Vindo(a)! Prazer em te conhecer!\033[m')
 
 while True:

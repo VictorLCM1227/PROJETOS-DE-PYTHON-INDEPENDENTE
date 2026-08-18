@@ -1,72 +1,133 @@
+# ==============================
+# FUNÇÕES DE ENTRADA
+# ==============================
+
 def leiaInt(msg):
     while True:
         try:
             numero = int(input(msg))
-        except (ValueError, TypeError):
-            print('\033[31mERRO: por favor, digite um número interiro válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
             return numero
 
+        except ValueError:
+            print('\033[31mERRO: digite um número inteiro válido.\033[m')
 
-def linha(tam = 42):
-    return '-' * tam 
+        except KeyboardInterrupt:
+            print('\n\033[31mOperação cancelada pelo usuário.\033[m')
+            return 0
 
-def cabeçalho(txt):
+
+# ==============================
+# FUNÇÕES DE INTERFACE
+# ==============================
+
+def linha(tam=50):
+    return '-' * tam
+
+
+def cabecalho(txt):
+    print()
     print(linha())
-    print(txt.center(42))
+    print(txt.center(50))
     print(linha())
+
 
 def menu(lista):
-    cabeçalho('MENU PRINCIPAL')
-    contador = 0
-    for item in lista:
-        print(f'\033[33m[{contador}]\033[m - \033[34m{item}\033[m')
-        contador += 1
+    cabecalho('MENU PRINCIPAL')
+
+    for indice, item in enumerate(lista):
+        print(f'\033[33m[{indice}]\033[m - \033[34m{item}\033[m')
+
     print(linha())
-    opcao = leiaInt('\033[32mSua opção: \033[m')
-    return opcao
 
-def criptografar(msg_texto, msg_chave):
-    texto = input(msg_texto)
-    chave = leiaInt(msg_chave)
+    return leiaInt('\033[32mSua opção: \033[m')
+
+
+# ==============================
+# CRIPTOGRAFIA
+# ==============================
+
+def criptografar(texto, chave):
     texto_numeros = []
-    texto_senha = []
+
     for letra in texto:
-        texto_numeros.append(ord(letra) + chave)
-    for numero in texto_numeros:
-        texto_senha.append(chr(numero))
-    criptografado = "".join(texto_senha)
-    return criptografado
+        numero = ord(letra) + chave
+        texto_numeros.append(numero)
 
-def descriptografar(msg_texto, msg_chave):
-    criptografado =input(msg_texto)
-    chave = leiaInt(msg_chave)
+    texto_criptografado = []
+
+    for numero in texto_numeros:
+        texto_criptografado.append(chr(numero))
+
+    return ''.join(texto_criptografado)
+
+
+def descriptografar(texto, chave):
     texto_numeros = []
-    texto_senha = []
-    for letra in criptografado:
-        texto_numeros.append(ord(letra) - chave)
+
+    for letra in texto:
+        numero = ord(letra) - chave
+        texto_numeros.append(numero)
+
+    texto_descriptografado = []
+
     for numero in texto_numeros:
-        texto_senha.append(chr(numero))
-    descriptografado = "".join(texto_senha)
-    return descriptografado
+        texto_descriptografado.append(chr(numero))
+
+    return ''.join(texto_descriptografado)
 
 
+# ==============================
+# PROGRAMA PRINCIPAL
+# ==============================
+
+opcoes = [
+    'Sair',
+    'Criptografar',
+    'Descriptografar'
+]
 
 
 while True:
-    resposta_menu = menu(['Sair', 'Criptografar', 'Descriptografar'])
-    if resposta_menu == 0:
-        cabeçalho('Saindo do Sistema... Até logo!')
+
+    opcao = menu(opcoes)
+
+    if opcao == 0:
+        cabecalho('SAINDO DO SISTEMA...')
+        print('Até logo!')
         break
-    elif resposta_menu == 1:
-        cabeçalho('Criptografar')
-        criptografado = criptografar(msg_texto='Digite a mensagem a ser criptografada: ', msg_chave='Chave da criptografia: ')
-        print(criptografado)
-    elif resposta_menu == 2:
-        cabeçalho('Descriptografar')
-        descriptografado = descriptografar(msg_texto='Digite a mensagem a ser descriptografada: ', msg_chave='Chave da criptografia: ')
-        print(descriptografado)
+
+    elif opcao == 1:
+        cabecalho('CRIPTOGRAFAR')
+
+        texto = input(
+            'Digite a mensagem a ser criptografada: '
+        )
+
+        chave = leiaInt(
+            'Digite a chave da criptografia: '
+        )
+
+        resultado = criptografar(texto, chave)
+
+        print(f'\nMensagem criptografada:')
+        print(f'\033[32m{resultado}\033[m')
+
+    elif opcao == 2:
+        cabecalho('DESCRIPTOGRAFAR')
+
+        texto = input(
+            'Digite a mensagem a ser descriptografada: '
+        )
+
+        chave = leiaInt(
+            'Digite a chave da criptografia: '
+        )
+
+        resultado = descriptografar(texto, chave)
+
+        print(f'\nMensagem descriptografada:')
+        print(f'\033[32m{resultado}\033[m')
+
+    else:
+        cabecalho('ERRO')
+        print('\033[31mDigite uma opção válida!\033[m')

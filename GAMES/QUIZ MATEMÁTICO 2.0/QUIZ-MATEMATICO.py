@@ -1,73 +1,102 @@
+acertos = 0
+erros = 0
+total_perguntas = 0
+
+
+def leiaInt(msg):
+    while True:
+        try:
+            numero = int(input(msg))
+        except ValueError:
+            print('ERRO! Digite um número inteiro válido.')
+        except KeyboardInterrupt:
+            print('\nUsuário preferiu não informar um número.')
+            return 0
+        else:
+            return numero
 
 
 def menu():
-    print('''MENU:
-[0] SAIR
-[1] JOGAR''')
-    
-
-def jogar(dificuldade):
-    global total_perguntas
-    print('Vamos jogar!')
-    for pergunta_resposta in perguntas[dificuldade]:
-        resposta_jogador = leiaInt(f'Responda: {pergunta_resposta[0]} ')
-        if resposta_jogador == pergunta_resposta[1]:
-            soma_acertos()
-        else:
-            soma_erros()
-        total_perguntas += 1
-
-def resultado():
-    aproveitamento = acertos / total_perguntas * 100
     print('=' * 30)
-    print('Resultado da partida')
-    print(f'Acertos: {acertos}')
-    print(f'Erros: {erros}')
-    print(f'Total de perguntas: {total_perguntas}')
-    print(f'Aproveitamento {aproveitamento:.2f}%')
+    print('MENU')
+    print('[0] SAIR')
+    print('[1] JOGAR')
     print('=' * 30)
-
-
-def soma_acertos():
-    print('PARABÉNS! Você acertou a pergunta!')
-    global acertos
-    acertos += 1
-
-
-def soma_erros():
-    print('Você errou a pergunta.')
-    global erros
-    erros += 1
 
 
 def menu_dificuldade():
-    print('''Escolha a dificuldade:
-[1] FÁCIL (soma e subtração)
-[2] MÉDIO (multiplicação e divisão)
-[3] DIFÍCIL (expressões, potência e raiz quadrada)''')
+    print('=' * 30)
+    print('ESCOLHA A DIFICULDADE')
+    print('[1] FÁCIL')
+    print('[2] MÉDIO')
+    print('[3] DIFÍCIL')
+    print('=' * 30)
 
 
 def escolhe_dificuldade(dificuldade):
     if dificuldade == 1:
-        dificuldade_escolhida = 'fácil'
+        return 'fácil'
     elif dificuldade == 2:
-        dificuldade_escolhida = 'médio'
+        return 'médio'
     elif dificuldade == 3:
-        dificuldade_escolhida = 'difícil'
-    return dificuldade_escolhida
+        return 'difícil'
 
-def leiaInt(n):
-    while True:
-        teste = input(n)
-        if teste.isdigit():
-            teste = int(teste)
-            return teste
+
+def soma_acertos():
+    global acertos
+
+    acertos += 1
+    print('PARABÉNS! Você acertou a pergunta!')
+
+
+def soma_erros():
+    global erros
+
+    erros += 1
+    print('Você errou a pergunta.')
+
+
+def jogar(dificuldade):
+    global total_perguntas
+
+    print('\nVamos jogar!')
+    print('-' * 30)
+
+    for pergunta_resposta in perguntas[dificuldade]:
+
+        pergunta = pergunta_resposta[0]
+        resposta_correta = pergunta_resposta[1]
+
+        resposta_jogador = leiaInt(f'Responda: {pergunta} ')
+
+        if resposta_jogador == resposta_correta:
+            soma_acertos()
         else:
-            print('ERRO! Digite um número válido.')
+            soma_erros()
+            print(f'A resposta correta era {resposta_correta}.')
+
+        total_perguntas += 1
+        print('-' * 30)
+
+
+def resultado():
+    print('=' * 30)
+    print('RESULTADO DA PARTIDA')
+    print(f'Acertos: {acertos}')
+    print(f'Erros: {erros}')
+    print(f'Total de perguntas: {total_perguntas}')
+
+    if total_perguntas > 0:
+        aproveitamento = acertos / total_perguntas * 100
+        print(f'Aproveitamento: {aproveitamento:.2f}%')
+
+    print('=' * 30)
 
 
 perguntas = {
+
     'fácil': [
+
         # Soma
         ('2 + 3', 5),
         ('8 + 7', 15),
@@ -95,6 +124,7 @@ perguntas = {
     ],
 
     'médio': [
+
         # Multiplicação
         ('6 × 7', 42),
         ('8 × 9', 72),
@@ -122,6 +152,7 @@ perguntas = {
     ],
 
     'difícil': [
+
         # Expressões
         ('(8 + 4) × 3', 36),
         ('(15 - 7) × (6 + 2)', 64),
@@ -152,27 +183,43 @@ perguntas = {
     ]
 }
 
+
 while True:
+
     menu()
+
     while True:
-        escolha = int(input('>>>Escolha: '))
-        if escolha == 0 or escolha == 1:
+        escolha = leiaInt('>>> Escolha: ')
+
+        if escolha in (0, 1):
             break
+
         print('Opção inválida.')
 
     if escolha == 0:
         print('Saindo...')
         break
 
-    elif escolha == 1:
-        menu_dificuldade()
-        while True:
-            dificuldade = int(input('>>> Qual dificuldade gostaria de jogar? '))
-            if 0 < dificuldade <= 3:
-                break
-            print('Opção inválida.')
-        print('-' * 30)
-        dificuldade_escolhida = escolhe_dificuldade(dificuldade)
-        jogar(dificuldade_escolhida)
-        resultado()
-        acertos = erros = total_perguntas = 0
+    menu_dificuldade()
+
+    while True:
+        dificuldade = leiaInt(
+            '>>> Qual dificuldade gostaria de jogar? '
+        )
+
+        if dificuldade in (1, 2, 3):
+            break
+
+        print('Opção inválida.')
+
+    dificuldade_escolhida = escolhe_dificuldade(dificuldade)
+
+    print('-' * 30)
+
+    jogar(dificuldade_escolhida)
+
+    resultado()
+
+    acertos = 0
+    erros = 0
+    total_perguntas = 0

@@ -1,148 +1,120 @@
 from time import sleep
 
-pontos = 0
 
-def leiaInt(msg):
-    while True:
-        try:
-            numero = int(input(msg))
-        except ValueError:
-            print('\033[31mERRO: por favor, digite um número interiro válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
-            return numero
+# ==============================
+# INTERFACE
+# ==============================
 
-def leiaFloat(msg):
-    while True:
-        try:
-            numero = float(input(msg))
-        except ValueError:
-            print('\033[31mERRO: por favor, digite um número real válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
-            return numero
+def linha(simbolo='-', tam=50):
+    return simbolo * tam
 
-def leiaFloatPositivo(msg):
-    while True:
-        try:
-            numero = float(input(msg))    
-        except ValueError:
-            print('\033[31mERRO: por favor, digite um número real válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
-            if numero > 0:
-                return numero
-            print('\033[31mERRO: por favor, digite um número real válido e maior do que zero.\033[m')
-
-def linha(simbolo='-', tam=42):
-    return simbolo * tam 
 
 def cabecalho(txt, simbolo='-'):
     print(linha(simbolo))
-    print(txt.center(42))
+    print(txt.center(50))
     print(linha(simbolo))
 
-def menu(lista, menu_msg='MENU PRINCIPAL'):
-    cabecalho(menu_msg)
-    contador = 0
-    for item in lista:
-        print(f'\033[33m[{contador}]\033[m - \033[34m{item}\033[m')
-        contador += 1
-    print(linha())
-    opcao = leiaInt('\033[32mSua opção: \033[m')
-    return opcao
 
-def verificar_tamanho():
-    global senha, pontos
-    tamanho = len(senha)
-    print(f'Possui 8 ou mais caracteres: ', end='')
-    if tamanho >= 8:
-        pontos += 1
+# ==============================
+# VERIFICAÇÕES
+# ==============================
+
+def verificar_tamanho(senha):
+    print('Possui 8 ou mais caracteres: ', end='')
+
+    if len(senha) >= 8:
         print('SIM')
-    else:
-        print('NÃO')
+        return 1
+
+    print('NÃO')
+    return 0
 
 
-def verificar_maiuscula():
-    nao = True
-    global senha, pontos
-    print(f'Possui letras maiúsculas: ', end='')
+def verificar_maiuscula(senha):
+    print('Possui letras maiúsculas: ', end='')
+
     for letra in senha:
         if letra.isupper():
             print('SIM')
-            nao = False
-            pontos += 1
-            break
-    if nao:
-        print('NÃO')
-            
+            return 1
 
-def verificar_minuscula():
-    nao = True
-    global senha, pontos
-    print(f'Possui letras minúsculas: ', end='')
+    print('NÃO')
+    return 0
+
+
+def verificar_minuscula(senha):
+    print('Possui letras minúsculas: ', end='')
+
     for letra in senha:
         if letra.islower():
             print('SIM')
-            nao = False
-            pontos += 1
-            break
-    if nao:
-        print('NÃO')
-            
-def verificar_numero():
-    nao = True
-    global senha, pontos
-    print(f'Possui números: ', end='')
+            return 1
+
+    print('NÃO')
+    return 0
+
+
+def verificar_numero(senha):
+    print('Possui números: ', end='')
+
     for letra in senha:
         if letra.isnumeric():
             print('SIM')
-            nao = False
-            pontos += 1
-            break
-    if nao:
-        print('NÃO')
+            return 1
 
-def verificar_especial():
-    nao = True
-    global senha, pontos
-    print(f'Possui caracteres especiais: ', end='')
+    print('NÃO')
+    return 0
+
+
+def verificar_especial(senha):
+    print('Possui caracteres especiais: ', end='')
+
     for letra in senha:
         if not letra.isalnum():
             print('SIM')
-            nao = False
-            pontos += 1
-            break
-    if nao:
-        print('NÃO')
+            return 1
 
-def calcular_forca():
-    global senha, pontos
+    print('NÃO')
+    return 0
+
+
+# ==============================
+# CÁLCULO DA FORÇA
+# ==============================
+
+def calcular_forca(pontos):
     if pontos == 5:
-        senha_nivel = 'FORTE'
+        nivel = 'FORTE'
+
     elif pontos >= 3:
-        senha_nivel = 'MÉDIA'
-    elif pontos < 3:
-        senha_nivel = 'FRACA'
-    print(f'Senha {senha_nivel}')
+        nivel = 'MÉDIA'
+
+    else:
+        nivel = 'FRACA'
+
+    print(f'\nSenha {nivel}')
+
+
+# ==============================
+# PROGRAMA PRINCIPAL
+# ==============================
 
 cabecalho('VERIFICADOR DE SENHA', simbolo='=')
+
 senha = input('Digite sua senha: ')
-print('Analisando...')
+
+print('\nAnalisando...')
 sleep(0.5)
 
-verificar_tamanho()
-verificar_maiuscula()
-verificar_minuscula()
-verificar_numero()
-verificar_especial()
-calcular_forca()
+pontos = 0
+
+pontos += verificar_tamanho(senha)
+pontos += verificar_maiuscula(senha)
+pontos += verificar_minuscula(senha)
+pontos += verificar_numero(senha)
+pontos += verificar_especial(senha)
+
+print()
+print(f'Pontuação: {pontos}/5')
+
+calcular_forca(pontos)

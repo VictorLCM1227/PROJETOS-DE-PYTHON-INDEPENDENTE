@@ -1,82 +1,153 @@
 from random import randint
 from random import sample
 
-print('=' * 50)
-print(f'{" BEM-VINDO(A) AO GERADOR DE SENHAS DO VICTOR! ":^50}')
-print('=' * 50)
 
-limite = tamanho_da_senha = int(input('Tamanho da senha: '))
-se_algo = {}
-quantidade_algo = {}
+# ==============================
+# CONFIGURAÇÃO
+# ==============================
 
-def se(algo):
-    global limite
-    while True:
-        se_algo[algo] = input(f'Terá {algo}? [S/N] ').strip().upper()[0]
-        if se_algo[algo] in 'SN':
-            break
-        print('Opção inválida.')
-    if se_algo[algo] == 'S':
-        while True:
-            quantidade_algo[algo] = int(input(f'Quanto(a)s {algo}? '))
-            if quantidade_algo[algo] <= limite:
-                limite = limite - quantidade_algo[algo]
-                break
-            print(f'A quantidade de {algo} é superior a quantidade de caracteres disponíveis para a senha.')
-    else:
-        quantidade_algo[algo] = 0
+caracteres = {
+    'letras_maiusculas': [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G',
+        'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S',
+        'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ],
 
-        
-def gera_senha(algo):
-    global senha
-    for valor in range(quantidade_algo[algo]):
-        senha += caracteres[algo][randint(0, len(caracteres[algo]) - 1)]
+    'letras_minusculas': [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'
+    ],
 
+    'caracteres_especiais': [
+        '!', '@', '#', '$', '%',
+        '&', '*', '-', '_',
+        '+', '=', '?'
+    ],
 
-caracteres = {'letras_maiusculas': [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G',
-    'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S',
-    'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-
-'letras_minusculas': [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g',
-    'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z'],
-
-'caracteres_especiais' : [
-    '!', '@', '#', '$', '%',
-    '&', '*', '-', '_',
-    '+', '=', '?'],
-
-'numeros' : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+    'numeros': [
+        '1', '2', '3', '4', '5',
+        '6', '7', '8', '9', '0'
+    ]
 }
 
-se('numeros')
-se('letras_maiusculas')
-se('letras_minusculas')
-se('caracteres_especiais')
 
-senha = ''
+quantidade_algo = {}
 
-for chave in caracteres:
-    gera_senha(chave)
 
-caracteres['caracteres_aleatórios_restantes'] = caracteres['numeros'] + caracteres['letras_maiusculas'] + caracteres['letras_minusculas'] + caracteres['caracteres_especiais']
+# ==============================
+# INTERFACE
+# ==============================
+
+def cabecalho():
+    print('=' * 50)
+    print(f'{" BEM-VINDO(A) AO GERADOR DE SENHAS DO VICTOR! ":^50}')
+    print('=' * 50)
+
+
+# ==============================
+# CONFIGURAÇÃO DA SENHA
+# ==============================
+
+def escolher_quantidade(algo, limite):
+    while True:
+        try:
+            quantidade = int(
+                input(f'Quanto(a)s {algo}? ')
+            )
+
+            if quantidade < 0:
+                print('A quantidade não pode ser negativa.')
+                continue
+
+            if quantidade <= limite:
+                quantidade_algo[algo] = quantidade
+                return limite - quantidade
+
+            print(
+                f'A quantidade de {algo} é superior '
+                f'à quantidade de caracteres disponíveis.'
+            )
+
+        except ValueError:
+            print('Digite um número inteiro válido.')
+
+
+def escolher_caracteres(algo, limite):
+    while True:
+        resposta = input(
+            f'Terá {algo}? [S/N] '
+        ).strip().upper()
+
+        if not resposta:
+            print('Digite S ou N.')
+            continue
+
+        if resposta[0] not in 'SN':
+            print('Opção inválida.')
+            continue
+
+        if resposta[0] == 'S':
+            return escolher_quantidade(algo, limite)
+
+        quantidade_algo[algo] = 0
+        return limite
+
+
+# ==============================
+# GERAÇÃO
+# ==============================
+
+def gera_senha(algo, senha):
+    for valor in range(quantidade_algo[algo]):
+        indice = randint(
+            0,
+            len(caracteres[algo]) - 1
+        )
+
+        senha += caracteres[algo][indice]
+
+    return senha
+
+
+def embaralhar_senha(senha):
+    return ''.join(sample(senha, len(senha)))
+
+
+# ==============================
+# PROGRAMA PRINCIPAL
+# ==============================
+
+cabecalho()
+
+tamanho_da_senha = int(
+    input('Tamanho da senha: ')
+)
+
+limite = tamanho_da_senha
+
+for tipo in caracteres:
+    limite = escolher_caracteres(tipo, limite)
+
+# Caracteres que podem preencher
+# o restante da senha
+caracteres['caracteres_aleatórios_restantes'] = (
+    caracteres['numeros']
+    + caracteres['letras_maiusculas']
+    + caracteres['letras_minusculas']
+    + caracteres['caracteres_especiais']
+)
 
 quantidade_algo['caracteres_aleatórios_restantes'] = limite
 
-if limite > 0:
-    gera_senha('caracteres_aleatórios_restantes')
+senha = ''
 
+for tipo in caracteres:
+    senha = gera_senha(tipo, senha)
 
-#Embaralhar senha
+senha = embaralhar_senha(senha)
 
-'''Embaralha os caracteres e junta tudo em uma nova string
-A função random.sample() seleciona todos os caracteres da string de forma aleatória,
-retornando-os como uma lista. Em seguida, o "".join() junta essa lista de volta em um único texto contínuo.'''
-
-senha_embaralhada = "".join(sample(senha, len(senha)))
-
-print(senha_embaralhada)
+print()
+print(f'Senha gerada: {senha}')
