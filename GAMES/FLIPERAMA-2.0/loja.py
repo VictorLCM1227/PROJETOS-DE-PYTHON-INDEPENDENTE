@@ -1,401 +1,66 @@
-# loja
-from utilidades import leiaIntPositivo
+# loja.py
 
-def listar_cores_de_fundo():
-    contador = 0
-    print('===== CORES DE FUNDO =====')
-    for cor, informacoes in cores_de_fundo.items():
-        print(f'[{contador}] {cor} - R${informacoes["preco"]}')
-        contador += 1
-
-def listar_cores_de_fonte():
-    contador = 0
-    print('===== CORES DE FONTE =====')
-    for cor, informacoes in cores_de_fonte.items():
-        print(f'[{contador}] {cor} - R${informacoes["preco"]}')
-        contador += 1
-        
-
-def listar_emojis():
-    contador = 0
-    print('===== EMOJIS =====')
-    for emoji, informacoes in emojis.items():
-        print(f'[{contador}] {emoji} - R${informacoes["preco"]}')
-        contador += 1
-
-def comprar_cor_de_fundo(ficha_do_jogador):
-    listar_cores_de_fundo()
-    cores = list(cores_de_fundo.keys())
-    while True:
-        cor = leiaIntPositivo('Qual cor deseja comprar? ')
-        if cor <= len(cores) - 1:
-            break
-        print('Opção inválida.')
-    cor_atual = list(cores_de_fundo.values())[cor]
-    if cor_atual['id'] in ficha_do_jogador['inventario']['cores_de_fundo']:
-        print('Você já possui essa cor.')
-    else:
-        if ficha_do_jogador['carteira']['saldo'] < cor_atual['preco']:
-            print('Saldo insuficiente.')
-        else:
-            ficha_do_jogador['inventario']['cores_de_fundo'].append(cor_atual['id'])
-            ficha_do_jogador['carteira']['saldo'] -= cor_atual['preco']
-            ficha_do_jogador['extrato'].append((f'Compra cor de fundo: {cores[cor]}', -cor_atual['preco']))
+from utilidades import cabeçalho, menu
 
 
-
-def comprar_cor_de_fonte(ficha_do_jogador):
-    listar_cores_de_fonte()
-    cores = list(cores_de_fonte.keys())
-    while True:
-        cor = leiaIntPositivo('Qual cor deseja comprar? ')
-        if cor <= len(cores) - 1:
-            break
-        print('Opção inválida.')
-    cor_atual = list(cores_de_fonte.values())[cor]
-    if cor_atual['id'] in ficha_do_jogador['inventario']['cores_de_fonte']:
-        print('Você já possui essa cor.')
-    else:
-        if ficha_do_jogador['carteira']['saldo'] < cor_atual['preco']:
-            print('Saldo insuficiente.')
-        else:
-            ficha_do_jogador['inventario']['cores_de_fonte'].append(cor_atual['id'])
-            ficha_do_jogador['carteira']['saldo'] -= cor_atual['preco']
-            ficha_do_jogador['extrato'].append((f'Compra cor de fonte: {cores[cor]}', -cor_atual['preco']))
-
-def comprar_emoji(ficha_do_jogador):
-    listar_emojis()
-    emojis_numeros = list(emojis.keys())
-    while True:
-        emoji = leiaIntPositivo('Qual emoji deseja comprar?')
-        if emoji <= len(emojis_numeros) - 1:
-            break
-        print('Opção inválida.')
-    emoji_atual = list(emojis.values())[emoji]
-    if emoji_atual['id'] in ficha_do_jogador['inventario']['emojis']:
-        print('Você já possui esse emoji.')
-    else:
-        if ficha_do_jogador['carteira']['saldo'] < emoji_atual['preco']:
-                print('Saldo insuficiente.')
-        else:
-            ficha_do_jogador['inventario']['emojis'].append(emoji_atual['id'])
-            ficha_do_jogador['carteira']['saldo'] -= emoji_atual['preco']
-            ficha_do_jogador['extrato'].append((f'Compra do emoji: {emojis[emoji]}', - emoji_atual['preco']))
-
-cores_de_fundo = {
-    'Preto': {
-        'id': 'fundo_preto',
-        'codigo_ansi': '\033[1;40m',
+CORES_DE_FUNDO = {
+    'azul': {
+        'nome': 'Azul',
+        'codigo': '\033[44m',
         'preco': 100
     },
 
-    'Vermelho': {
-        'id': 'fundo_vermelho',
-        'codigo_ansi': '\033[1;41m',
+    'verde': {
+        'nome': 'Verde',
+        'codigo': '\033[42m',
         'preco': 100
     },
 
-    'Verde': {
-        'id': 'fundo_verde',
-        'codigo_ansi': '\033[1;42m',
+    'vermelho': {
+        'nome': 'Vermelho',
+        'codigo': '\033[41m',
         'preco': 100
-    },
-
-    'Amarelo': {
-        'id': 'fundo_amarelo',
-        'codigo_ansi': '\033[1;43m',
-        'preco': 100
-    },
-
-    'Azul': {
-        'id': 'fundo_azul',
-        'codigo_ansi': '\033[1;44m',
-        'preco': 100
-    },
-
-    'Magenta': {
-        'id': 'fundo_magenta',
-        'codigo_ansi': '\033[1;45m',
-        'preco': 100
-    },
-
-    'Cyan': {
-        'id': 'fundo_cyan',
-        'codigo_ansi': '\033[1;46m',
-        'preco': 100
-    },
-
-    'Cinza Claro': {
-        'id': 'fundo_cinza_claro',
-        'codigo_ansi': '\033[1;47m',
-        'preco': 100
-    },
-
-    'Cinza Escuro': {
-        'id': 'fundo_cinza_escuro',
-        'codigo_ansi': '\033[1;100m',
-        'preco': 100
-    },
-
-    'Vermelho Claro': {
-        'id': 'fundo_vermelho_claro',
-        'codigo_ansi': '\033[1;101m',
-        'preco': 100
-    },
-
-    'Verde Claro': {
-        'id': 'fundo_verde_claro',
-        'codigo_ansi': '\033[1;102m',
-        'preco': 100
-    },
-
-    'Amarelo Claro': {
-        'id': 'fundo_amarelo_claro',
-        'codigo_ansi': '\033[1;103m',
-        'preco': 100
-    },
-
-    'Azul Claro': {
-        'id': 'fundo_azul_claro',
-        'codigo_ansi': '\033[1;104m',
-        'preco': 100
-    },
-
-    'Magenta Claro': {
-        'id': 'fundo_magenta_claro',
-        'codigo_ansi': '\033[1;105m',
-        'preco': 100
-    },
-
-    'Cyan Claro': {
-        'id': 'fundo_cyan_claro',
-        'codigo_ansi': '\033[1;106m',
-        'preco': 100
-    },
-
-    'Branco': {
-        'id': 'fundo_branco',
-        'codigo_ansi': '\033[1;107m',
-        'preco': 100
-    },
-}
-
-cores_de_fonte = {
-    'Preto': {
-        'id': 'fonte_preto',
-        'codigo_ansi': '\033[1;30m',
-        'preco': 100
-    },
-
-    'Vermelho': {
-        'id': 'fonte_vermelho',
-        'codigo_ansi': '\033[1;31m',
-        'preco': 100
-    },
-
-    'Verde': {
-        'id': 'fonte_verde',
-        'codigo_ansi': '\033[1;32m',
-        'preco': 100
-    },
-
-    'Amarelo': {
-        'id': 'fonte_amarelo',
-        'codigo_ansi': '\033[1;33m',
-        'preco': 100
-    },
-
-    'Azul': {
-        'id': 'fonte_azul',
-        'codigo_ansi': '\033[1;34m',
-        'preco': 100
-    },
-
-    'Magenta': {
-        'id': 'fonte_magenta',
-        'codigo_ansi': '\033[1;35m',
-        'preco': 100
-    },
-
-    'Cyan': {
-        'id': 'fonte_cyan',
-        'codigo_ansi': '\033[1;36m',
-        'preco': 100
-    },
-
-    'Cinza Claro': {
-        'id': 'fonte_cinza_claro',
-        'codigo_ansi': '\033[1;37m',
-        'preco': 100
-    },
-
-    'Cinza Escuro': {
-        'id': 'fonte_cinza_escuro',
-        'codigo_ansi': '\033[1;90m',
-        'preco': 100
-    },
-
-    'Vermelho Claro': {
-        'id': 'fonte_vermelho_claro',
-        'codigo_ansi': '\033[1;91m',
-        'preco': 100
-    },
-
-    'Verde Claro': {
-        'id': 'fonte_verde_claro',
-        'codigo_ansi': '\033[1;92m',
-        'preco': 100
-    },
-
-    'Amarelo Claro': {
-        'id': 'fonte_amarelo_claro',
-        'codigo_ansi': '\033[1;93m',
-        'preco': 100
-    },
-
-    'Azul Claro': {
-        'id': 'fonte_azul_claro',
-        'codigo_ansi': '\033[1;94m',
-        'preco': 100
-    },
-
-    'Magenta Claro': {
-        'id': 'fonte_magenta_claro',
-        'codigo_ansi': '\033[1;95m',
-        'preco': 100
-    },
-
-    'Cyan Claro': {
-        'id': 'fonte_cyan_claro',
-        'codigo_ansi': '\033[1;96m',
-        'preco': 100
-    },
+    }
 }
 
 
-emojis = {
-    'Coração': {
-        'id': 'emoji_coracao',
-        'emoji': '❤️',
-        'preco': 100
+CORES_DE_FONTE = {
+    'azul': {
+        'nome': 'Azul',
+        'codigo': '\033[34m',
+        'preco': 50
     },
 
-    'Fogo': {
-        'id': 'emoji_fogo',
-        'emoji': '🔥',
-        'preco': 100
+    'verde': {
+        'nome': 'Verde',
+        'codigo': '\033[32m',
+        'preco': 50
     },
 
-    'Coroa': {
-        'id': 'emoji_coroa',
-        'emoji': '👑',
-        'preco': 100
-    },
+    'amarelo': {
+        'nome': 'Amarelo',
+        'codigo': '\033[33m',
+        'preco': 50
+    }
+}
 
-    'Estrela': {
-        'id': 'emoji_estrela',
-        'emoji': '⭐',
-        'preco': 100
-    },
 
-    'Diamante': {
-        'id': 'emoji_diamante',
-        'emoji': '💎',
-        'preco': 100
-    },
-
-    'Trofeu': {
-        'id': 'emoji_trofeu',
-        'emoji': '🏆',
-        'preco': 100
-    },
-
-    'Dinheiro': {
-        'id': 'emoji_dinheiro',
-        'emoji': '💰',
-        'preco': 100
-    },
-
-    'Raio': {
-        'id': 'emoji_raio',
-        'emoji': '⚡',
-        'preco': 100
-    },
-
-    'Cereja': {
-        'id': 'emoji_cereja',
-        'emoji': '🍒',
-        'preco': 100
-    },
-
-    'Cadeado': {
-        'id': 'emoji_cadeado',
-        'emoji': '🔒',
-        'preco': 100
-    },
-
-    'Foguete': {
-        'id': 'emoji_foguete',
-        'emoji': '🚀',
-        'preco': 100
-    },
-
-    'Caveira': {
-        'id': 'emoji_caveira',
-        'emoji': '💀',
-        'preco': 100
-    },
-
-    'Fantasma': {
-        'id': 'emoji_fantasma',
-        'emoji': '👻',
-        'preco': 100
-    },
-
-    'Robô': {
-        'id': 'emoji_robo',
-        'emoji': '🤖',
-        'preco': 100
-    },
-
-    'Alienígena': {
-        'id': 'emoji_alienigena',
-        'emoji': '👽',
-        'preco': 100
-    },
-
-    'Óculos': {
-        'id': 'emoji_oculos',
+EMOJIS = {
+    'feliz': {
+        'nome': 'Feliz',
         'emoji': '😎',
-        'preco': 100
+        'preco': 150
     },
 
-    'Raiva': {
-        'id': 'emoji_raiva',
-        'emoji': '😡',
-        'preco': 100
+    'fogo': {
+        'nome': 'Fogo',
+        'emoji': '🔥',
+        'preco': 200
     },
 
-    'Riso': {
-        'id': 'emoji_riso',
-        'emoji': '😂',
-        'preco': 100
-    },
-
-    'Palhaço': {
-        'id': 'emoji_palhaco',
-        'emoji': '🤡',
-        'preco': 100
-    },
-
-    'Cavalo': {
-        'id': 'emoji_cavalo',
-        'emoji': '🐎',
-        'preco': 100
-    },
+    'coroa': {
+        'nome': 'Coroa',
+        'emoji': '👑',
+        'preco': 300
+    }
 }
-
-
-reset = '\033[0;0m'
-jogador_fonte = '\033[1;97m'  # branco
-jogador_fundo = '\033[1;97m'  # branco

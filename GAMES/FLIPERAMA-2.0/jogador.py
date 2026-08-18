@@ -1,69 +1,120 @@
-#jogador
+# jogador.py
 
-def criar_estatisticas_jogo():
+def criar_carteira():
     return {
-        'partidas': 0,
-        'vitorias': 0,
-        'derrotas': 0,
-        'empates': 0,
-        'sequencia_atual': 0,
-        'melhor_sequencia': 0,
-        'dinheiro_ganho': 0,
-        'dinheiro_perdido': 0,
-        'maior_aposta': 0
+        'saldo': 0.0
     }
 
-ficha_do_jogador = {
-    'nome': input('Qual o seu nome? ').strip(),
-    'extrato': [],
-    
-    'estatisticas_gerais': {
-        'partidas_totais':  0,
+
+def criar_estatisticas_gerais():
+    return {
+        'partidas_totais': 0,
         'vitorias_totais': 0,
         'derrotas_totais': 0,
         'empates_totais': 0,
-        'dinheiro_ganho_total': 0,
-        'dinheiro_perdido_total':0,
+        'dinheiro_ganho': 0.0,
+        'dinheiro_perdido': 0.0
+    }
+
+
+def criar_estatisticas_jogos():
+    return {
+        'jokenpo': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0,
+            'empates': 0
         },
-    
-    
-    
-    
-    'conquistas': {
+
+        'par_ou_impar': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0,
+            'empates': 0
+        },
+
+        'adivinhe_o_numero': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0
+        },
+
+        'corrida_de_cavalos': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0
+        },
+
+        'blackjack': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0,
+            'empates': 0
+        },
+
+        'jogo-de-dados': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0
+        },
+
+        'jogo-da-forca': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0
+        },
+
+        'jogo-da-velha': {
+            'partidas': 0,
+            'vitorias': 0,
+            'derrotas': 0,
+            'empates': 0
+        }
+    }
+
+
+def criar_inventario():
+    return {
+        'cores_fundo': [],
+        'cores_fonte': [],
+        'emojis': []
+    }
+
+
+def criar_equipamentos():
+    return {
+        'cor_fundo': None,
+        'cor_fonte': None,
+        'emoji': None
+    }
+
+
+def criar_conquistas():
+    return {
+        'primeira_partida': False,
         'primeira_vitoria': False,
-        '10_vitorias': False,
-        '50_vitorias': False,
-        '100_vitorias': False,
-        'milionario': False
-    },
-    'carteira': {
-        
-        'saldo': 10,
-        'maior_aposta_feita' :0,
-        
-    },
+        'dez_vitorias': False,
+        'cinquenta_partidas': False,
+        'grande_ganhador': False
+    }
 
-    'inventario': {
-    'cores_de_fundo': [],
-    'cores_de_fonte': [],
-    'emojis': []
-    },
 
-    'equipado': {
-    'cor_de_fundo': None,
-    'cor_de_fonte': None,
-    'emoji': None
-    },
-    
+def criar_ficha(nome):
 
-    'estatisticas_jogos': {
-    'jokenpo': criar_estatisticas_jogo(),
-    'par_ou_impar': criar_estatisticas_jogo(),
-    'adivinhe_o_numero': criar_estatisticas_jogo(),
-    'blackjack': criar_estatisticas_jogo(),
-    'corrida_de_cavalos': criar_estatisticas_jogo(),
-    'jogo-de-dados': criar_estatisticas_jogo(),
-    'jogo-da-forca': criar_estatisticas_jogo(),
-    'jogo-da-velha': criar_estatisticas_jogo()
-}
-}
+    return {
+        'nome': nome,
+
+        'carteira': criar_carteira(),
+
+        'extrato': [],
+
+        'estatisticas_gerais': criar_estatisticas_gerais(),
+
+        'estatisticas_jogos': criar_estatisticas_jogos(),
+
+        'conquistas': criar_conquistas(),
+
+        'inventario': criar_inventario(),
+
+        'equipado': criar_equipamentos()
+    }

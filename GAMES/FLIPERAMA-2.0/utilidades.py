@@ -1,75 +1,86 @@
-#utilidades
-def leiaFloatPositivo(msg):
+# utilidades.py
+
+from time import sleep
+
+
+def linha(tamanho=50):
+    print('-' * tamanho)
+
+
+def cabeçalho(titulo, tamanho=50):
+    linha(tamanho)
+    print(titulo.center(tamanho))
+    linha(tamanho)
+
+
+def pausa():
+    input('\nPressione ENTER para continuar...')
+
+
+def limpar_tela():
+    # Se você já possui uma implementação para isso,
+    # mantenha-a aqui.
+    ...
+
+
+def menu(opcoes, titulo='MENU'):
+    cabeçalho(titulo)
+
+    for numero, opcao in enumerate(opcoes):
+        print(f'{numero} - {opcao}')
+
     while True:
         try:
-            numero = float(input(msg))    
-        except ValueError:
-            print('\033[31mERRO: por favor, digite um número real válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
-            if numero >= 0:
-                return numero
-            print('\033[31mERRO: por favor, digite um número real válido e maior ou igual a zero.\033[m')
+            escolha = int(input('Escolha uma opção: '))
 
-def leiaInt(msg):
+            if 0 <= escolha < len(opcoes):
+                return escolha
+
+            print('ERRO: opção inválida.')
+
+        except ValueError:
+            print('ERRO: digite um número válido.')
+
+
+def leia_int(msg, minimo=None, maximo=None):
+
     while True:
         try:
             numero = int(input(msg))
-        except (ValueError, TypeError):
-            print('\033[31mERRO: por favor, digite um número interiro válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
+
+            if minimo is not None and numero < minimo:
+                print(f'ERRO: digite um valor maior ou igual a {minimo}.')
+                continue
+
+            if maximo is not None and numero > maximo:
+                print(f'ERRO: digite um valor menor ou igual a {maximo}.')
+                continue
+
             return numero
-        
-def leiaIntPositivo(msg):
+
+        except ValueError:
+            print('ERRO: digite um número inteiro válido.')
+
+
+def leia_float(msg, minimo=None, maximo=None):
+
     while True:
         try:
-            numero = int(input(msg))    
+            numero = float(input(msg))
+
+            if minimo is not None and numero < minimo:
+                print(f'ERRO: digite um valor maior ou igual a {minimo}.')
+                continue
+
+            if maximo is not None and numero > maximo:
+                print(f'ERRO: digite um valor menor ou igual a {maximo}.')
+                continue
+
+            return numero
+
         except ValueError:
-            print('\033[31mERRO: por favor, digite um número inteiro positivo válido.\033[m')
-            continue
-        except KeyboardInterrupt:
-            print('\n\033[31mUsuário preferiu não digitar esse número.\033[m')
-            return 0
-        else:
-            if numero > 0:
-                return numero
-            print('\033[31mERRO: por favor, digite um número inteiro positivo válido e maior do que zero.\033[m')
-
-def linha(tam = 42):
-    return '-' * tam 
-
-def cabeçalho(txt):
-    print(linha())
-    print(txt.center(42))
-    print(linha())
-
-def menu(lista, menu_titulo='MENU PRINCIPAL'):
-    cabeçalho(menu_titulo)
-    contador = 0
-    for item in lista:
-        print(f'\033[33m[{contador}]\033[m - \033[34m{item}\033[m')
-        contador += 1
-    print(linha())
-    opcao = leiaInt('\033[32mSua opção: \033[m')
-    return opcao
+            print('ERRO: digite um número válido.')
 
 
-def menu_corrida(dicionario):
-    cabeçalho('MENU PRINCIPAL')
-    contador = 0
-    for chave in dicionario.keys():
-        print(f'\033[33m{contador}\033[m - \033[34m{chave}\033[m')
-        for atributo, valor in dicionario[chave].items():
-            print(f'{atributo} : {valor}')
-        print()
-        contador += 1
-    print(linha())
-    opcao = leiaInt('\033[32m>>>Em qual cavalo deseja apostar? \033[m')
-    return opcao
+def esperar(segundos=1):
+    sleep(segundos)

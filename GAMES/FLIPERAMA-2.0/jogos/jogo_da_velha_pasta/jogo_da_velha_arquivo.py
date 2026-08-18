@@ -1,89 +1,133 @@
-#jogo da velha
+# jogo_da_velha.py
 
-from utilidades import linha, leiaInt, cabeçalho
 from random import randint
 
-def jogo_da_velha_funcao():
+from utilidades import linha, leiaInt, cabeçalho
 
-    tabuleiro = [' 1 ', ' 2 ', ' 3 ',  ' 4 ', ' 5 ', ' 6 ', ' 7 ', ' 8 ', ' 9 ']
-    jogadorX_texto = 'JogadorX Escolha uma posição: '
-    jogadorO_texto = 'JogadorO Escolha uma posição: '
+
+def jogo_da_velha():
+
+    tabuleiro = [
+        ' 1 ', ' 2 ', ' 3 ',
+        ' 4 ', ' 5 ', ' 6 ',
+        ' 7 ', ' 8 ', ' 9 '
+    ]
 
     def mostrar_tabuleiro():
+
         contador = 0
-        for linha in range(3):
-            for coluna in range(3):
+
+        for _ in range(3):
+
+            for _ in range(3):
                 print(tabuleiro[contador], end='')
                 contador += 1
+
             print()
 
-    def jogadaX():
+    def jogada_jogador():
+
         while True:
-            jogadorX = leiaInt(jogadorX_texto) - 1
-            if (0 <= jogadorX <= 8) and (('X' not in tabuleiro[jogadorX]) and ('O' not in tabuleiro[jogadorX])):
-                break
-            print('Jogada inválida.')
-        tabuleiro[jogadorX] = ' X '
 
-    def jogadaO():
+            posicao = leiaInt(
+                'Jogador X escolha uma posição: '
+            ) - 1
+
+            if not 0 <= posicao <= 8:
+                print('Jogada inválida.')
+                continue
+
+            if (
+                'X' in tabuleiro[posicao]
+                or 'O' in tabuleiro[posicao]
+            ):
+                print('Essa posição já está ocupada.')
+                continue
+
+            tabuleiro[posicao] = ' X '
+            break
+
+    def jogada_computador():
+
         while True:
-            jogadorO = randint(0, 8)
-            if (0 <= jogadorO <= 8) and (('X' not in tabuleiro[jogadorO]) and ('O' not in tabuleiro[jogadorO])):
+
+            posicao = randint(0, 8)
+
+            if (
+                'X' not in tabuleiro[posicao]
+                and 'O' not in tabuleiro[posicao]
+            ):
+                tabuleiro[posicao] = ' O '
                 break
-        tabuleiro[jogadorO] = ' O '
 
-    def verifica_vitoria():
-        if ('X' in tabuleiro[0] and 'X' in tabuleiro[1] and 'X' in tabuleiro[2]) \
-        or ('X' in tabuleiro[3] and 'X' in tabuleiro[4] and 'X' in tabuleiro[5]) \
-        or ('X' in tabuleiro[6] and 'X' in tabuleiro[7] and 'X' in tabuleiro[8]) \
-        or ('X' in tabuleiro[0] and 'X' in tabuleiro[3] and 'X' in tabuleiro[6]) \
-        or ('X' in tabuleiro[1] and 'X' in tabuleiro[3] and 'X' in tabuleiro[7]) \
-        or ('X' in tabuleiro[2] and 'X' in tabuleiro[5] and 'X' in tabuleiro[8]) \
-        or ('X' in tabuleiro[0] and 'X' in tabuleiro[4] and 'X' in tabuleiro[8]) \
-        or ('X' in tabuleiro[2] and 'X' in tabuleiro[4] and 'X' in tabuleiro[6]):
-            return True
-        elif ('O' in tabuleiro[0] and 'O' in tabuleiro[1] and 'O' in tabuleiro[2]) \
-        or ('O' in tabuleiro[3] and 'O' in tabuleiro[4] and 'O' in tabuleiro[5]) \
-        or ('O' in tabuleiro[6] and 'O' in tabuleiro[7] and 'O' in tabuleiro[8]) \
-        or ('O' in tabuleiro[0] and 'O' in tabuleiro[3] and 'O' in tabuleiro[6]) \
-        or ('O' in tabuleiro[1] and 'O' in tabuleiro[3] and 'O' in tabuleiro[7]) \
-        or ('O' in tabuleiro[2] and 'O' in tabuleiro[5] and 'O' in tabuleiro[8]) \
-        or ('O' in tabuleiro[0] and 'O' in tabuleiro[4] and 'O' in tabuleiro[8]) \
-        or ('O' in tabuleiro[2] and 'O' in tabuleiro[4] and 'O' in tabuleiro[6]):
-            return True
+    def verifica_vitoria(jogador):
 
+        combinacoes = [
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8),
 
-    def verifica_empate():
-        if not verifica_vitoria():
-            contador = 0
-            for item in tabuleiro:
-                if 'X' in item or 'O' in item:
-                    contador += 1
-            if contador == 9:
+            (0, 3, 6),
+            (1, 4, 7),
+            (2, 5, 8),
+
+            (0, 4, 8),
+            (2, 4, 6)
+        ]
+
+        for a, b, c in combinacoes:
+
+            if (
+                jogador in tabuleiro[a]
+                and jogador in tabuleiro[b]
+                and jogador in tabuleiro[c]
+            ):
                 return True
 
+        return False
+
+    def verifica_empate():
+
+        for posicao in tabuleiro:
+
+            if 'X' not in posicao and 'O' not in posicao:
+                return False
+
+        return True
 
     cabeçalho('JOGO DA VELHA')
+
     while True:
+
         print(linha())
         mostrar_tabuleiro()
         print(linha())
-        jogadaX()
+
+        # Jogador
+        jogada_jogador()
+
         print(linha())
         mostrar_tabuleiro()
-        if verifica_vitoria():
+
+        if verifica_vitoria('X'):
             print('Você venceu!')
-            return 'V'
+            return 'vitoria'
+
         if verifica_empate():
             print('Houve um empate!')
-            return 'E'
+            return 'empate'
+
+        # Computador
         print(linha())
-        jogadaO()
+        jogada_computador()
+
         print(linha())
         mostrar_tabuleiro()
-        if verifica_vitoria():
+
+        if verifica_vitoria('O'):
             print('Você perdeu!')
-            return 'D'
+            return 'derrota'
+
         if verifica_empate():
             print('Houve um empate!')
-            return 'E'
+            return 'empate'

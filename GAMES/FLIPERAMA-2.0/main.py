@@ -1,174 +1,436 @@
-#menu principal
-
 from time import sleep
-from perfil import mostrar_perfil, ver_estatisticas_dos_jogos, ver_conquistas
-from carteira import depositar, sacar, mostrar_extrato, validar_aposta, atualizar_aposta
-from utilidades import cabeçalho, menu
+
+from carteira import (
+    depositar,
+    sacar,
+    mostrar_extrato,
+    validar_aposta,
+    atualizar_aposta
+)
+
+from conquistas import controla_conquistas
+
 from jogador import ficha_do_jogador
-from jogos import jokenpo, par_ou_impar, advinhe_o_numero, corrida, blackjack, dados
+
+from perfil import (
+    mostrar_perfil,
+    ver_estatisticas_dos_jogos,
+    ver_conquistas
+)
+
+from utilidades import cabeçalho, menu
+
+from loja import (
+    listar_cores_de_fundo,
+    listar_cores_de_fonte,
+    listar_emojis,
+    comprar_cor_de_fonte,
+    comprar_cor_de_fundo,
+    comprar_emoji
+)
+
+from jogos import (
+    jokenpo,
+    par_ou_impar,
+    advinhe_o_numero,
+    corrida,
+    blackjack,
+    dados
+)
+
 from jogos.jogo_da_forca_pasta import jogo_da_forca_arquivo
 from jogos.jogo_da_velha_pasta import jogo_da_velha_arquivo
-from conquistas import controla_conquistas
-from loja import listar_cores_de_fundo, listar_cores_de_fonte, listar_emojis, comprar_cor_de_fonte, comprar_cor_de_fundo, comprar_emoji
 
-def gerencia_partidas(jogo_nome, jogo, jogo_estatisticas):
-    cabeçalho(jogo_nome)
-    aposta = validar_aposta(ficha_do_jogador['carteira']['saldo'])
+
+# ==========================================================
+# CONFIGURAÇÃO DOS JOGOS
+# ==========================================================
+
+JOGOS = {
+    1: (
+        'JOKENPÔ',
+        jokenpo.jokenpo,
+        'jokenpo'
+    ),
+
+    2: (
+        'PAR OU ÍMPAR',
+        par_ou_impar.par_ou_impar,
+        'par_ou_impar'
+    ),
+
+    3: (
+        'ADIVINHE O NÚMERO',
+        advinhe_o_numero.adivinhe_o_numero,
+        'adivinhe_o_numero'
+    ),
+
+    4: (
+        'CORRIDA DE CAVALOS',
+        corrida.corrida_de_cavalos,
+        'corrida_de_cavalos'
+    ),
+
+    5: (
+        'BLACKJACK',
+        blackjack.blackjack_21,
+        'blackjack'
+    ),
+
+    6: (
+        'DADOS',
+        dados.jogo_de_dados,
+        'jogo-de-dados'
+    ),
+
+    7: (
+        'JOGO DA FORCA',
+        jogo_da_forca_arquivo.jogo_da_forca_funcao,
+        'jogo-da-forca'
+    ),
+
+    8: (
+        'JOGO DA VELHA',
+        jogo_da_velha_arquivo.jogo_da_velha_funcao,
+        'jogo-da-velha'
+    )
+}
+
+
+# ==========================================================
+# GERENCIAMENTO DE PARTIDA
+# ==========================================================
+
+def gerencia_partida(nome, jogo, estatistica):
+    """
+    Controla tudo que acontece antes e depois de uma partida.
+    """
+
+    cabeçalho(nome)
+
+    saldo = ficha_do_jogador['carteira']['saldo']
+
+    aposta = validar_aposta(saldo)
+
     if aposta is None:
-        print('Por isso não foi possível apostar.')
-    else:
-        ficha_do_jogador['carteira']['saldo'] -= aposta
-        ficha_do_jogador['extrato'].append((f'Aposta {jogo_estatisticas}', -aposta))
-        resultado = jogo()
-        ficha_do_jogador['estatisticas_gerais']['partidas_totais'] += 1
-        ficha_do_jogador['estatisticas_jogos'][jogo_estatisticas]['partidas'] += 1
-        atualizar_aposta(ficha_do_jogador, aposta, resultado, jogo_estatisticas)
-        controla_conquistas(ficha_do_jogador)
+        print('Não foi possível realizar a aposta.')
+        sleep(1)
+        return
+
+    # Retira a aposta da carteira
+    ficha_do_jogador['carteira']['saldo'] -= aposta
+
+    ficha_do_jogador['extrato'].append(
+        (f'Aposta {estatistica}', -aposta)
+    )
+
+    # Executa o jogo
+    resultado = jogo()
+
+    # Atualiza estatísticas
+    ficha_do_jogador['estatisticas_gerais']['partidas_totais'] += 1
+
+    ficha_do_jogador['estatisticas_jogos'][estatistica]['partidas'] += 1
+
+    # Processa o resultado financeiro
+    atualizar_aposta(
+        ficha_do_jogador,
+        aposta,
+        resultado,
+        estatistica
+    )
+
+    # Verifica novas conquistas
+    controla_conquistas(ficha_do_jogador)
+
+    sleep(2)
 
 
-print('BEM VINDO!!!')
+# ==========================================================
+# MENU DE JOGOS
+# ==========================================================
+
+def menu_jogos():
+
+    while True:
+
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'JOKENPÔ',
+                'PAR OU ÍMPAR',
+                'ADIVINHE O NÚMERO',
+                'CORRIDA DE CAVALOS',
+                'BLACKJACK',
+                'DADOS',
+                'JOGO DA FORCA',
+                'JOGO DA VELHA'
+            ],
+            menu_titulo='JOGOS'
+        )
+
+        if escolha == 0:
+            cabeçalho('VOLTANDO')
+            break
+
+        jogo = JOGOS.get(escolha)
+
+        if jogo is None:
+            continue
+
+        nome, funcao, estatistica = jogo
+
+        gerencia_partida(
+            nome,
+            funcao,
+            estatistica
+        )
 
 
-while True:
-    escolha_principal = menu(lista=['SAIR', 'JOGAR', 'PERFIL', 'CARTEIRA', 'LOJA'], menu_titulo='FLIPERAMA DO VICTOR')
-    sleep(0.1)
+# ==========================================================
+# MENU DE PERFIL
+# ==========================================================
 
-    if escolha_principal == 0:
-        cabeçalho('SAINDO')
-        break
+def menu_perfil():
 
-    elif escolha_principal == 1:
-        cabeçalho('JOGAR')
-        while True:
-            escolha_jogo = menu(lista=['VOLTAR', 'JOKENPÔ', 'PAR OU ÍMPAR', 'ADIVINHE O NÚMERO',
-                                    'CORRIDA DE CAVALOS', 'BLACKJACK', 'DADOS', 'JOGO DA FORCA', 'JOGO DA VELHA'], menu_titulo='JOGOS')
-            sleep(0.5)
+    while True:
 
-            if escolha_jogo == 0:
-                cabeçalho('VOLTANDO')
-                break
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'VER PERFIL GERAL',
+                'VER ESTATÍSTICAS DOS JOGOS',
+                'VER CONQUISTAS'
+            ],
+            menu_titulo='PERFIL'
+        )
 
-            elif escolha_jogo == 1:
-                gerencia_partidas('JOKENPÔ', jokenpo.jokenpo, 'jokenpo')
+        if escolha == 0:
+            cabeçalho('VOLTANDO')
+            break
 
-            elif escolha_jogo == 2:
-                gerencia_partidas('PAR OU ÍMPAR', par_ou_impar.par_ou_impar, 'par_ou_impar')
+        elif escolha == 1:
+            cabeçalho('PERFIL')
+            mostrar_perfil(ficha_do_jogador)
+
+        elif escolha == 2:
+            cabeçalho('ESTATÍSTICAS DOS JOGOS')
+            ver_estatisticas_dos_jogos(ficha_do_jogador)
+
+        elif escolha == 3:
+            cabeçalho('CONQUISTAS')
+            ver_conquistas(ficha_do_jogador)
 
 
-            elif escolha_jogo == 3:
-                gerencia_partidas('ADIVINHE O NÚMERO', advinhe_o_numero.adivinhe_o_numero, 'adivinhe_o_numero')
+# ==========================================================
+# MENU DA CARTEIRA
+# ==========================================================
 
-            elif escolha_jogo == 4:
-                gerencia_partidas('CORRIDA DE CAVALOS',corrida.corrida_de_cavalos,'corrida_de_cavalos')
+def menu_carteira():
 
-            elif escolha_jogo == 5:
-                gerencia_partidas('BLACKJACK',blackjack.blackjack_21,'blackjack')
+    while True:
 
-            elif escolha_jogo == 6:
-                gerencia_partidas('DADOS',dados.jogo_de_dados,'jogo-de-dados')
-
-            elif escolha_jogo == 7:
-                gerencia_partidas('JOGO DA FORCA',jogo_da_forca_arquivo.jogo_da_forca_funcao,'jogo-da-forca')
-
-            elif escolha_jogo == 8:
-                gerencia_partidas('JOGO DA VELHA',jogo_da_velha_arquivo.jogo_da_velha_funcao,'jogo-da-velha')
-
-            sleep(2)
-
-    elif escolha_principal == 2:
-        cabeçalho('PERFIL')
-        while True:
-            escolha_perfil = menu(lista=['VOLTAR', 'VER PERFIL GERAL', 'VER ESTATÍSTICAS DOS JOGOS',
-            'VER CONQUISTAS'], menu_titulo='PERFIL')
-            if escolha_perfil == 0:
-                cabeçalho('VOLTANDO')
-                break
-                
-            elif escolha_perfil == 1:
-                mostrar_perfil(ficha_do_jogador)
-                
-            elif escolha_perfil == 2:
-                cabeçalho('ESTATÍSTICAS DOS JOGOS')
-                ver_estatisticas_dos_jogos(ficha_do_jogador)
-                
-            elif escolha_perfil == 3:
-                cabeçalho('CONQUISTAS')
-                ver_conquistas(ficha_do_jogador)
-        
-
-    elif escolha_principal == 3:
         cabeçalho('CARTEIRA')
-        while True:
-            print(f'Saldo atual: R${ficha_do_jogador["carteira"]["saldo"]} ')
-            escolha_carteira = menu(lista=['VOLTAR', 'DEPOSITAR', 'SACAR', 'EXTRATO'], menu_titulo='CARTEIRA')
-            if escolha_carteira == 0:
-                cabeçalho('VOLTANDO')
-                break
 
-            elif escolha_carteira == 1:
-                cabeçalho('DEPOSITAR')
-                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'] = depositar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'])
+        print(
+            f'Saldo atual: '
+            f'R${ficha_do_jogador["carteira"]["saldo"]:.2f}'
+        )
 
-            elif escolha_carteira == 2:
-                cabeçalho('SACAR')
-                ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'] = sacar(ficha_do_jogador['carteira']['saldo'], ficha_do_jogador['extrato'])
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'DEPOSITAR',
+                'SACAR',
+                'EXTRATO'
+            ],
+            menu_titulo='CARTEIRA'
+        )
 
-            elif escolha_carteira == 3:
-                cabeçalho('EXTRATO')
-                mostrar_extrato(ficha_do_jogador['extrato'], ficha_do_jogador['carteira']['saldo'])
+        if escolha == 0:
+            cabeçalho('VOLTANDO')
+            break
+
+        elif escolha == 1:
+
+            (
+                ficha_do_jogador['carteira']['saldo'],
+                ficha_do_jogador['extrato']
+            ) = depositar(
+                ficha_do_jogador['carteira']['saldo'],
+                ficha_do_jogador['extrato']
+            )
+
+        elif escolha == 2:
+
+            (
+                ficha_do_jogador['carteira']['saldo'],
+                ficha_do_jogador['extrato']
+            ) = sacar(
+                ficha_do_jogador['carteira']['saldo'],
+                ficha_do_jogador['extrato']
+            )
+
+        elif escolha == 3:
+
+            cabeçalho('EXTRATO')
+
+            mostrar_extrato(
+                ficha_do_jogador['extrato'],
+                ficha_do_jogador['carteira']['saldo']
+            )
 
 
-    elif escolha_principal == 4:
-        cabeçalho('LOJA')
-        while True:
-            escolha_loja = menu(lista=['VOLTAR','COR DE FUNDO', 'COR DE FONTE', 'EMOJI'], menu_titulo='LOJA')
+# ==========================================================
+# LOJA
+# ==========================================================
 
-            if escolha_loja == 0:
-                cabeçalho('VOLTANDO')
-                break
+def menu_cores_fundo():
 
-            elif escolha_loja == 1:
-                while True:
-                    cabeçalho('COR DE FUNDO')
-                    escolha_fundo = menu(lista=['VOLTAR','LISTAR CORES DE FUNDO', 'COMPRAR CORES DE FUNDO'], menu_titulo='COR DE FUNDO')
-                    if escolha_fundo == 0:
-                        break
+    while True:
 
-                    if escolha_fundo == 1:
-                        cabeçalho('LISTAR CORES DE FUNDO')
-                        listar_cores_de_fundo()
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'LISTAR CORES DE FUNDO',
+                'COMPRAR CORES DE FUNDO'
+            ],
+            menu_titulo='COR DE FUNDO'
+        )
 
-                    elif escolha_fundo == 2:
-                        cabeçalho('COMPRAR CORES DE FUNDO')
-                        comprar_cor_de_fundo(ficha_do_jogador)
+        if escolha == 0:
+            break
 
-            elif escolha_loja == 2:
-                while True:
-                    cabeçalho('COR DE FONTE')
-                    escolha_fonte = menu(lista=['VOLTAR','LISTAR CORES DE FONTE', 'COMPRAR CORES DE FONTE'], menu_titulo='COR DE FONTE')
-                    if escolha_fonte == 0:
-                        break
+        elif escolha == 1:
+            cabeçalho('CORES DE FUNDO')
+            listar_cores_de_fundo()
 
-                    if escolha_fonte == 1:
-                        cabeçalho('LISTAR CORES DE FONTE')
-                        listar_cores_de_fonte()
+        elif escolha == 2:
+            cabeçalho('COMPRAR COR DE FUNDO')
+            comprar_cor_de_fundo(ficha_do_jogador)
 
-                    elif escolha_fonte == 2:
-                        cabeçalho('COMPRAR CORES DE FONTE')
-                        comprar_cor_de_fonte(ficha_do_jogador)
 
-            elif escolha_loja == 3:
-                while True:
-                    cabeçalho('EMOJI')
-                    escolha_emoji = menu(lista=['VOLTAR','LISTAR EMOJIS', 'COMPRAR EMOJIS'], menu_titulo='EMOJI')
-                    if escolha_emoji == 0:
-                        break
+def menu_cores_fonte():
 
-                    if escolha_emoji ==  1:
-                        cabeçalho('LISTAR CORES DE FONTE')
-                        listar_emojis()
+    while True:
 
-                    elif escolha_emoji == 2:
-                        cabeçalho('COMPRAR EMOJIS')
-                        comprar_emoji(ficha_do_jogador)
-    sleep(1)
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'LISTAR CORES DE FONTE',
+                'COMPRAR CORES DE FONTE'
+            ],
+            menu_titulo='COR DE FONTE'
+        )
+
+        if escolha == 0:
+            break
+
+        elif escolha == 1:
+            cabeçalho('CORES DE FONTE')
+            listar_cores_de_fonte()
+
+        elif escolha == 2:
+            cabeçalho('COMPRAR COR DE FONTE')
+            comprar_cor_de_fonte(ficha_do_jogador)
+
+
+def menu_emojis():
+
+    while True:
+
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'LISTAR EMOJIS',
+                'COMPRAR EMOJIS'
+            ],
+            menu_titulo='EMOJIS'
+        )
+
+        if escolha == 0:
+            break
+
+        elif escolha == 1:
+            cabeçalho('EMOJIS')
+            listar_emojis()
+
+        elif escolha == 2:
+            cabeçalho('COMPRAR EMOJIS')
+            comprar_emoji()
+
+
+def menu_loja():
+
+    while True:
+
+        escolha = menu(
+            lista=[
+                'VOLTAR',
+                'COR DE FUNDO',
+                'COR DE FONTE',
+                'EMOJI'
+            ],
+            menu_titulo='LOJA'
+        )
+
+        if escolha == 0:
+            cabeçalho('VOLTANDO')
+            break
+
+        elif escolha == 1:
+            menu_cores_fundo()
+
+        elif escolha == 2:
+            menu_cores_fonte()
+
+        elif escolha == 3:
+            menu_emojis()
+
+
+# ==========================================================
+# MENU PRINCIPAL
+# ==========================================================
+
+def menu_principal():
+
+    while True:
+
+        escolha = menu(
+            lista=[
+                'SAIR',
+                'JOGAR',
+                'PERFIL',
+                'CARTEIRA',
+                'LOJA'
+            ],
+            menu_titulo='FLIPERAMA DO VICTOR'
+        )
+
+        if escolha == 0:
+
+            cabeçalho('SAINDO')
+
+            print('Obrigado por jogar!')
+            break
+
+        elif escolha == 1:
+            cabeçalho('JOGAR')
+            menu_jogos()
+
+        elif escolha == 2:
+            menu_perfil()
+
+        elif escolha == 3:
+            menu_carteira()
+
+        elif escolha == 4:
+            menu_loja()
+
+
+# ==========================================================
+# EXECUÇÃO
+# ==========================================================
+
+if __name__ == '__main__':
+    menu_principal()
