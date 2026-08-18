@@ -1,25 +1,53 @@
-#advinhe o número
+# adivinhe_o_numero.py
+
 from random import randint
 
+from utilidades import cabeçalho, leiaInt, linha
+
+
 def adivinhe_o_numero():
-    print(f'{" ADIVINHE O NÚMERO (0 a 10)":=^40}')
+
+    cabeçalho('ADIVINHE O NÚMERO')
+
+    numero = randint(0, 10)
     tentativas = 3
-    computador = randint(0, 10)
-    while True:
-        print(f'Tentativas: {tentativas}')
-        jogador_palpite = int(input('Seu palpite: '))
-        while jogador_palpite > 10 or jogador_palpite < 0:
-            jogador_palpite = int(input('Palpite inválido. Tente novamente! Seu palpite: '))
-        if jogador_palpite == computador:
-            print('Parabéns! Você acertou!')
-            print(f'E precisou de {tentativas} tentativas.')
-            return 'V'
-        elif jogador_palpite < computador:
+
+    while tentativas > 0:
+
+        print(f'Tentativas restantes: {tentativas}')
+
+        palpite = leiaInt(
+            'Seu palpite (0 a 10): ',
+            minimo=0,
+            maximo=10
+        )
+
+        if palpite == numero:
+
+            print(
+                f'\nParabéns! Você acertou!'
+            )
+
+            print(
+                f'Você precisou de '
+                f'{4 - tentativas} tentativa(s).'
+            )
+
+            return 'vitoria'
+
+        if palpite < numero:
             print('MAIS...')
-        elif jogador_palpite > computador:
+
+        else:
             print('MENOS...')
+
         tentativas -= 1
-        print('-'*40)
-        if tentativas == 0:
-            print(f'Você não conseguiu acertar, o número era {computador}')
-            return 'D'
+
+        print(linha())
+
+    print(
+        f'Você perdeu! '
+        f'O número era {numero}.'
+    )
+
+    return 'derrota'

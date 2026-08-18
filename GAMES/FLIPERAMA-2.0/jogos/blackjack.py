@@ -1,40 +1,135 @@
-#blackjack
+# blackjack.py
+
 from random import randint
 
-def blackjack_21():
+from utilidades import cabeçalho, leiaInt, linha
+
+
+def blackjack():
+
+    cabeçalho('BLACKJACK 21')
+
     jogador_pontos = randint(1, 10)
-    print(f'Seus pontos: {jogador_pontos}')
+
     computador = randint(1, 10)
+
     while computador < 17:
-        computador += randint(1,10)
+        computador += randint(1, 10)
+
+    print(f'Seus pontos: {jogador_pontos}')
+
     while True:
-        if jogador_pontos == 21:
-            print('Você fez 21 pontos e venceu!')
-            print(f'Enquanto o computador fez {computador} pontos')
-            return 'V'
-        if computador == 21:
-            print('O computador fez 21 pontos e venceu!')
-            return 'D'
+
+        # Verifica se alguém já ultrapassou 21
         if jogador_pontos > 21:
-            print(f'Você perdeu com {jogador_pontos} pontos.')
-            print(f'Enquanto o computador fez {computador} pontos')
-            return 'D'
+
+            print(
+                f'Você perdeu com '
+                f'{jogador_pontos} pontos.'
+            )
+
+            print(
+                f'O computador fez '
+                f'{computador} pontos.'
+            )
+
+            return 'derrota'
+
         if computador > 21:
-            print(f'Você venceu porque o computador passou de 21 com {computador} pontos.')
-            return 'V'
-        escolha = input('Comprar ou parar? [C/P]').strip().upper()[0]
-        while escolha not in 'CP':
-            escolha = input('Opção inválida. Tente novamente! Comprar ou parar? [C/P]').strip().upper()[0]
+
+            print(
+                f'Você venceu! '
+                f'O computador passou de 21 '
+                f'com {computador} pontos.'
+            )
+
+            return 'vitoria'
+
+        # Verifica 21
+        if jogador_pontos == 21:
+
+            print(
+                'Você fez 21 pontos e venceu!'
+            )
+
+            print(
+                f'O computador fez '
+                f'{computador} pontos.'
+            )
+
+            return 'vitoria'
+
+        if computador == 21:
+
+            print(
+                'O computador fez 21 pontos '
+                'e venceu.'
+            )
+
+            return 'derrota'
+
+        print(linha())
+
+        escolha = input(
+            'Comprar ou parar? [C/P]: '
+        ).strip().upper()
+
+        while escolha not in ('C', 'P'):
+
+            escolha = input(
+                'Opção inválida. '
+                'Digite C para comprar ou P para parar: '
+            ).strip().upper()
+
         if escolha == 'C':
-            jogador_pontos += randint(1,10)
-            print(f'Seus pontos: {jogador_pontos}')
+
+            carta = randint(1, 10)
+
+            jogador_pontos += carta
+
+            print(
+                f'Você tirou {carta}.'
+            )
+
+            print(
+                f'Seus pontos: '
+                f'{jogador_pontos}'
+            )
+
         else:
+
             if jogador_pontos > computador:
-                print(f'Você venceu com o total de {jogador_pontos} enquanto o computador conseguiu apenas {computador} pontos')
-                return 'V'
+
+                print(
+                    f'Você venceu com '
+                    f'{jogador_pontos} pontos!'
+                )
+
+                print(
+                    f'Computador: '
+                    f'{computador} pontos.'
+                )
+
+                return 'vitoria'
+
             elif jogador_pontos < computador:
-                print(f'Você perdeu porque o computador chegou mais próximo de 21 com {computador} enquanto você conseguiu apenas {jogador_pontos} pontos.')
-                return 'D'
+
+                print(
+                    f'Você perdeu.'
+                )
+
+                print(
+                    f'Você: {jogador_pontos} | '
+                    f'Computador: {computador}'
+                )
+
+                return 'derrota'
+
             else:
-                print(f'EMPATE! Ambos com {jogador_pontos} pontos.')
-                return 'E'
+
+                print(
+                    f'Empate! Ambos fizeram '
+                    f'{jogador_pontos} pontos.'
+                )
+
+                return 'empate'

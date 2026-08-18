@@ -1,70 +1,152 @@
-#corrida de cavalos
+# corrida_de_cavalos.py
 
 from random import randint
 from time import sleep
-from utilidades import cabeçalho, menu_corrida
+
+from utilidades import cabeçalho, linha, menu_corrida
+
+
+LINHA_DE_CHEGADA = 35
+
+CAVALOS = {
+    'Cadillac': {
+        'velocidade': 5,
+        'sorte': 3
+    },
+
+    'Princesa': {
+        'velocidade': 7,
+        'sorte': 3
+    }
+}
+
 
 def corrida_de_cavalos():
-    corrida_terminou = False
-
-    cavalos_dicionario = {
-        'Caddlac': {
-            'velocidade': 5,
-            'sorte': 3,
-            'vitorias': 0,
-            'posicao': 0
-        },
-
-        'Princesa': {
-            'velocidade': 7,
-            'sorte': 3,
-            'vitorias': 0,
-            'posicao': 0
-        }
-    }
-    nomes_cavalos = list(cavalos_dicionario.keys())
-    linha_de_chegada = 35
 
     cabeçalho('CORRIDA DE CAVALOS')
+
+    cavalos = {
+        nome: {
+            'velocidade': dados['velocidade'],
+            'sorte': dados['sorte'],
+            'posicao': 0
+        }
+
+        for nome, dados in CAVALOS.items()
+    }
+
+    nomes = list(cavalos)
+
     while True:
-        aposta_jogador = menu_corrida(cavalos_dicionario)
-        if 0 <= aposta_jogador <= 1:
+
+        aposta = menu_corrida(cavalos)
+
+        if 0 <= aposta < len(nomes):
             break
-        print('Opção inválida! Escolha um cavalo de 0 a 1: ')
-    aposta_jogador_nome = nomes_cavalos[aposta_jogador]
+
+        print(
+            f'Opção inválida! '
+            f'Escolha um cavalo de 0 a {len(nomes) - 1}.'
+        )
+
+    cavalo_apostado = nomes[aposta]
+
+    vencedor = executar_corrida(cavalos, nomes)
+
+    print()
+
+    if vencedor == cavalo_apostado:
+
+        print('VOCÊ VENCEU A APOSTA!')
+
+        return 'vitoria'
+
+    if vencedor == 'empate':
+
+        print('A corrida terminou empatada.')
+
+        return 'empate'
+
+    print('VOCÊ PERDEU A APOSTA!')
+
+    return 'derrota'
+
+
+def executar_corrida(cavalos, nomes):
+
+    corrida_terminou = False
 
     while not corrida_terminou:
-        for nome in nomes_cavalos:
-            cavalos_dicionario[nome]['posicao'] += randint(1, cavalos_dicionario[nome]['velocidade'])
-        #pista 35 casas
-        if cavalos_dicionario['Caddlac']['posicao'] > linha_de_chegada:
-            cavalos_dicionario['Caddlac']['posicao'] = linha_de_chegada
-        if cavalos_dicionario['Princesa']['posicao'] > linha_de_chegada:
-            cavalos_dicionario['Princesa']['posicao'] = linha_de_chegada
-        print(f'{nomes_cavalos[0]:8}:{" "*(cavalos_dicionario["Caddlac"]["posicao"] - 1)}🐎{" "*(linha_de_chegada - cavalos_dicionario["Caddlac"]["posicao"])}|🏁')
-        print(f'{nomes_cavalos[1]:8}:{" "*(cavalos_dicionario["Princesa"]["posicao"] - 1)}🐎{" "*(linha_de_chegada - cavalos_dicionario["Princesa"]["posicao"])}|🏁')
-        print('-=-' * 20)
+
+        for nome in nomes:
+
+            cavalos[nome]['posicao'] += randint(
+                1,
+                cavalos[nome]['velocidade']
+            )
+
+            cavalos[nome]['posicao'] = min(
+                cavalos[nome]['posicao'],
+                LINHA_DE_CHEGADA
+            )
+
+        mostrar_corrida(cavalos, nomes)
+
         sleep(1)
-        for cavalos in nomes_cavalos:
-            if cavalos_dicionario[cavalos]['posicao'] >= linha_de_chegada:
+
+        for nome in nomes:
+
+            if cavalos[nome]['posicao'] >= LINHA_DE_CHEGADA:
                 corrida_terminou = True
                 break
 
-    if cavalos_dicionario['Caddlac']['posicao'] > cavalos_dicionario['Princesa']['posicao']:
-        print(f'O CAVALO {nomes_cavalos[0]  } VENCEU A CORRIDA!')
-        vencedor = nomes_cavalos[0]
-    elif cavalos_dicionario['Princesa']['posicao'] > cavalos_dicionario['Caddlac']['posicao']:
-        print(f'O CAVALO {nomes_cavalos[1]} VENCEU A CORRIDA!')
-        vencedor = nomes_cavalos[1]
-    else:
+    return verificar_vencedor(cavalos, nomes)
+
+
+def mostrar_corrida(cavalos, nomes):
+
+    for nome in nomes:
+
+        posicao = cavalos[nome]['posicao']
+
+        pista = (
+            ' ' * (posicao - 1)
+            + '🐎'
+            + ' ' * (LINHA_DE_CHEGADA - posicao)
+            + '|🏁'
+        )
+
+        print(f'{nome:8}: {pista}')
+
+    print(linha())
+
+
+def verificar_vencedor(cavalos, nomes):
+
+    posicoes = [
+        cavalos[nome]['posicao']
+        for nome in nomes
+    ]
+
+    maior_posicao = max(posicoes)
+
+    vencedores = [
+        nome
+        for nome in nomes
+        if cavalos[nome]['posicao'] == maior_posicao
+    ]
+
+    if len(vencedores) > 1:
+
         print('HOUVE EMPATE! CORRIDA ANULADA!')
-        vencedor = 'NINGUÉM'
 
+        return 'empate'
 
-    if aposta_jogador_nome == vencedor:
-        print('VOCÊ VENCEU A APOSTA!')
-        return 'V'
-        
-    else:
-        print('VOCÊ PERDEU A APOSTA!')
-        return 'D'
+    vencedor = vencedores[0]
+
+    print(
+        f'O CAVALO {vencedor} '
+        f'VENCEU A CORRIDA!'
+    )
+
+    return vencedor

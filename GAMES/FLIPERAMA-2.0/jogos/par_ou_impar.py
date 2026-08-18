@@ -1,40 +1,70 @@
-#par ou impar
+# par_ou_impar.py
 
-from time import sleep
-from utilidades import leiaInt
 from random import randint
+from time import sleep
+
+from utilidades import cabeçalho, leiaInt
+
 
 def par_ou_impar():
+
+    cabeçalho('PAR OU ÍMPAR')
+
     while True:
-        print(f'{" IMPAR OU PAR ":=^40}')
-        while True:
-            try:
-                opcao = input('ÍMPAR ou PAR? [P/I] ').upper().strip()[0]
-            except:
-                print('ERRO! Por favor escolha P ou I.')
-            else:
-                if opcao in 'PI':
-                    break
-        jogador_numero = leiaInt('Escolha um número: ')
-        print('IMPAR')
-        sleep(0.5)
-        print('OU')
-        sleep(0.5)
-        print('PAR!!!')
-        pc = randint(0, 10)
-        soma = jogador_numero + pc
-        if opcao == 'I':
-            print('JOGADOR Escolheu IMPAR e COMPUTADOR escolheu PAR')
-        else:
-            print('JOGADOR escolheu PAR e COMPUTADOR escolheu IMPAR')
-        print(f' Você {jogador_numero} + computador {pc} = {soma}')
-        if soma % 2 == 0:
-            resultado = 'P'
-        else:
-            resultado = 'I'
-        if opcao == resultado:
-            print('JOGADOR VENCEU')
-            return 'V'
-        else:
-            print('COMPUTADOR VENCEU')
-            return 'D'
+
+        opcao = input(
+            'ÍMPAR ou PAR? [I/P]: '
+        ).strip().upper()
+
+        if opcao in ('I', 'P'):
+            break
+
+        print(
+            'Opção inválida! '
+            'Escolha I ou P.'
+        )
+
+    jogador = leiaInt(
+        'Escolha um número: '
+    )
+
+    computador = randint(0, 10)
+
+    print('\nÍMPAR')
+    sleep(0.5)
+
+    print('OU')
+    sleep(0.5)
+
+    print('PAR!!!')
+
+    soma = jogador + computador
+
+    print(
+        f'\nJogador: {jogador}'
+    )
+
+    print(
+        f'Computador: {computador}'
+    )
+
+    print(
+        f'Soma: {jogador} + {computador} = {soma}'
+    )
+
+    resultado = 'P' if soma % 2 == 0 else 'I'
+
+    print(
+        f'Resultado: '
+        f'{"PAR" if resultado == "P" else "ÍMPAR"}'
+    )
+
+    if opcao == resultado:
+
+        print('VOCÊ VENCEU!')
+
+        return 'vitoria'
+
+    print('COMPUTADOR VENCEU!')
+
+    return 'derrota'
