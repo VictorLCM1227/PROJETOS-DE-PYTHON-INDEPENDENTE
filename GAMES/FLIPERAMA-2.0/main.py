@@ -8,7 +8,7 @@ from carteira import (
     atualizar_aposta
 )
 
-from conquistas import controla_conquistas
+from conquistas import controlar_conquistas
 
 from jogador import ficha_do_jogador
 
@@ -141,7 +141,7 @@ def gerencia_partida(nome, jogo, estatistica):
     )
 
     # Verifica novas conquistas
-    controla_conquistas(ficha_do_jogador)
+    controlar_conquistas(ficha_do_jogador)
 
     sleep(2)
 
